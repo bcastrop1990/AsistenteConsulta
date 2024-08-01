@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reciboPago" language="groovy" pageWidth="180" pageHeight="400" whenNoDataType="AllSectionsNoDetail" columnWidth="180" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="21976fe1-0683-4a7b-8ba4-0e64dba84a0a">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PCODRECIBO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["src/main/resources/reports/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT R.Codigo_expediente,
+       R.Numero_recibo,
+       R.Codigo_recibo,
+       P.Nombre_razon_social,
+       NVL (P.Ruc, DECODE (P.Documento_tipo, '04', P.Documento_numero, NULL))
+          Ruc, P.DIRECCION, r.monto_pagado, r.monto_total, r.monto_saldo, r.fecha_recibo
+  FROM finalbpm.Recibo R, Persona P
+ WHERE R.Codigo_recibo = '$P{PCODRECIBO}' AND P.Persona_id = R.Persona_id]]>
+	</queryString>
+	<field name="CODIGO_EXPEDIENTE" class="java.lang.String"/>
+	<field name="NUMERO_RECIBO" class="java.lang.String"/>
+	<field name="CODIGO_RECIBO" class="java.lang.String"/>
+	<field name="NOMBRE_RAZON_SOCIAL" class="java.lang.String"/>
+	<field name="RUC" class="java.lang.String"/>
+	<field name="DIRECCION" class="java.lang.String"/>
+	<field name="MONTO_PAGADO" class="java.math.BigDecimal"/>
+	<field name="MONTO_TOTAL" class="java.math.BigDecimal"/>
+	<field name="MONTO_SALDO" class="java.math.BigDecimal"/>
+	<field name="FECHA_RECIBO" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="144" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="1" y="0" width="179" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVICIO NACIONAL DE SANIDAD AGRARIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="26" y="12" width="129" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUC 20131373075]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="36" y="24" width="108" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SENASA - WEB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="14" y="36" width="152" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AV. La Molina Nro. 1915, Lima - Lima - La Molina]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0d0ce6ca-796a-408e-8fe2-876075d5605e" positionType="Float" x="60" y="52" width="118" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CODIGO_EXPEDIENTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="2" y="52" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expediente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="2" y="66" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Recibo N°:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0956670b-2291-4310-bfdc-0f391baa7ada" positionType="Float" x="60" y="66" width="118" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUMERO_RECIBO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="2" y="80" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[RUC Usuario:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="aafa4e23-3eae-4b1b-ae00-f8309f761031" positionType="Float" x="60" y="80" width="118" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RUC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="2" y="94" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="891d7aef-dc14-4920-9681-d4004caf1543" positionType="Float" x="60" y="94" width="118" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_RAZON_SOCIAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ab0be5b3-acad-46ea-aa47-0a0bdfbcc507" positionType="Float" x="60" y="108" width="118" height="24"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIRECCION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="54" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="a2a59b4a-794c-4311-b717-63abe2bdb0ac" positionType="Float" x="3" y="0" width="175" height="5"/>
+				<subreportParameter name="PCODRECIBO">
+					<subreportParameterExpression><![CDATA[$P{PCODRECIBO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reciboPago_detalle2.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement uuid="651135e6-de37-4015-ad80-877a743e3ae6" positionType="Float" x="3" y="6" width="175" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="2" y="8" width="111" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Monto Pagado por el usuario]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="cfa72fbf-baa4-45c6-bef8-215617e2bdee" positionType="Float" x="113" y="8" width="65" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MONTO_PAGADO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="113" y="38" width="65" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[SENASA - WEB]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="60c36f56-68ad-4bfe-8a78-f95aa163b0b7" positionType="Float" x="2" y="38" width="111" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA_RECIBO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="052fe6ec-e8a4-4072-81b2-61067ced96cd" positionType="Float" x="2" y="23" width="111" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Saldo a favor]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="cfa72fbf-baa4-45c6-bef8-215617e2bdee" positionType="Float" x="113" y="23" width="65" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MONTO_SALDO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
