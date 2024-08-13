@@ -41,7 +41,7 @@ public class ConsumirAIController {
                         .message(ConstantUtil.OK_MESSAGE)
                         .build());
     }
-    @GetMapping("/guardarInfoMotoFacil/{celular}/{nombre_completo}/{tipo_compra}/{cuota_inicial}/{modelo}/{marca}/{ubicacion}")
+    @GetMapping("/guardarInfoMotoFacil/{celular}/{nombre_completo}/{tipo_compra}/{cuota_inicial}/{modelo}/{marca}/{ubicacion}/{email}")
     public ResponseEntity<ApiResponse<List<Producto>>> guardarInfoMotoFacil(
             @PathVariable String celular,
             @PathVariable String nombre_completo,
@@ -49,8 +49,9 @@ public class ConsumirAIController {
             @PathVariable String tipo_compra,
             @PathVariable String cuota_inicial,
             @PathVariable String modelo,
+            @PathVariable String email,
             @PathVariable String marca) {
-        enfermedadService.guardarInfoMotoFacil(celular, nombre_completo, ubicacion, tipo_compra, cuota_inicial, modelo, marca);
+        enfermedadService.guardarInfoMotoFacil(celular, nombre_completo, ubicacion, tipo_compra, cuota_inicial, modelo, marca, email);
         return ResponseEntity.ok(
                 ApiResponse.<List<Producto>>builder()
                         .code(ConstantUtil.OK_CODE)

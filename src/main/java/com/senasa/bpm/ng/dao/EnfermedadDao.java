@@ -28,6 +28,6 @@ public interface EnfermedadDao {
     List<Venta> listarPorAño(int año);
     List<Venta> listarPorDia(int dia, int mes, int año);
     void guardar(String celular, String nombres, String apellidos, String estado);
-    void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca);
+    void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca, String email);
     void guardarPrimero(String celular);
 }

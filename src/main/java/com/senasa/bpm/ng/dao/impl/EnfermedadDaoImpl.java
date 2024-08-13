@@ -210,9 +210,9 @@ try {
     }
 
     @Override
-    public void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca) {
-        String sql = "UPDATE clientes_moto_facil SET nombre_completo = ?, ubicacion = ?, tipo_compra = ?, cuota_inicial = ?, modelo = ?, marca = ? WHERE celular = ?";
-        jdbcTemplate.update(sql, nombre_completo, ubicacion, tipo_compra, cuota_inicial, modelo, marca, celular);
+    public void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca, String email) {
+        String sql = "UPDATE clientes_moto_facil SET nombre_completo = ?, ubicacion = ?, tipo_compra = ?, cuota_inicial = ?, modelo = ?, marca = ?, email=? WHERE celular = ?";
+        jdbcTemplate.update(sql, nombre_completo, ubicacion, tipo_compra, cuota_inicial, modelo, marca, email, celular);
     }
 
 

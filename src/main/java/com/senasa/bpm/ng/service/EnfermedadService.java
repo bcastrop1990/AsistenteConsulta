@@ -29,6 +29,6 @@ public interface EnfermedadService {
     List<Venta> listarPorDia(int dia, int mes, int año);
     String getApiData(String dni);
     void guardar(String celular, String nombres, String apellidos, String estado);
-    void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca);
+    void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca, String email);
     void guardarPrimero(String celular);
 }

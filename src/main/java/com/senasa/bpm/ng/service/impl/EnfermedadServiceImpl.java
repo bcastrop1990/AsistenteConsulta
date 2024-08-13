@@ -176,9 +176,9 @@ public class EnfermedadServiceImpl implements EnfermedadService {
         enfermedadDao.guardar(celular, nombres, apellidos, estado);
     }
     @Override
-    public void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca){
+    public void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca, String email){
 
-        enfermedadDao.guardarInfoMotoFacil(celular, nombre_completo, ubicacion, tipo_compra, cuota_inicial, modelo, marca);
+        enfermedadDao.guardarInfoMotoFacil(celular, nombre_completo, ubicacion, tipo_compra, cuota_inicial, modelo, marca, email);
     }
     @Override
     public void guardarPrimero(String celular) {
