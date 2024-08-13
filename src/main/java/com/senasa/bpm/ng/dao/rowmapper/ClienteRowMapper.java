@@ -13,9 +13,16 @@ public class ClienteRowMapper implements RowMapper<Cliente> {
   public Cliente mapRow(ResultSet rs, int rowNum) throws SQLException {
     return Cliente.builder()
             .id(rs.getLong("id"))
-            .nombre(rs.getString("nombre"))
+            .nombre_completo(rs.getString("nombre_completo"))
+            .estado(rs.getString("estado"))
+            .dni(rs.getString("dni"))
+            .tipo_compra(rs.getString("tipo_compra"))
+            .cuota_inicial(rs.getString("cuota_inicial"))
+            .modelo(rs.getString("modelo"))
+            .marca(rs.getString("marca"))
             .celular(rs.getString("celular"))
-            .categoria(rs.getString("nombre_categoria"))
+            .ubicacion(rs.getString("ubicacion"))
+            .fecha(rs.getDate("fecha"))
             .build();
   }
 }

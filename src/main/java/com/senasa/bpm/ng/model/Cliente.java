@@ -3,6 +3,7 @@ package com.senasa.bpm.ng.model;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -11,8 +12,15 @@ import java.math.BigDecimal;
 @Builder
 public class Cliente {
   private Long id;
-  private String nombre;
+  private String nombre_completo;
+  private String estado;
+  private String dni;
+  private String tipo_compra;
+  private String cuota_inicial;
+  private String modelo;
+  private String marca;
   private String celular;
-  private String categoria;
+  private String ubicacion;
+  private Date fecha;
 }
 

@@ -1,12 +1,11 @@
 package com.senasa.bpm.ng.service;
 
-import com.senasa.bpm.ng.model.Categoria;
-import com.senasa.bpm.ng.model.Cliente;
-import com.senasa.bpm.ng.model.Marca;
-import com.senasa.bpm.ng.model.Producto;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.senasa.bpm.ng.model.*;
 import com.senasa.bpm.ng.model.request.*;
 import com.senasa.bpm.ng.model.response.*;
 
+import java.util.Date;
 import java.util.List;
 
 public interface EnfermedadService {
@@ -20,6 +19,16 @@ public interface EnfermedadService {
     String agregarCategoria(Categoria request);
     void eliminarProducto(Long id);
     List<Cliente> listarClientes();
+    List<Cliente> listarClientesMotoFacil();
     void eliminarCliente(Long id);
-
+    void eliminarCategoria(Long id);
+    List<Venta> listarPorFecha(Date desde, Date hasta);
+    List<Venta> listarTodo();
+    List<Venta> listarPorMes(int mes, int año);
+    List<Venta> listarPorAño(int año);
+    List<Venta> listarPorDia(int dia, int mes, int año);
+    String getApiData(String dni);
+    void guardar(String celular, String nombres, String apellidos, String estado);
+    void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca);
+    void guardarPrimero(String celular);
 }

@@ -1,17 +1,18 @@
 package com.senasa.bpm.ng.controller;
 
-import com.senasa.bpm.ng.model.Categoria;
-import com.senasa.bpm.ng.model.Cliente;
-import com.senasa.bpm.ng.model.Marca;
-import com.senasa.bpm.ng.model.Producto;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.senasa.bpm.ng.model.*;
 import com.senasa.bpm.ng.model.response.ApiResponse;
 import com.senasa.bpm.ng.service.EnfermedadService;
 import com.senasa.bpm.ng.utility.ConstantUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,25 +22,7 @@ public class SocialManagerController {
     @Autowired
     private EnfermedadService enfermedadService;
 
-    @GetMapping("/listarProducto")
-    public ResponseEntity<ApiResponse<List<Producto>>> listarProducto() {
-        return ResponseEntity.ok(
-                ApiResponse.<List<Producto>>builder()
-                        .code(ConstantUtil.OK_CODE)
-                        .message(ConstantUtil.OK_MESSAGE)
-                        .data(enfermedadService.listarProducto())
-                        .build());
-    }
 
-    @GetMapping("/listarProducto/{marca}")
-    public ResponseEntity<ApiResponse<List<Producto>>> listarPorEnfrPr(@PathVariable Long marca) {
-        return ResponseEntity.ok(
-                ApiResponse.<List<Producto>>builder()
-                        .code(ConstantUtil.OK_CODE)
-                        .message(ConstantUtil.OK_MESSAGE)
-                        .data(enfermedadService.listarProductoPorMarca(marca))
-                        .build());
-    }
 
     @GetMapping("/listarMarcas")
     public ResponseEntity<ApiResponse<List<Marca>>> listarMarcas() {
@@ -80,6 +63,15 @@ public class SocialManagerController {
                         .data(enfermedadService.listarClientes())
                         .build());
     }
+    @GetMapping("/listarClientesMotoFacil")
+    public ResponseEntity<ApiResponse<List<Cliente>>> listarClientesMotoFacil() {
+        return ResponseEntity.ok(
+                ApiResponse.<List<Cliente>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(enfermedadService.listarClientesMotoFacil())
+                        .build());
+    }
     @PostMapping("/eliminarCliente/{id}")
     public ResponseEntity<ApiResponse<String>> eliminarCliente(@PathVariable Long id) {
         enfermedadService.eliminarCliente(id);
@@ -100,5 +92,66 @@ public class SocialManagerController {
                         .data(enfermedadService.agregarCategoria(request))
                         .build());
     }
+    @PostMapping("/eliminarCategoria/{id}")
+    public ResponseEntity<ApiResponse<String>> eliminarCategoria(@PathVariable Long id) {
+        enfermedadService.eliminarCategoria(id);
+        return ResponseEntity.ok(
+                ApiResponse.<String>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data("La categoria con el id "+id+" fue eliminado.")
+                        .build());
+    }
+    @GetMapping("/listarPorFecha")
+    public ResponseEntity<ApiResponse<List<Venta>>> listarPorFecha(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date desde,
+                                                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date hasta) {
+        return ResponseEntity.ok(
+                ApiResponse.<List<Venta>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(enfermedadService.listarPorFecha(desde, hasta))
+                        .build());
+    }
+
+    @GetMapping("/listarTodo")
+    public ResponseEntity<ApiResponse<List<Venta>>> listarTodo() {
+        return ResponseEntity.ok(
+                ApiResponse.<List<Venta>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(enfermedadService.listarTodo())
+                        .build());
+    }
+
+    @GetMapping("/listarPorMes")
+    public ResponseEntity<ApiResponse<List<Venta>>> listarPorMes(@RequestParam int mes, @RequestParam int año) {
+        return ResponseEntity.ok(
+                ApiResponse.<List<Venta>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(enfermedadService.listarPorMes(mes, año))
+                        .build());
+    }
+
+    @GetMapping("/listarPorAño")
+    public ResponseEntity<ApiResponse<List<Venta>>> listarPorAño(@RequestParam int año) {
+        return ResponseEntity.ok(
+                ApiResponse.<List<Venta>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(enfermedadService.listarPorAño(año))
+                        .build());
+    }
+
+    @GetMapping("/listarPorDia")
+    public ResponseEntity<ApiResponse<List<Venta>>> listarPorDia(@RequestParam int dia, @RequestParam int mes, @RequestParam int año) {
+        return ResponseEntity.ok(
+                ApiResponse.<List<Venta>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(enfermedadService.listarPorDia(dia, mes, año))
+                        .build());
+    }
+
 
 }
