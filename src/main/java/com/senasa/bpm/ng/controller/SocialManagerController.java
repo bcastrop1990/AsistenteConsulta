@@ -2,11 +2,14 @@ package com.senasa.bpm.ng.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.senasa.bpm.ng.model.*;
+import com.senasa.bpm.ng.model.request.ClienteListarRequest;
 import com.senasa.bpm.ng.model.response.ApiResponse;
 import com.senasa.bpm.ng.service.EnfermedadService;
+import com.senasa.bpm.ng.service.SocialManagerService;
 import com.senasa.bpm.ng.utility.ConstantUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -22,6 +25,8 @@ public class SocialManagerController {
     @Autowired
     private EnfermedadService enfermedadService;
 
+    @Autowired
+    private SocialManagerService socialManagerService;
 
 
     @GetMapping("/listarMarcas")
@@ -63,15 +68,64 @@ public class SocialManagerController {
                         .data(enfermedadService.listarClientes())
                         .build());
     }
-    @GetMapping("/listarClientesMotoFacil")
-    public ResponseEntity<ApiResponse<List<Cliente>>> listarClientesMotoFacil() {
+    @PostMapping("/listarClientesMotoFacil")
+    public ResponseEntity<ApiResponse<Page<Cliente>>> listarClientesMotoFacil(@RequestBody ClienteListarRequest request) {
+        Page<Cliente> clientes = enfermedadService.listarClientesMotoFacil(request);
         return ResponseEntity.ok(
-                ApiResponse.<List<Cliente>>builder()
+                ApiResponse.<Page<Cliente>>builder()
                         .code(ConstantUtil.OK_CODE)
                         .message(ConstantUtil.OK_MESSAGE)
-                        .data(enfermedadService.listarClientesMotoFacil())
+                        .data(clientes)
                         .build());
     }
+
+
+    @GetMapping("/listarEstadosFinanciamiento")
+    public ResponseEntity<ApiResponse<List<EstadoFinanciamiento>>> listarEstadosFinanciamientoMotoFacil() {
+        List<EstadoFinanciamiento> estados = socialManagerService.listarEstadosFinanciamiento();
+        return ResponseEntity.ok(
+                ApiResponse.<List<EstadoFinanciamiento>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(estados)
+                        .build());
+    }
+
+    @GetMapping("/listarTipoCompra")
+    public ResponseEntity<ApiResponse<List<TipoDeCompra>>> listarTiposDeCompraMotoFacil() {
+        List<TipoDeCompra> tipos = socialManagerService.listarTipoCompra();
+        return ResponseEntity.ok(
+                ApiResponse.<List<TipoDeCompra>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(tipos)
+                        .build());
+    }
+
+    @GetMapping("/listarMarcaMotoFacil")
+    public ResponseEntity<ApiResponse<List<MarcaMotoFacil>>> listarMarcaMotoFacil() {
+        List<MarcaMotoFacil> tipos = socialManagerService.listarMarcaMotoFacil();
+        return ResponseEntity.ok(
+                ApiResponse.<List<MarcaMotoFacil>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(tipos)
+                        .build());
+    }
+
+
+    @GetMapping("/listarModeloMotoFacil")
+    public ResponseEntity<ApiResponse<List<ModeloMotoFacil>>> listarModeloMotoFacil() {
+        List<ModeloMotoFacil> tipos = socialManagerService.listarModeloMotoFacil();
+        return ResponseEntity.ok(
+                ApiResponse.<List<ModeloMotoFacil>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(tipos)
+                        .build());
+    }
+
+
     @PostMapping("/eliminarCliente/{id}")
     public ResponseEntity<ApiResponse<String>> eliminarCliente(@PathVariable Long id) {
         enfermedadService.eliminarCliente(id);

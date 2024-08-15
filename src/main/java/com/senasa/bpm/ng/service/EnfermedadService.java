@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.senasa.bpm.ng.model.*;
 import com.senasa.bpm.ng.model.request.*;
 import com.senasa.bpm.ng.model.response.*;
+import org.springframework.data.domain.Page;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface EnfermedadService {
     String agregarCategoria(Categoria request);
     void eliminarProducto(Long id);
     List<Cliente> listarClientes();
-    List<Cliente> listarClientesMotoFacil();
+    Page<Cliente> listarClientesMotoFacil(ClienteListarRequest request);
     void eliminarCliente(Long id);
     void eliminarCategoria(Long id);
     List<Venta> listarPorFecha(Date desde, Date hasta);

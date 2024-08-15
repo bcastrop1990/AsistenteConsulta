@@ -5,7 +5,9 @@ import com.senasa.bpm.ng.model.bean.EnfermedadesBean;
 
 import com.senasa.bpm.ng.model.response.EnfermedadResponse;
 import com.senasa.bpm.ng.model.response.EnfermedadesPrimariasResponse;
+import org.springframework.data.domain.Page;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public interface EnfermedadDao {
     void eliminarCliente(Long id);
     void eliminarCategoria(Long id);
     List<Cliente> listarClientes();
-    List<Cliente> listarClientesMotoFacil();
+    Page<Cliente> listarClientesMotoFacil(String celular, String nombre_completo, String ubicacion, String cuota_inicial, String modelo, String marca, String email, String dni,  String tipo_compra,String estado,  LocalDate fechaDesde, LocalDate fechaHasta, int page);
     String agregarCategoria(Categoria request);
     List<Venta> listarPorFecha(Date desde, Date hasta);
     List<Venta> listarTodo();

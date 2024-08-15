@@ -13,19 +13,22 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 
 import java.sql.Types;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
+
 @AllArgsConstructor
 @Service
 @Slf4j
@@ -120,14 +123,79 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
             // Retornar una lista vacía en lugar de Optional.empty() cuando no hay resultados
             return Collections.emptyList();}
     }
+
     @Override
-    public List<Cliente> listarClientesMotoFacil() {
-    String sql = "SELECT * FROM clientes_moto_facil";
-try {
-            return jdbcTemplate.query(sql, new ClienteRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return Collections.emptyList();}
+    public Page<Cliente> listarClientesMotoFacil(String celular, String nombre_completo, String ubicacion, String cuota_inicial, String modelo, String marca, String email, String dni,  String tipo_compra,String estado, LocalDate fechaDesde, LocalDate fechaHasta, int page) {
+        int limit = 10;
+        int offset = (page - 1) * limit;
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM clientes_moto_facil WHERE 1 = 1");
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        if (celular != null && !celular.isEmpty()) {
+            sql.append(" AND celular = :celular");
+            params.addValue("celular", celular);
+        }
+        if (nombre_completo != null && !nombre_completo.isEmpty()) {
+            sql.append(" AND nombre_completo = :nombre_completo");
+            params.addValue("nombre_completo", nombre_completo);
+        }
+        if (ubicacion != null && !ubicacion.isEmpty()) {
+            sql.append(" AND ubicacion = :ubicacion");
+            params.addValue("ubicacion", ubicacion);
+        }
+        if (tipo_compra != null && !tipo_compra.isEmpty()) {
+            sql.append(" AND tipo_compra = :tipo_compra");
+            params.addValue("tipo_compra", tipo_compra);
+        }
+        if (cuota_inicial != null && !cuota_inicial.isEmpty()) {
+            sql.append(" AND cuota_inicial = :cuota_inicial");
+            params.addValue("cuota_inicial", cuota_inicial);
+        }
+        if (modelo != null && !modelo.isEmpty()) {
+            sql.append(" AND modelo = :modelo");
+            params.addValue("modelo", modelo);
+        }
+        if (marca != null && !marca.isEmpty()) {
+            sql.append(" AND marca = :marca");
+            params.addValue("marca", marca);
+        }
+        if (email != null && !email.isEmpty()) {
+            sql.append(" AND email = :email");
+            params.addValue("email", email);
+        }
+        if (dni != null && !dni.isEmpty()) {
+            sql.append(" AND dni = :dni");
+            params.addValue("dni", dni);
+        }
+        if (estado != null && !estado.isEmpty()) {
+            sql.append(" AND estado = :estado");
+            params.addValue("estado", estado);
+        }
+        if (fechaDesde != null) {
+            sql.append(" AND fecha >= :fechaDesde");
+            params.addValue("fechaDesde", fechaDesde);
+        }
+        if (fechaHasta != null) {
+            sql.append(" AND fecha <= :fechaHasta");
+            params.addValue("fechaHasta", fechaHasta);
+        }
+
+        sql.append(" LIMIT :limit OFFSET :offset");
+        params.addValue("limit", limit);
+        params.addValue("offset", offset);
+
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+        List<Cliente> clientes = namedParameterJdbcTemplate.query(sql.toString(), params, new ClienteRowMapper());
+
+        // Obtener el total de registros
+        String countSql = "SELECT COUNT(*) FROM clientes_moto_facil WHERE 1 = 1";
+        int total = namedParameterJdbcTemplate.queryForObject(countSql, params, Integer.class);
+
+        return new PageImpl<>(clientes, PageRequest.of(page, limit), total);
     }
+
+
 
     @Override
     public void eliminarCliente(Long codigo) {
@@ -211,8 +279,25 @@ try {
 
     @Override
     public void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca, String email) {
+        //PASO 1: insertar en MODELO_MOTO_FACIL
+        String sqlCheckModelo = "SELECT COUNT(*) FROM MODELO_MOTO_FACIL WHERE descripcion = ?";
+        int countModelo = jdbcTemplate.queryForObject(sqlCheckModelo, new Object[]{modelo}, Integer.class);
+        if (countModelo == 0) {
+            String sqlInsert = "INSERT INTO MODELO_MOTO_FACIL (descripcion) VALUES (?)";
+            jdbcTemplate.update(sqlInsert, modelo);
+        }
+        //PASO 2: insertar en MARCA_MOTO_FACIL
+        String sqlCheckMarca = "SELECT COUNT(*) FROM MARCA_MOTO_FACIL WHERE descripcion = ?";
+        int countMarca = jdbcTemplate.queryForObject(sqlCheckMarca, new Object[]{modelo}, Integer.class);
+        if (countMarca == 0) {
+            String sqlInsert = "INSERT INTO MARCA_MOTO_FACIL (descripcion) VALUES (?)";
+            jdbcTemplate.update(sqlInsert, modelo);
+        }
+
+
         String sql = "UPDATE clientes_moto_facil SET nombre_completo = ?, ubicacion = ?, tipo_compra = ?, cuota_inicial = ?, modelo = ?, marca = ?, email=? WHERE celular = ?";
         jdbcTemplate.update(sql, nombre_completo, ubicacion, tipo_compra, cuota_inicial, modelo, marca, email, celular);
+
     }
 
 

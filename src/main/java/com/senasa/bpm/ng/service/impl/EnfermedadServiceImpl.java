@@ -1,7 +1,9 @@
 package com.senasa.bpm.ng.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.senasa.bpm.ng.model.request.ClienteListarRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
@@ -110,8 +112,8 @@ public class EnfermedadServiceImpl implements EnfermedadService {
         return enfermedadDao.listarClientes();
     }
     @Override
-    public List<Cliente> listarClientesMotoFacil() {
-        return enfermedadDao.listarClientesMotoFacil();
+    public Page<Cliente> listarClientesMotoFacil(ClienteListarRequest request) {
+        return enfermedadDao.listarClientesMotoFacil( request.getCelular(),  request.getNombreCompleto(),  request.getUbicacion(), request.getCuotaInicial(), request.getModelo(), request.getMarca(),  request.getEmail(),request.getDni(), request.getTipoCompra(), request.getEstado(), request.getFechaDesde(),request.getFechaHasta(), request.getPage());
     }
     @Override
     public void eliminarCliente(Long id) {
