@@ -206,6 +206,4 @@ public class SocialManagerController {
                         .data(enfermedadService.listarPorDia(dia, mes, año))
                         .build());
     }
-
-
 }
