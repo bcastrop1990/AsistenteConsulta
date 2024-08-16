@@ -2,6 +2,9 @@
 package com.senasa.bpm.ng.dao.impl;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.senasa.bpm.ng.dao.EnfermedadDao;
 import com.senasa.bpm.ng.dao.rowmapper.*;
 import com.senasa.bpm.ng.exception.ApiValidateException;
@@ -9,14 +12,18 @@ import com.senasa.bpm.ng.model.*;
 import com.senasa.bpm.ng.model.bean.EnfermedadesBean;
 import com.senasa.bpm.ng.model.request.UsuarioRequest;
 import com.senasa.bpm.ng.model.response.EnfermedadResponse;
+import com.senasa.bpm.ng.utility.ConstantUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.*;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -24,10 +31,17 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 
 @AllArgsConstructor
 @Service
@@ -35,6 +49,8 @@ import java.util.*;
 public class EnfermedadDaoImpl implements EnfermedadDao {
 
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public List<EnfermedadesBean> listarEnfermedadesPrimarias() {
@@ -89,6 +105,47 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
         String sql = "INSERT INTO producto (nombre, marca, descrp, precio, imagen, codigo, estado, stock) VALUES (?, ?, ?, ?, ?, ?, 0, ?)";
         return String.valueOf(jdbcTemplate.update(sql, request.getNombre(), request.getMarca(), request.getDesc(),
                 request.getPrecio(), request.getImagen(),request.getCodigo(), request.getStock()));
+    }
+
+    @Override
+    public Datos obtenerDatos() {
+        Datos datos = new Datos();
+
+        String sqlAprobados = "SELECT COUNT(*) FROM clientes_moto_facil WHERE estado = 'Aprobado'";
+        String sqlDesaprobados = "SELECT COUNT(*) FROM clientes_moto_facil WHERE estado = 'Desaprobado'";
+        String sqlMarcaMasSolicitada = "SELECT marca " +
+                "FROM clientes_moto_facil " +
+                "WHERE LOWER(marca) <> 'pendiente' " +
+                "GROUP BY marca " +
+                "ORDER BY COUNT(*) DESC " +
+                "LIMIT 1";
+
+        try {
+            String marcaMasSolicitada = jdbcTemplate.queryForObject(sqlMarcaMasSolicitada, String.class);
+            datos.setMarcaMasSolicitada(marcaMasSolicitada);
+        } catch (EmptyResultDataAccessException e) {
+            datos.setMarcaMasSolicitada("No disponible");
+        }
+
+
+
+        String sqlFinanciamiento = "SELECT COUNT(*) FROM clientes_moto_facil WHERE tipo_compra = 'financiamiento'";
+        String sqlAlContado = "SELECT COUNT(*) FROM clientes_moto_facil WHERE tipo_compra = 'al contado'";
+        String sqlTarjetaCredito = "SELECT COUNT(*) FROM clientes_moto_facil WHERE tipo_compra = 'tarjeta de crédito'";
+
+
+        try {
+            datos.setCantidadAprobados(jdbcTemplate.queryForObject(sqlAprobados, Integer.class));
+            datos.setCantidadDesaprobados(jdbcTemplate.queryForObject(sqlDesaprobados, Integer.class));
+            datos.setMarcaMasSolicitada(jdbcTemplate.queryForObject(sqlMarcaMasSolicitada, String.class));
+            datos.setCantidadFinanciamiento(jdbcTemplate.queryForObject(sqlFinanciamiento, Integer.class));
+            datos.setCantidadAlContado(jdbcTemplate.queryForObject(sqlAlContado, Integer.class));
+            datos.setCantidadTarjetaCredito(jdbcTemplate.queryForObject(sqlTarjetaCredito, Integer.class));
+        } catch (EmptyResultDataAccessException e) {
+            return new Datos();
+        }
+
+        return datos;
     }
     @Override
     public String agregarCategoria(Categoria request) {
@@ -310,4 +367,82 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
             String.valueOf(jdbcTemplate.update(sql, celular));
         }
     }
+    @Override
+    public String getAnswer(String prompt) {
+
+        String sqlQuery = "SELECT * FROM clientes_moto_facil";
+        List<String> clientesList = jdbcTemplate.query(sqlQuery, new RowMapper<String>() {
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                // Formatear cada fila en un string personalizado
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                String cliente = String.format(
+                        "{ID: %d, Nombre: \"%s\", Estado: \"%s\", DNI: \"%s\", Tipo de Compra: \"%s\", Cuota Inicial: \"%s\", Modelo: \"%s\", Marca: \"%s\", Celular: \"%s\", Ubicacion: \"%s\", Fecha: \"%s\"}",
+                        rs.getLong("id"),
+                        rs.getString("nombre_completo"),
+                        rs.getString("estado"),
+                        rs.getString("dni"),
+                        rs.getString("tipo_compra"),
+                        rs.getString("cuota_inicial"),
+                        rs.getString("modelo"),
+                        rs.getString("marca"),
+                        rs.getString("celular"),
+                        rs.getString("ubicacion"),
+                        sdf.format(rs.getDate("fecha"))
+                );
+                return cliente;
+            }
+        });
+
+        String clientesConcatenados = String.join(", ", clientesList);
+
+        ZonedDateTime limaTime = ZonedDateTime.now(ZoneId.of("America/Lima"));
+
+        // Formatear la fecha y hora
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy HH:mm:ss");
+
+        // Mostrar la fecha y hora
+        String formattedDateTime = limaTime.format(formatter);
+        // Concatenando los JSON de clientes en una única cadena
+
+        String safeContent = StringEscapeUtils.escapeJson("Eres NeuraX un asistente especialista en Marketing, Ventas, Gestion de Reportes, tu trabajo es asistir a Iam el dueño de la tienda Moto Facil, a continuacion el Reporte de sus clientes, tener en cuenta las fechas, modelos de motos, marcas, estado segun su financiamiento, esta es la fecha actual ("+formattedDateTime+"), Reporte:\n" + clientesConcatenados);
+
+        // Setup de la conexión HTTP para la API de OpenAI
+        String url = "https://api.openai.com/v1/chat/completions";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.set("Authorization", "Bearer " + ConstantUtil.API_KEY);
+
+        String requestBody = String.format("{"
+                + "\"model\": \"gpt-4\","
+                + "\"messages\": ["
+                + "  {\"role\": \"system\", \"content\": \"%s\"},"
+                + "  {\"role\": \"user\", \"content\": \"%s\"}"
+                + "],"
+                + "\"temperature\": 0.7"
+                + "}", safeContent, prompt);
+
+        System.out.println("ESTO LE MANDO A LA IA: "+safeContent);
+        HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode rootNode = objectMapper.readTree(response.getBody());
+                JsonNode contentNode = rootNode.path("choices").get(0).path("message").path("content");
+                return "Respuesta basada en los datos de clientes: " + contentNode.asText();
+            } catch (Exception e) {
+                return "Error al procesar la respuesta JSON: " + e.getMessage();
+            }
+        } else {
+            return "Error al obtener la respuesta de OpenAI: " + response.getStatusCode().toString();
+        }
+    }
+
+
+
 }

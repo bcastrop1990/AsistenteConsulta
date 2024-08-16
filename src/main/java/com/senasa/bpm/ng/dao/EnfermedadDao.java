@@ -22,6 +22,7 @@ public interface EnfermedadDao {
     void eliminarCliente(Long id);
     void eliminarCategoria(Long id);
     List<Cliente> listarClientes();
+    Datos obtenerDatos();
     Page<Cliente> listarClientesMotoFacil(String celular, String nombre_completo, String ubicacion, String cuota_inicial, String modelo, String marca, String email, String dni,  String tipo_compra,String estado,  LocalDate fechaDesde, LocalDate fechaHasta, int page);
     String agregarCategoria(Categoria request);
     List<Venta> listarPorFecha(Date desde, Date hasta);
@@ -32,4 +33,5 @@ public interface EnfermedadDao {
     void guardar(String celular, String nombres, String apellidos, String estado);
     void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca, String email);
     void guardarPrimero(String celular);
+    String getAnswer(String pregunta);
 }

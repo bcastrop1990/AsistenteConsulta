@@ -187,4 +187,15 @@ public class EnfermedadServiceImpl implements EnfermedadService {
 
         enfermedadDao.guardarPrimero(celular);
     }
+    @Override
+    public Datos obtenerDatos() {
+
+        return enfermedadDao.obtenerDatos();
+
+    }
+    @Override
+    public String obtenerRespuestaIA(String request) {
+
+        return enfermedadDao.getAnswer(request);
+    }
 }

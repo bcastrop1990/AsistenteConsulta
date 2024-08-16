@@ -39,6 +39,16 @@ public class SocialManagerController {
                         .build());
     }
 
+    @GetMapping("/listarDatos")
+    public ResponseEntity<ApiResponse<Datos>> listarDatos() {
+        return ResponseEntity.ok(
+                ApiResponse.<Datos>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(enfermedadService.obtenerDatos())
+                        .build());
+    }
+
     @PostMapping("agregarProd")
     public ResponseEntity<ApiResponse<String>> agregarProd(@RequestBody Producto request) {
         return ResponseEntity.ok(
@@ -204,6 +214,15 @@ public class SocialManagerController {
                         .code(ConstantUtil.OK_CODE)
                         .message(ConstantUtil.OK_MESSAGE)
                         .data(enfermedadService.listarPorDia(dia, mes, año))
+                        .build());
+    }
+    @GetMapping("obtenerRespuestaIA/{request}")
+    public ResponseEntity<ApiResponse<String>> obtenerRespuestaIA(@PathVariable String request) {
+        return ResponseEntity.ok(
+                ApiResponse.<String>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(enfermedadService.obtenerRespuestaIA(request))
                         .build());
     }
 }

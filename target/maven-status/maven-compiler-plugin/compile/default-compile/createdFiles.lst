@@ -4,6 +4,7 @@ com/senasa/bpm/ng/model/MarcaMotoFacil.class
 com/senasa/bpm/ng/model/response/EnfermedadResponse.class
 com/senasa/bpm/ng/model/request/DisponibilidadDoctorRequest.class
 com/senasa/bpm/ng/model/bean/UserBean$UserBeanBuilder.class
+com/senasa/bpm/ng/dao/impl/EnfermedadDaoImpl$1.class
 com/senasa/bpm/ng/model/response/UserResponse$UserResponseBuilder.class
 com/senasa/bpm/ng/dao/rowmapper/DoctorRowMapper.class
 com/senasa/bpm/ng/model/Categoria.class
@@ -87,6 +88,7 @@ com/senasa/bpm/ng/dao/rowmapper/CitaRowMapper.class
 com/senasa/bpm/ng/dao/EnfermedadDao.class
 com/senasa/bpm/ng/service/CitasService.class
 com/senasa/bpm/ng/model/Producto$ProductoBuilder.class
+com/senasa/bpm/ng/model/Datos.class
 com/senasa/bpm/ng/service/DisponibilidadService.class
 com/senasa/bpm/ng/model/bean/EnfermedadesBean.class
 com/senasa/bpm/ng/config/WebConfig.class

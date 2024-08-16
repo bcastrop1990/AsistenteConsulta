@@ -16,6 +16,7 @@ public interface EnfermedadService {
     List<Producto> listarProducto();
     List<Producto> listarProductoPorMarca(Long id_EnfPr);
     List<Marca> listarMarcas();
+    Datos obtenerDatos();
     String agregarProd(Producto request);
     String agregarCategoria(Categoria request);
     void eliminarProducto(Long id);
@@ -32,4 +33,5 @@ public interface EnfermedadService {
     void guardar(String celular, String nombres, String apellidos, String estado);
     void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca, String email);
     void guardarPrimero(String celular);
+    String obtenerRespuestaIA(String request);
 }
