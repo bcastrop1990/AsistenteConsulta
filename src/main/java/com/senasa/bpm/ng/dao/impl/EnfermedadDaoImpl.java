@@ -42,6 +42,7 @@ import java.util.*;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -107,6 +108,7 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
                 request.getPrecio(), request.getImagen(),request.getCodigo(), request.getStock()));
     }
 
+
     @Override
     public Datos obtenerDatos() {
         Datos datos = new Datos();
@@ -148,6 +150,59 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
         return datos;
     }
     @Override
+    public String cambiarEstado(Activo request) {
+        String sql = "UPDATE clientes_moto_facil SET activo = ? WHERE id = ?";
+        String.valueOf(jdbcTemplate.update(sql, request.getActivo(), request.getId()));
+        return "Se cambio estado exitosamente.";
+    }
+
+    @Override
+    public DatosImportantes listarDatosImportantes() {
+        DatosImportantes datos = new DatosImportantes();
+
+        // Total de filas
+        String sqlTotalFilas = "SELECT COUNT(*) FROM clientes_moto_facil";
+        int totalFilas = jdbcTemplate.queryForObject(sqlTotalFilas, Integer.class);
+        datos.setTotalFilas(totalFilas);
+
+        // Filas por modelo
+        String sqlFilasPorModelo = "SELECT modelo, COUNT(*) as cantidad FROM clientes_moto_facil GROUP BY modelo";
+        Map<String, Long> filasPorModelo = jdbcTemplate.query(sqlFilasPorModelo, (rs, rowNum) ->
+                new AbstractMap.SimpleEntry<>(rs.getString("modelo"), rs.getLong("cantidad"))
+        ).stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        datos.setFilasPorModelo(filasPorModelo);
+
+        // Filas por marca
+        String sqlFilasPorMarca = "SELECT marca, COUNT(*) as cantidad FROM clientes_moto_facil GROUP BY marca";
+        Map<String, Long> filasPorMarca = jdbcTemplate.query(sqlFilasPorMarca, (rs, rowNum) ->
+                new AbstractMap.SimpleEntry<>(rs.getString("marca"), rs.getLong("cantidad"))
+        ).stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        datos.setFilasPorMarca(filasPorMarca);
+
+        // Estados aprobados y desaprobados por semana
+        String sqlEstadosPorSemana = "SELECT estado, DATE_FORMAT(fecha, '%X-%V') as semana, COUNT(*) as cantidad FROM clientes_moto_facil WHERE estado IN ('Aprobado', 'Desaprobado') GROUP BY semana, estado";
+        List<Map<String, Object>> estadosPorSemana = jdbcTemplate.queryForList(sqlEstadosPorSemana);
+        Map<String, Integer> aprobadosPorSemana = new HashMap<>();
+        Map<String, Integer> desaprobadosPorSemana = new HashMap<>();
+        estadosPorSemana.forEach(map -> {
+            String estado = (String) map.get("estado");
+            String semana = (String) map.get("semana");
+            Number cantidad = (Number) map.get("cantidad"); // Usa Number para ser seguro
+            if ("Aprobado".equals(estado)) {
+                aprobadosPorSemana.put(semana, cantidad.intValue());
+            } else if ("Desaprobado".equals(estado)) {
+                desaprobadosPorSemana.put(semana, cantidad.intValue());
+            }
+        });
+        datos.setAprobadosPorSemana(aprobadosPorSemana);
+        datos.setDesaprobadosPorSemana(desaprobadosPorSemana);
+
+        return datos;
+    }
+
+
+
+    @Override
     public String agregarCategoria(Categoria request) {
         String codigo = request.getNombre();
         String sqlCount = "SELECT COUNT(*) FROM categoria WHERE nombre = ?";
@@ -182,7 +237,7 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
     }
 
     @Override
-    public Page<Cliente> listarClientesMotoFacil(String celular, String nombre_completo, String ubicacion, String cuota_inicial, String modelo, String marca, String email, String dni,  String tipo_compra,String estado, LocalDate fechaDesde, LocalDate fechaHasta, int page) {
+    public Page<Cliente> listarClientesMotoFacil(String celular, String nombre_completo, String ubicacion, String cuota_inicial, String modelo, String marca, String email, String dni,  String tipo_compra,String estado, LocalDate fechaDesde, LocalDate fechaHasta, String activo, int page) {
         int limit = 10;
         int offset = (page - 1) * limit;
 
@@ -229,6 +284,7 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
             sql.append(" AND estado = :estado");
             params.addValue("estado", estado);
         }
+
         if (fechaDesde != null) {
             sql.append(" AND fecha >= :fechaDesde");
             params.addValue("fechaDesde", fechaDesde);
@@ -413,7 +469,7 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.set("Authorization", "Bearer " + ConstantUtil.API_KEY);
+        headers.set("Authorization", "Bearer " + this.obtenerValorTokenPorId(1));
 
         String requestBody = String.format("{"
                 + "\"model\": \"gpt-4\","
@@ -434,7 +490,7 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode rootNode = objectMapper.readTree(response.getBody());
                 JsonNode contentNode = rootNode.path("choices").get(0).path("message").path("content");
-                return "Respuesta basada en los datos de clientes: " + contentNode.asText();
+                return contentNode.asText();
             } catch (Exception e) {
                 return "Error al procesar la respuesta JSON: " + e.getMessage();
             }
@@ -443,6 +499,9 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
         }
     }
 
-
+    public String obtenerValorTokenPorId(int id) {
+        String sql = "SELECT valor FROM token WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, String.class);
+    }
 
 }

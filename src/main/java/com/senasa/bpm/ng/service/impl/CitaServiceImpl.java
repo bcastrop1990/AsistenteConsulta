@@ -2,6 +2,7 @@ package com.senasa.bpm.ng.service.impl;
 
 import com.senasa.bpm.ng.dao.CitaDao;
 import com.senasa.bpm.ng.model.Cita;
+import com.senasa.bpm.ng.model.CitaIa;
 import com.senasa.bpm.ng.model.CitaPaciente;
 import com.senasa.bpm.ng.service.CitaService;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ public class CitaServiceImpl implements CitaService {
     @Autowired
     private CitaDao citaDAO;
 
-    public List<Cita> obtenerCitasPorDoctor(String emailDoctor) {
+    public List<CitaIa> obtenerCitasPorDoctor(String emailDoctor) {
         return citaDAO.obtenerCitasPorEmailDoctor(emailDoctor);
     }
 
@@ -27,7 +28,7 @@ public class CitaServiceImpl implements CitaService {
     }
 
     @Override
-    public void agendarCita(Cita cita) {
+    public void agendarCita(CitaIa cita) {
         citaDAO.agendarCita(cita);
     }
 }

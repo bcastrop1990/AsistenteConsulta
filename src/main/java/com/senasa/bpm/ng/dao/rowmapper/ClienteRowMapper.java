@@ -22,6 +22,7 @@ public class ClienteRowMapper implements RowMapper<Cliente> {
             .marca(rs.getString("marca"))
             .celular(rs.getString("celular"))
             .ubicacion(rs.getString("ubicacion"))
+            .activo(rs.getString("activo"))
             .fecha(rs.getDate("fecha"))
             .build();
   }

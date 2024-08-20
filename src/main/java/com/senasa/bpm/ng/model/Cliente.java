@@ -21,6 +21,7 @@ public class Cliente {
   private String marca;
   private String celular;
   private String ubicacion;
+  private String activo;
   private Date fecha;
 }
 
