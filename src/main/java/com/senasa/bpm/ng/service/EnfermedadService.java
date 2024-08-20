@@ -17,7 +17,9 @@ public interface EnfermedadService {
     List<Producto> listarProductoPorMarca(Long id_EnfPr);
     List<Marca> listarMarcas();
     Datos obtenerDatos();
+    DatosImportantes listarDatosImportantes();
     String agregarProd(Producto request);
+    String cambiarEstado(Activo request);
     String agregarCategoria(Categoria request);
     void eliminarProducto(Long id);
     List<Cliente> listarClientes();

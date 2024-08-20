@@ -103,6 +103,12 @@ public class EnfermedadServiceImpl implements EnfermedadService {
         }*/
         return enfermedadDao.agregarProd(request);
     }
+
+    @Override
+    public String cambiarEstado(Activo request) {
+        return enfermedadDao.cambiarEstado(request);
+    }
+
     @Override
     public void eliminarProducto(Long id) {
         enfermedadDao.eliminarProducto(id);
@@ -113,7 +119,7 @@ public class EnfermedadServiceImpl implements EnfermedadService {
     }
     @Override
     public Page<Cliente> listarClientesMotoFacil(ClienteListarRequest request) {
-        return enfermedadDao.listarClientesMotoFacil( request.getCelular(),  request.getNombreCompleto(),  request.getUbicacion(), request.getCuotaInicial(), request.getModelo(), request.getMarca(),  request.getEmail(),request.getDni(), request.getTipoCompra(), request.getEstado(), request.getFechaDesde(),request.getFechaHasta(), request.getPage());
+        return enfermedadDao.listarClientesMotoFacil( request.getCelular(),  request.getNombreCompleto(),  request.getUbicacion(), request.getCuotaInicial(), request.getModelo(), request.getMarca(),  request.getEmail(),request.getDni(), request.getTipoCompra(), request.getEstado(), request.getFechaDesde(), request.getFechaHasta(), request.getEstado(), request.getPage());
     }
     @Override
     public void eliminarCliente(Long id) {
@@ -191,6 +197,13 @@ public class EnfermedadServiceImpl implements EnfermedadService {
     public Datos obtenerDatos() {
 
         return enfermedadDao.obtenerDatos();
+
+    }
+
+    @Override
+    public     DatosImportantes listarDatosImportantes(){
+
+        return enfermedadDao.listarDatosImportantes();
 
     }
     @Override

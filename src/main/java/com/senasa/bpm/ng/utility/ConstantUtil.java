@@ -19,7 +19,6 @@ public class ConstantUtil {
   public static final String ROLE_RECEPCIONAR = "hasRole('ROLE_RECEPCIONAR')";
   public static final String ROLE_ASIGNAR = "hasRole('ROLE_ASIGNAR')";
   public static final String ROLE_REASIGNAR = "hasRole('ROLE_REASIGNAR')";
-  public static final String API_KEY = "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";
 
   public static final String MSG_FORMATO_DNI_INCORRECTO = "El dni no tiene el formato correcto.";
   public static final int INT_MAX_DIG_DNI = 8;

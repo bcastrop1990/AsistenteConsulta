@@ -18,12 +18,16 @@ public interface EnfermedadDao {
     List<Producto> listarProductoPorMarca(Long id_EnfPr);
     List<Marca> listarMarcas();
     String agregarProd(Producto request);
+    String cambiarEstado(Activo request);
+
     void eliminarProducto(Long id);
     void eliminarCliente(Long id);
     void eliminarCategoria(Long id);
     List<Cliente> listarClientes();
     Datos obtenerDatos();
-    Page<Cliente> listarClientesMotoFacil(String celular, String nombre_completo, String ubicacion, String cuota_inicial, String modelo, String marca, String email, String dni,  String tipo_compra,String estado,  LocalDate fechaDesde, LocalDate fechaHasta, int page);
+    DatosImportantes listarDatosImportantes();
+
+    Page<Cliente> listarClientesMotoFacil(String celular, String nombre_completo, String ubicacion, String cuota_inicial, String modelo, String marca, String email, String dni,  String tipo_compra,String estado,  LocalDate fechaDesde, LocalDate fechaHasta, String activo, int page);
     String agregarCategoria(Categoria request);
     List<Venta> listarPorFecha(Date desde, Date hasta);
     List<Venta> listarTodo();

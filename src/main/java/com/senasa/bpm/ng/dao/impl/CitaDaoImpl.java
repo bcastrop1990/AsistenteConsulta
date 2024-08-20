@@ -5,6 +5,7 @@ package com.senasa.bpm.ng.dao.impl;
 
 import com.senasa.bpm.ng.dao.CitaDao;
 import com.senasa.bpm.ng.model.Cita;
+import com.senasa.bpm.ng.model.CitaIa;
 import com.senasa.bpm.ng.model.CitaPaciente;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +28,9 @@ public class CitaDaoImpl implements CitaDao {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Cita> obtenerCitasPorEmailDoctor(String emailDoctor) {
-        String sql = "SELECT * FROM citas WHERE email_doctor = ? and id_transaccion is not null";
-        return jdbcTemplate.query(sql, new Object[]{emailDoctor}, new BeanPropertyRowMapper<>(Cita.class));
+    public List<CitaIa> obtenerCitasPorEmailDoctor(String emailDoctor) {
+        String sql = "SELECT * FROM citas WHERE email_doctor = ?";
+        return jdbcTemplate.query(sql, new Object[]{emailDoctor}, new BeanPropertyRowMapper<>(CitaIa.class));
     }
 
     @Override
@@ -39,27 +40,47 @@ public class CitaDaoImpl implements CitaDao {
     }
 
     @Override
-    public void agendarCita(Cita cita) {
-        if(cita.getIdCita() != null && cita.getIdTransaccion() != null){
+    public void agendarCita(CitaIa cita) {
 
-            String sql = "UPDATE citas SET id_transaccion = ? WHERE id_cita = ?";
-            jdbcTemplate.update(sql, cita.getIdTransaccion(), cita.getIdCita());
+        // Consulta para verificar si ya existe una cita con la misma fecha para el doctor
+        String sqlCheck = "SELECT COUNT(*) FROM citas WHERE dni = ? AND DATE(fecha_hora) = ?";
+        int count = jdbcTemplate.queryForObject(sqlCheck, new Object[]{
+                cita.getDni(),
+                cita.getFechaHora().toLocalDate()
+        }, Integer.class);
+
+        if (count > 0) {
+            String sqlUpdate = "UPDATE citas SET email_doctor = ?, dni = ?, nombre_completo = ?, fecha_hora = ?, descripcion = ?, costo = ? WHERE email_doctor = ? AND DATE(fecha_hora) = ?";
+            jdbcTemplate.update(sqlUpdate,
+                    cita.getEmailDoctor(),
+                    cita.getDni(),
+                    cita.getNombre_completo(),
+                    Timestamp.valueOf(cita.getFechaHora()),
+                    cita.getDescripcion(),
+                    cita.getCosto(),
+                    cita.getEmailDoctor(),
+                    cita.getFechaHora().toLocalDate());
 
         } else {
-            String sql = "INSERT INTO citas (email_doctor, email_paciente, fecha_hora, descripcion, duracion, id_transaccion, id_servicio, monto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            jdbcTemplate.update(sql, cita.getEmailDoctor(), cita.getEmailPaciente(),
-                    Timestamp.valueOf(cita.getFechaHora()), cita.getDescripcion(),
-                    cita.getDuracion(), cita.getIdTransaccion(), cita.getId_servicio(), cita.getMonto());
+            String sqlInsert = "INSERT INTO citas (email_doctor, dni, nombre_completo, fecha_hora, duracion, descripcion, costo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(sqlInsert,
+                    cita.getEmailDoctor(),
+                    cita.getDni(),
+                    cita.getNombre_completo(),
+                    Timestamp.valueOf(cita.getFechaHora()),
+                    cita.getDuracion(),
+                    cita.getDescripcion(),
+                    cita.getCosto());
         }
-
     }
+
 
     @Override
     public List<Cita> obtenerCitasPorEmailDoctorYFecha(String emailDoctor, LocalDate fecha) {
         LocalDateTime startOfDay = fecha.atStartOfDay();
         LocalDateTime endOfDay = fecha.plusDays(1).atStartOfDay();
 
-        String sql = "SELECT * FROM citas WHERE id_transaccion is not null and email_doctor = ? AND fecha_hora BETWEEN ? AND ?";
+        String sql = "SELECT * FROM citas WHERE email_doctor = ? AND fecha_hora BETWEEN ? AND ?";
         return jdbcTemplate.query(sql, new Object[]{emailDoctor, Timestamp.valueOf(startOfDay), Timestamp.valueOf(endOfDay)},
                 new BeanPropertyRowMapper<>(Cita.class));
     }
