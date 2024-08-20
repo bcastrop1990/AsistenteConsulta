@@ -273,8 +273,8 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
             params.addValue("marca", marca);
         }
         if (email != null && !email.isEmpty()) {
-            sql.append(" AND email = :email");
-            params.addValue("email", email);
+            sql.append(" AND email LIKE :email");
+            params.addValue("email", email + "%"); // Agrega '%' al final para buscar correos que comiencen con el texto dado
         }
         if (dni != null && !dni.isEmpty()) {
             sql.append(" AND dni = :dni");

@@ -23,5 +23,6 @@ public class Cliente {
   private String ubicacion;
   private String activo;
   private Date fecha;
+  private String email;
 }
 

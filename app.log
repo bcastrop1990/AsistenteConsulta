@@ -5502,3 +5502,340 @@ org.springframework.jdbc.IncorrectResultSetColumnCountException: Incorrect colum
 2024-08-16 08:20:06 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m9s626ms).
 2024-08-16 08:37:13 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m7s315ms).
 2024-08-16 08:48:12 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m58s652ms).
+2024-08-20 11:17:21 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.7.Final
+2024-08-20 11:17:21 [main] INFO  c.s.bpm.ng.SenasabpmbackApplication - Starting SenasabpmbackApplication using Java 1.8.0_202 on DESKTOP-7ML0V78 with PID 21736 (C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\target\classes started by User in C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta)
+2024-08-20 11:17:21 [main] INFO  c.s.bpm.ng.SenasabpmbackApplication - No active profile set, falling back to default profiles: default
+2024-08-20 11:17:21 [background-preinit] WARN  o.s.h.c.j.Jackson2ObjectMapperBuilder - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2024-08-20 11:17:22 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-20 11:17:22 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2024-08-20 11:17:22 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 5050 (http)
+2024-08-20 11:17:22 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-5050"]
+2024-08-20 11:17:22 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-08-20 11:17:22 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.45]
+2024-08-20 11:17:23 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-08-20 11:17:23 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1357 ms
+2024-08-20 11:17:23 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-20 11:17:23 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.30.Final
+2024-08-20 11:17:23 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-08-20 11:17:23 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-08-20 11:17:25 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-08-20 11:17:25 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2024-08-20 11:17:25 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-08-20 11:17:25 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 11:17:26 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-20 11:17:26 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2024-08-20 11:17:26 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-5050"]
+2024-08-20 11:17:26 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 5050 (http) with context path ''
+2024-08-20 11:17:27 [main] INFO  c.s.bpm.ng.SenasabpmbackApplication - Started SenasabpmbackApplication in 5.79 seconds (JVM running for 6.055)
+2024-08-20 11:19:22 [http-nio-0.0.0.0-5050-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-20 11:19:22 [http-nio-0.0.0.0-5050-exec-3] ERROR c.s.b.n.e.ResponseExceptionHandler - Request method 'GET' not supported
+org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.handleNoMatch(RequestMappingInfoHandlerMapping.java:251)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lookupHandlerMethod(AbstractHandlerMethodMapping.java:435)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:376)
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.getHandlerInternal(RequestMappingInfoHandlerMapping.java:123)
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.getHandlerInternal(RequestMappingInfoHandlerMapping.java:66)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler(AbstractHandlerMapping.java:498)
+	at org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:1254)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1036)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2024-08-20 11:20:56 [http-nio-0.0.0.0-5050-exec-4] ERROR c.s.b.n.e.ResponseExceptionHandler - Required request body is missing: public org.springframework.http.ResponseEntity<com.senasa.bpm.ng.model.response.ApiResponse<org.springframework.data.domain.Page<com.senasa.bpm.ng.model.Cliente>>> com.senasa.bpm.ng.controller.SocialManagerController.listarClientesMotoFacil(com.senasa.bpm.ng.model.request.ClienteListarRequest)
+org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public org.springframework.http.ResponseEntity<com.senasa.bpm.ng.model.response.ApiResponse<org.springframework.data.domain.Page<com.senasa.bpm.ng.model.Cliente>>> com.senasa.bpm.ng.controller.SocialManagerController.listarClientesMotoFacil(com.senasa.bpm.ng.model.request.ClienteListarRequest)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:161)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:131)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:170)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2024-08-20 11:21:22 [http-nio-0.0.0.0-5050-exec-7] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL query
+2024-08-20 11:21:22 [http-nio-0.0.0.0-5050-exec-7] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT * FROM clientes_moto_facil WHERE 1 = 1 LIMIT ? OFFSET ?]
+2024-08-20 11:21:23 [http-nio-0.0.0.0-5050-exec-7] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL query
+2024-08-20 11:21:23 [http-nio-0.0.0.0-5050-exec-7] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT COUNT(*) FROM clientes_moto_facil WHERE 1 = 1]
+2024-08-20 11:22:50 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.7.Final
+2024-08-20 11:22:50 [main] INFO  c.s.bpm.ng.SenasabpmbackApplication - Starting SenasabpmbackApplication using Java 1.8.0_202 on DESKTOP-7ML0V78 with PID 17436 (C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\target\classes started by User in C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta)
+2024-08-20 11:22:50 [main] INFO  c.s.bpm.ng.SenasabpmbackApplication - No active profile set, falling back to default profiles: default
+2024-08-20 11:22:50 [background-preinit] WARN  o.s.h.c.j.Jackson2ObjectMapperBuilder - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2024-08-20 11:22:51 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-20 11:22:51 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2024-08-20 11:22:51 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 5050 (http)
+2024-08-20 11:22:51 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-5050"]
+2024-08-20 11:22:51 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-08-20 11:22:51 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.45]
+2024-08-20 11:22:51 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-08-20 11:22:51 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1092 ms
+2024-08-20 11:22:51 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-20 11:22:52 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.30.Final
+2024-08-20 11:22:52 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-08-20 11:22:52 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-08-20 11:22:53 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-08-20 11:22:53 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2024-08-20 11:22:54 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-08-20 11:22:54 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 11:22:54 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-20 11:22:54 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2024-08-20 11:22:54 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-5050"]
+2024-08-20 11:22:54 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 5050 (http) with context path ''
+2024-08-20 11:22:55 [main] INFO  c.s.bpm.ng.SenasabpmbackApplication - Started SenasabpmbackApplication in 4.918 seconds (JVM running for 5.174)
+2024-08-20 11:24:15 [http-nio-0.0.0.0-5050-exec-9] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-20 11:24:15 [http-nio-0.0.0.0-5050-exec-9] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL query
+2024-08-20 11:24:15 [http-nio-0.0.0.0-5050-exec-9] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT * FROM clientes_moto_facil WHERE 1 = 1 LIMIT ? OFFSET ?]
+2024-08-20 11:24:15 [http-nio-0.0.0.0-5050-exec-9] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL query
+2024-08-20 11:24:15 [http-nio-0.0.0.0-5050-exec-9] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT COUNT(*) FROM clientes_moto_facil WHERE 1 = 1]
+2024-08-20 11:26:27 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.7.Final
+2024-08-20 11:26:27 [main] INFO  c.s.bpm.ng.SenasabpmbackApplication - Starting SenasabpmbackApplication using Java 1.8.0_202 on DESKTOP-7ML0V78 with PID 2456 (C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\target\classes started by User in C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta)
+2024-08-20 11:26:27 [main] INFO  c.s.bpm.ng.SenasabpmbackApplication - No active profile set, falling back to default profiles: default
+2024-08-20 11:26:27 [background-preinit] WARN  o.s.h.c.j.Jackson2ObjectMapperBuilder - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2024-08-20 11:26:28 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-20 11:26:28 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19 ms. Found 0 JPA repository interfaces.
+2024-08-20 11:26:28 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 5050 (http)
+2024-08-20 11:26:28 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-5050"]
+2024-08-20 11:26:28 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-08-20 11:26:28 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.45]
+2024-08-20 11:26:28 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-08-20 11:26:28 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1008 ms
+2024-08-20 11:26:28 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-20 11:26:28 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.30.Final
+2024-08-20 11:26:28 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-08-20 11:26:29 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-08-20 11:26:30 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-08-20 11:26:30 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2024-08-20 11:26:31 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-08-20 11:26:31 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 11:26:31 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-20 11:26:31 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2024-08-20 11:26:31 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-5050"]
+2024-08-20 11:26:31 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 5050 (http) with context path ''
+2024-08-20 11:26:32 [main] INFO  c.s.bpm.ng.SenasabpmbackApplication - Started SenasabpmbackApplication in 4.921 seconds (JVM running for 5.172)
+2024-08-20 11:31:58 [http-nio-0.0.0.0-5050-exec-8] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-20 11:31:58 [http-nio-0.0.0.0-5050-exec-8] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL query
+2024-08-20 11:31:58 [http-nio-0.0.0.0-5050-exec-8] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT * FROM clientes_moto_facil WHERE 1 = 1 LIMIT ? OFFSET ?]
+2024-08-20 11:32:03 [http-nio-0.0.0.0-5050-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@26127ba5 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2024-08-20 11:32:08 [http-nio-0.0.0.0-5050-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@382b32f (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2024-08-20 11:32:13 [http-nio-0.0.0.0-5050-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@5c247db (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2024-08-20 11:32:18 [http-nio-0.0.0.0-5050-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@723d5240 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2024-08-20 11:32:23 [http-nio-0.0.0.0-5050-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1224dd34 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2024-08-20 11:32:23 [http-nio-0.0.0.0-5050-exec-8] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL query
+2024-08-20 11:32:23 [http-nio-0.0.0.0-5050-exec-8] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT COUNT(*) FROM clientes_moto_facil WHERE 1 = 1]
+2024-08-20 11:33:24 [http-nio-0.0.0.0-5050-exec-2] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL query
+2024-08-20 11:33:24 [http-nio-0.0.0.0-5050-exec-2] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT * FROM clientes_moto_facil WHERE 1 = 1 AND email = ? LIMIT ? OFFSET ?]
+2024-08-20 11:33:24 [http-nio-0.0.0.0-5050-exec-2] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL query
+2024-08-20 11:33:24 [http-nio-0.0.0.0-5050-exec-2] DEBUG o.s.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT COUNT(*) FROM clientes_moto_facil WHERE 1 = 1]
+2024-08-20 11:39:27.591  WARN 19160 --- [main] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/User/.m2/repository/org/json/json/20210307/json-20210307.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/User/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2024-08-20 11:39:27.605  INFO 19160 --- [main] c.s.b.ng.SenasabpmbackApplicationTests   : Starting SenasabpmbackApplicationTests using Java 1.8.0_202 on DESKTOP-7ML0V78 with PID 19160 (started by User in C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta)
+2024-08-20 11:39:27.607  INFO 19160 --- [main] c.s.b.ng.SenasabpmbackApplicationTests   : No active profile set, falling back to default profiles: default
+2024-08-20 11:39:28.078  WARN 19160 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2024-08-20 11:39:28.611  INFO 19160 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-20 11:39:28.649  INFO 19160 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29 ms. Found 0 JPA repository interfaces.
+2024-08-20 11:39:29.335  INFO 19160 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-20 11:39:29.378  INFO 19160 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2024-08-20 11:39:29.508  INFO 19160 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-08-20 11:39:29.715  INFO 19160 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-20 11:39:31.426  INFO 19160 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-20 11:39:31.449  INFO 19160 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2024-08-20 11:39:32.045  INFO 19160 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-08-20 11:39:32.057  INFO 19160 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 11:39:33.266  WARN 19160 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-20 11:39:33.823  INFO 19160 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2024-08-20 11:39:34.592  INFO 19160 --- [main] c.s.b.ng.SenasabpmbackApplicationTests   : Started SenasabpmbackApplicationTests in 7.203 seconds (JVM running for 8.03)
+2024-08-20 11:39:34.721  INFO 19160 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2024-08-20 11:39:34.725  INFO 19160 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 11:39:34.729  INFO 19160 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-20 11:39:34.981  INFO 19160 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-20 12:15:12 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m11s32ms350µs500ns).
+2024-08-20 12:32:42.965  INFO 22040 --- [main] c.s.bpm.ng.SenasabpmbackApplication      : Starting SenasabpmbackApplication using Java 1.8.0_202 on DESKTOP-7ML0V78 with PID 22040 (C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\target\classes started by User in C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta)
+2024-08-20 12:32:42.967  INFO 22040 --- [main] c.s.bpm.ng.SenasabpmbackApplication      : No active profile set, falling back to default profiles: default
+2024-08-20 12:32:43.227  WARN 22040 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2024-08-20 12:32:43.719  INFO 22040 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-20 12:32:43.749  INFO 22040 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 JPA repository interfaces.
+2024-08-20 12:32:44.177  INFO 22040 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5000 (http)
+2024-08-20 12:32:44.183  INFO 22040 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-20 12:32:44.183  INFO 22040 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2024-08-20 12:32:44.265  INFO 22040 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-20 12:32:44.265  INFO 22040 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1154 ms
+2024-08-20 12:32:44.446  INFO 22040 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-20 12:32:44.471  INFO 22040 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2024-08-20 12:32:44.537  INFO 22040 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-08-20 12:32:44.591  INFO 22040 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-20 12:32:46.223  INFO 22040 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-20 12:32:46.234  INFO 22040 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2024-08-20 12:32:46.719  INFO 22040 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-08-20 12:32:46.726  INFO 22040 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 12:32:47.285  WARN 22040 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-20 12:32:47.419  INFO 22040 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2024-08-20 12:32:47.548  INFO 22040 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5000 (http) with context path ''
+2024-08-20 12:32:47.961  INFO 22040 --- [main] c.s.bpm.ng.SenasabpmbackApplication      : Started SenasabpmbackApplication in 5.216 seconds (JVM running for 5.485)
+2024-08-20 12:34:41.359  INFO 22732 --- [main] c.s.bpm.ng.SenasabpmbackApplication      : Starting SenasabpmbackApplication using Java 1.8.0_202 on DESKTOP-7ML0V78 with PID 22732 (C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\target\classes started by User in C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta)
+2024-08-20 12:34:41.361  INFO 22732 --- [main] c.s.bpm.ng.SenasabpmbackApplication      : No active profile set, falling back to default profiles: default
+2024-08-20 12:34:41.612  WARN 22732 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2024-08-20 12:34:42.037  INFO 22732 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-20 12:34:42.062  INFO 22732 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19 ms. Found 0 JPA repository interfaces.
+2024-08-20 12:34:42.451  INFO 22732 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5000 (http)
+2024-08-20 12:34:42.457  INFO 22732 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-20 12:34:42.457  INFO 22732 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2024-08-20 12:34:42.525  INFO 22732 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-20 12:34:42.526  INFO 22732 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1033 ms
+2024-08-20 12:34:42.738  INFO 22732 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-20 12:34:42.767  INFO 22732 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2024-08-20 12:34:42.836  INFO 22732 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-08-20 12:34:42.894  INFO 22732 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-20 12:34:44.413  INFO 22732 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-20 12:34:44.422  INFO 22732 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2024-08-20 12:34:44.895  INFO 22732 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-08-20 12:34:44.901  INFO 22732 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 12:34:45.451  WARN 22732 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-20 12:34:45.585  INFO 22732 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2024-08-20 12:34:45.716  INFO 22732 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5000 (http) with context path ''
+2024-08-20 12:34:46.122  INFO 22732 --- [main] c.s.bpm.ng.SenasabpmbackApplication      : Started SenasabpmbackApplication in 4.962 seconds (JVM running for 5.202)
+2024-08-20 12:35:29.462  INFO 22732 --- [http-nio-0.0.0.0-5000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-20 12:35:29.563 DEBUG 22732 --- [http-nio-0.0.0.0-5000-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2024-08-20 12:35:29.564 DEBUG 22732 --- [http-nio-0.0.0.0-5000-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [SELECT * FROM clientes_moto_facil WHERE 1 = 1 AND email = ? LIMIT ? OFFSET ?]
+2024-08-20 12:35:29.908 DEBUG 22732 --- [http-nio-0.0.0.0-5000-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2024-08-20 12:35:29.908 DEBUG 22732 --- [http-nio-0.0.0.0-5000-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [SELECT COUNT(*) FROM clientes_moto_facil WHERE 1 = 1]
+2024-08-20 12:37:47.761  WARN 19836 --- [main] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/User/.m2/repository/org/json/json/20210307/json-20210307.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/User/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2024-08-20 12:37:47.778  INFO 19836 --- [main] c.s.b.ng.SenasabpmbackApplicationTests   : Starting SenasabpmbackApplicationTests using Java 1.8.0_202 on DESKTOP-7ML0V78 with PID 19836 (started by User in C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta)
+2024-08-20 12:37:47.780  INFO 19836 --- [main] c.s.b.ng.SenasabpmbackApplicationTests   : No active profile set, falling back to default profiles: default
+2024-08-20 12:37:48.218  WARN 19836 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2024-08-20 12:37:48.802  INFO 19836 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-20 12:37:48.838  INFO 19836 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 0 JPA repository interfaces.
+2024-08-20 12:37:49.487  INFO 19836 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-20 12:37:49.531  INFO 19836 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2024-08-20 12:37:49.680  INFO 19836 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-08-20 12:37:49.909  INFO 19836 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-20 12:37:51.502  INFO 19836 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-20 12:37:51.531  INFO 19836 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2024-08-20 12:37:52.115  INFO 19836 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-08-20 12:37:52.127  INFO 19836 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 12:37:53.333  WARN 19836 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-20 12:37:53.872  INFO 19836 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2024-08-20 12:37:54.679  INFO 19836 --- [main] c.s.b.ng.SenasabpmbackApplicationTests   : Started SenasabpmbackApplicationTests in 7.104 seconds (JVM running for 7.915)
+2024-08-20 12:37:54.823  INFO 19836 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2024-08-20 12:37:54.826  INFO 19836 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 12:37:54.830  INFO 19836 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-20 12:37:55.063  INFO 19836 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-20 13:01:52.956  WARN 17948 --- [main] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/User/.m2/repository/org/json/json/20210307/json-20210307.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/User/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2024-08-20 13:01:52.970  INFO 17948 --- [main] c.s.b.ng.SenasabpmbackApplicationTests   : Starting SenasabpmbackApplicationTests using Java 1.8.0_202 on DESKTOP-7ML0V78 with PID 17948 (started by User in C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta)
+2024-08-20 13:01:52.972  INFO 17948 --- [main] c.s.b.ng.SenasabpmbackApplicationTests   : No active profile set, falling back to default profiles: default
+2024-08-20 13:01:53.429  WARN 17948 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2024-08-20 13:01:53.943  INFO 17948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-20 13:01:53.979  INFO 17948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 0 JPA repository interfaces.
+2024-08-20 13:01:54.643  INFO 17948 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-20 13:01:54.694  INFO 17948 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2024-08-20 13:01:54.819  INFO 17948 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-08-20 13:01:55.019  INFO 17948 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-20 13:01:56.679  INFO 17948 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-20 13:01:56.701  INFO 17948 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2024-08-20 13:01:57.279  INFO 17948 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-08-20 13:01:57.291  INFO 17948 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 13:01:58.511  WARN 17948 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-20 13:01:59.055  INFO 17948 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2024-08-20 13:01:59.878  INFO 17948 --- [main] c.s.b.ng.SenasabpmbackApplicationTests   : Started SenasabpmbackApplicationTests in 7.14 seconds (JVM running for 7.921)
+2024-08-20 13:02:00.000  INFO 17948 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2024-08-20 13:02:00.005  INFO 17948 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-20 13:02:00.009  INFO 17948 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-20 13:02:00.300  INFO 17948 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-20 14:58:53.402  WARN 22732 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=13m36s720ms672µs300ns).
