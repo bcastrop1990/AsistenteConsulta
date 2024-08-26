@@ -134,24 +134,22 @@ public class SocialManagerController {
 
     @GetMapping("/listarMarcaMotoFacil")
     public ResponseEntity<ApiResponse<List<MarcaMotoFacil>>> listarMarcaMotoFacil() {
-        List<MarcaMotoFacil> tipos = socialManagerService.listarMarcaMotoFacil();
         return ResponseEntity.ok(
                 ApiResponse.<List<MarcaMotoFacil>>builder()
                         .code(ConstantUtil.OK_CODE)
                         .message(ConstantUtil.OK_MESSAGE)
-                        .data(tipos)
+                        .data(socialManagerService.listarMarcaMotoFacil())
                         .build());
     }
 
 
     @GetMapping("/listarModeloMotoFacil")
     public ResponseEntity<ApiResponse<List<ModeloMotoFacil>>> listarModeloMotoFacil() {
-        List<ModeloMotoFacil> tipos = socialManagerService.listarModeloMotoFacil();
         return ResponseEntity.ok(
                 ApiResponse.<List<ModeloMotoFacil>>builder()
                         .code(ConstantUtil.OK_CODE)
                         .message(ConstantUtil.OK_MESSAGE)
-                        .data(tipos)
+                        .data(socialManagerService.listarModeloMotoFacil())
                         .build());
     }
 
