@@ -10,8 +10,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class DoctorRequest {
-  private String nombres;
-  private String apellidos;
+  private String nombre;
+  private String apellido;
   private String codigo;
   private String colegio;
+  private Long idEspecialidad;
 }

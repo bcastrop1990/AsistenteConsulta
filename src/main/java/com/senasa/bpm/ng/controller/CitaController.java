@@ -2,6 +2,7 @@ package com.senasa.bpm.ng.controller;
 
 import com.senasa.bpm.ng.model.Cita;
 import com.senasa.bpm.ng.model.CitaIa;
+import com.senasa.bpm.ng.model.request.RequestCitaIa;
 import com.senasa.bpm.ng.model.response.ApiResponse;
 import com.senasa.bpm.ng.service.ApiService;
 import com.senasa.bpm.ng.service.CitaService;
@@ -32,13 +33,15 @@ public class CitaController {
                         .build());
     }
 
-    @GetMapping("/listarCitasEmailDoctor/{emailDoctor}")
-    public ResponseEntity<ApiResponse<List<CitaIa>>> listarCitasEmailDoctor(@PathVariable String emailDoctor) {
+
+
+    @PostMapping("/listarTodasCitas")
+    public ResponseEntity<ApiResponse<List<CitaIa>>> listarTodasCitasRangoFecha(@RequestBody RequestCitaIa request) {
         return ResponseEntity.ok(
                 ApiResponse.<List<CitaIa>>builder()
                         .code(ConstantUtil.OK_CODE)
                         .message(ConstantUtil.OK_MESSAGE)
-                        .data(citaService.obtenerCitasPorDoctor(emailDoctor))
+                        .data(citaService.listarTodasCitasRangoFecha(request))
                         .build());
     }
 

@@ -1,6 +1,9 @@
 
 package com.senasa.bpm.ng.dao.impl;
 import com.senasa.bpm.ng.model.Medico;
+import com.senasa.bpm.ng.model.request.DoctorDisponibilidadRequest;
+import com.senasa.bpm.ng.model.response.DoctorCubaMedDisponibilidadResponse;
+import com.senasa.bpm.ng.model.response.DoctorCubaMedResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,11 +89,11 @@ public class DoctorDaoImpl implements DoctorDao {
 
         String habiliNormalizado = normalizeString("HÁBIL");
 
-        if (!apellidos.equalsIgnoreCase(doctor.getApellidos()) && !nombres.equalsIgnoreCase(doctor.getNombres())) {
+        if (!apellidos.equalsIgnoreCase(doctor.getApellido()) && !nombres.equalsIgnoreCase(doctor.getNombre())) {
             throw new ApiValidateException(ConstantUtil.MSG_DATOS_INVALIDO);
-        } else if (!nombres.equalsIgnoreCase(doctor.getNombres()) && apellidos.equalsIgnoreCase(doctor.getApellidos())) {
+        } else if (!nombres.equalsIgnoreCase(doctor.getNombre()) && apellidos.equalsIgnoreCase(doctor.getApellido())) {
             throw new ApiValidateException("Los nombres ingresados no son validos.");
-        } else if (nombres.equalsIgnoreCase(doctor.getNombres()) && !apellidos.equalsIgnoreCase(doctor.getApellidos())) {
+        } else if (nombres.equalsIgnoreCase(doctor.getNombre()) && !apellidos.equalsIgnoreCase(doctor.getApellido())) {
             throw new ApiValidateException("Los apellidos ingresados no son validos.");
         }
         if (!estado.equalsIgnoreCase(habiliNormalizado)) {
@@ -103,8 +108,8 @@ public class DoctorDaoImpl implements DoctorDao {
 
     public Medico validarOdontologo(DoctorRequest request) {
         try {
-            String apellidos = request.getApellidos();
-            String nombres = request.getNombres();
+            String apellidos = request.getApellido();
+            String nombres = request.getNombre();
             String codigo = request.getCodigo();
             String url = "https://sigacop.cop.org.pe/consultas_web/consulta_colegiado.asp";
             Connection.Response response = Jsoup.connect(url)
@@ -218,5 +223,111 @@ public class DoctorDaoImpl implements DoctorDao {
     }
 
 
+    public  List<DoctorCubaMedResponse> listarDoctor(Long idEspecialidad, String nombre){
+
+        System.out.println("listarDoctor:");
+        System.out.println("idEspecialidad:"+idEspecialidad);
+        System.out.println("nombre:"+nombre);
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM doctores WHERE 1=1");
+
+        List<Object> params = new ArrayList<>();
+
+        if (nombre != null && !nombre.isEmpty()) {
+            sql.append(" AND nombre LIKE ?");
+            params.add("%" + nombre + "%");
+        }
+
+        if (idEspecialidad != null) {
+            sql.append(" AND idEspecialidad = ?");
+            params.add(idEspecialidad);
+        }
+
+        return jdbcTemplate.query(sql.toString(), params.toArray(), (rs) -> {
+            List<DoctorCubaMedResponse> doctores = new ArrayList<>();
+            while (rs.next()) {
+                DoctorCubaMedResponse doctor = DoctorCubaMedResponse.builder()
+                        .idDoctor(rs.getLong("id"))
+                        .nombres(rs.getString("nombre"))
+                        .apellidos(rs.getString("apellido"))
+                        .numeroCelular(rs.getString("celular"))
+                        .email(rs.getString("email"))
+                        .colorIndentificador(rs.getString("colorIdentificador"))
+                        .id_especialidad(rs.getLong("idEspecialidad"))
+                        .imagen(rs.getString("imagen"))
+                        .build();
+                doctores.add(doctor);
+            }
+            return doctores;
+        });
+    }
+
+    @Override
+    public void configurarDisponibilidadDoctor(DoctorDisponibilidadRequest request) {
+        // Obtener el idDoctor a partir del correo
+        Long idDoctor = obtenerIdDoctorPorCorreo(request.getEmail());
+
+        // Consulta para verificar si ya existe un registro para el idDoctor
+        String checkSql = "SELECT COUNT(*) FROM doctor_disponibilidad WHERE idDoctor = ?";
+        Integer count = jdbcTemplate.queryForObject(checkSql, new Object[]{idDoctor}, Integer.class);
+
+        if (count != null && count > 0) {
+            // Si ya existe, actualizamos el registro
+            String updateSql = "UPDATE doctor_disponibilidad SET fecha_inicio = ?, fecha_fin = ?, dias_semana = ?, color = ?, hora_inicio = ?, hora_fin = ? " +
+                    "WHERE idDoctor = ?";
+            jdbcTemplate.update(updateSql,
+                    request.getFechaInicio(),
+                    request.getFechaFin(),
+                    String.join(",", request.getDiasSemana()),
+                    request.getColor(),
+                    request.getHoraInicio(),
+                    request.getHoraFin(),
+                    idDoctor);
+        } else {
+            // Si no existe, insertamos un nuevo registro
+            String insertSql = "INSERT INTO doctor_disponibilidad (idDoctor, fecha_inicio, fecha_fin, dias_semana, color, hora_inicio, hora_fin) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(insertSql,
+                    idDoctor,
+                    request.getFechaInicio(),
+                    request.getFechaFin(),
+                    String.join(",", request.getDiasSemana()),
+                    request.getColor(),
+                    request.getHoraInicio(),
+                    request.getHoraFin());
+        }
+    }
+
+
+
+
+    public Long obtenerIdDoctorPorCorreo(String email) {
+        String sql = "SELECT id FROM doctores WHERE email = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{email}, Long.class);
+    }
+
+
+    public DoctorCubaMedDisponibilidadResponse obtenerDisponibilidadPorCorreo(String email) {
+        // Obtener el idDoctor a partir del correo
+        Long idDoctor = obtenerIdDoctorPorCorreo(email);
+
+        // Consulta para obtener la disponibilidad del doctor
+        String sql = "SELECT * FROM doctor_disponibilidad WHERE idDoctor = ?";
+
+        return jdbcTemplate.queryForObject(sql, new Object[]{idDoctor}, (rs, rowNum) ->
+                DoctorCubaMedDisponibilidadResponse.builder()
+                        .idDoctor(idDoctor)
+                        .fechaInicio(rs.getDate("fecha_inicio").toLocalDate())
+                        .fechaFin(rs.getDate("fecha_fin").toLocalDate())
+                        .diasSemana(Arrays.asList(rs.getString("dias_semana").split(",")))
+                        .color(rs.getString("color"))
+                        .horaInicio(rs.getTime("hora_inicio").toLocalTime())
+                        .horaFin(rs.getTime("hora_fin").toLocalTime())
+                        .build()
+        );
+    }
+
+
 
 }
+

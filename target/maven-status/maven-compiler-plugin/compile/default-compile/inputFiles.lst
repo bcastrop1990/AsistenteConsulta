@@ -8,8 +8,11 @@ C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\TipoDeCompra.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\PaymentToken.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\config\WebConfig.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\impl\EspecialidadDaoImpl.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\impl\SocialManagerServiceImpl.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\impl\EspecialidadServiceImpl.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\SesionDao.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\EspecialidadBean.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\impl\EnfermedadDaoImpl.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\CitasService.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\impl\CitaDaoImpl.java
@@ -33,7 +36,9 @@ C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\request\GrabarSolRequest.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\response\ServicioResponse.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\DoctorDao.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\request\RequestCitaIa.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\rowmapper\VentaRowMapper.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\request\DoctorDisponibilidadRequest.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\utility\ConstantUtil.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\config\AwsConfig.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\Activo.java
@@ -52,6 +57,7 @@ C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\rowmapper\DoctorServicioRowMapper.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\bean\UserBean.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\DatosImportantes.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\request\DoctorCubamedRequest.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\DoctorService.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\impl\PaymentServiceImpl.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\controller\ConsumirAIController.java
@@ -64,7 +70,9 @@ C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\Datos.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\response\ApiResponse.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\SocialManagerService.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\response\ClienteCubaMedResponse.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\response\DetalleServicioResponse.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\controller\EspecialidadController.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\CitaIa.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\rowmapper\DetalleServicioRowMapper.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\SocialManagerDao.java
@@ -92,9 +100,11 @@ C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\DisponibilidadService.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\exception\ApiErrorException.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\controller\ApiController.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\controller\DoctorController.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\response\EnfermedadesPrimariasResponse.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\response\EspecialidadResponse.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\config\DataConfig.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\EspecialidadDao.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\impl\DisponibilidadDAOImpl.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\impl\S3ServiceImpl.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\config\MailConfig.java
@@ -102,10 +112,13 @@ C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\DisponibilidadDAO.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\TokenDao.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\request\UsuarioRequest.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\response\DoctorCubaMedResponse.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\dao\rowmapper\UserRowMapper.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\SesionService.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\controller\ArchivoController.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\SenasabpmbackApplication.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\response\DoctorCubaMedDisponibilidadResponse.java
+C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\EspecialidadService.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\controller\DisponibilidadController.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\model\request\CitaRequest.java
 C:\bcpconsulting\IA\MOTOFACIL-IA\CODIGO\BACKEND\AsistenteConsulta\src\main\java\com\senasa\bpm\ng\service\impl\SesionServiceImpl.java

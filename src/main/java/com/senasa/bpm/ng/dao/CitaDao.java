@@ -5,12 +5,13 @@ import com.senasa.bpm.ng.model.CitaIa;
 import com.senasa.bpm.ng.model.CitaPaciente;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CitaDao {
-    List<CitaIa> obtenerCitasPorEmailDoctor(String emailDoctor);
-    List<CitaPaciente> obtenerCitasPorPaciente(String emailPaciente);
-    void agendarCita(CitaIa cita);
-    List<Cita> obtenerCitasPorEmailDoctorYFecha(String emailDoctor, LocalDate fecha);
-}
+      void agendarCita(CitaIa cita);
+   List<Cita> obtenerCitasPorEmailDoctorYFecha(String emailDoctor, LocalDate fecha);
+    public List<CitaIa> obtenerTodoCitaRangoFechaEmailDoctor(String emailDoctor, LocalDateTime fechaInicio, LocalDateTime fechaFin);
+
+    }
 

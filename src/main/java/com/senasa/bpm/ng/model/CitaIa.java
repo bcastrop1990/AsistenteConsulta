@@ -2,6 +2,7 @@ package com.senasa.bpm.ng.model;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -10,12 +11,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class CitaIa {
+  private Integer id;
   private String emailDoctor;
   private String dni;
   private String nombre_completo;
   private LocalDateTime fechaHora;
   private int duracion;
   private String descripcion;
-  private String costo;
+  private BigDecimal costo;
+  private LocalDateTime fechahoraFinal;
 }
 

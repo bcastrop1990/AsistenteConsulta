@@ -4,7 +4,10 @@ import com.senasa.bpm.ng.dao.DoctorDao;
 import com.senasa.bpm.ng.exception.ApiValidateException;
 import com.senasa.bpm.ng.model.Medico;
 import com.senasa.bpm.ng.model.request.ClinicaRequest;
+import com.senasa.bpm.ng.model.request.DoctorDisponibilidadRequest;
 import com.senasa.bpm.ng.model.request.DoctorRequest;
+import com.senasa.bpm.ng.model.response.DoctorCubaMedDisponibilidadResponse;
+import com.senasa.bpm.ng.model.response.DoctorCubaMedResponse;
 import com.senasa.bpm.ng.service.DoctorService;
 import com.senasa.bpm.ng.utility.ConstantUtil;
 import lombok.AllArgsConstructor;
@@ -27,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,8 +51,8 @@ public class DoctorServiceImpl implements DoctorService {
             especialidad = doctorDao.validarOdontologo(doctor);
         }
         Medico medico = new Medico();
-        medico.setNombres(doctor.getNombres());
-        medico.setApellidos(doctor.getApellidos());
+        medico.setNombres(doctor.getNombre());
+        medico.setApellidos(doctor.getApellido());
         medico.setCodigo(doctor.getCodigo());
         medico.setImagen(especialidad.getImagen());
         medico.setEspecialidad(especialidad.getEspecialidad());
@@ -57,4 +61,20 @@ public class DoctorServiceImpl implements DoctorService {
 
 
     }
+
+
+    public List<DoctorCubaMedResponse> listarDoctor(Long idEspecialidad, String nombre){
+        return doctorDao.listarDoctor(idEspecialidad, nombre);
+    }
+
+    @Override
+    public void configurarDisponibilidadDoctor(DoctorDisponibilidadRequest request) {
+        doctorDao.configurarDisponibilidadDoctor(request);
+    }
+
+    @Override
+    public DoctorCubaMedDisponibilidadResponse obtenerDisponibilidadPorCorreo(String email){
+      return doctorDao.obtenerDisponibilidadPorCorreo(email);
+    }
+
 }

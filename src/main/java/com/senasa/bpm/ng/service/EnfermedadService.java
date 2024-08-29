@@ -36,4 +36,5 @@ public interface EnfermedadService {
     void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca, String email);
     void guardarPrimero(String celular);
     String obtenerRespuestaIA(String request);
-}
+    List<ClienteCubaMedResponse> obtenerClientesAprobados(List<String> dniList);
+    }

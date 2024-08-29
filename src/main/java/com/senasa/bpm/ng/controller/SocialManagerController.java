@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.senasa.bpm.ng.model.*;
 import com.senasa.bpm.ng.model.request.ClienteListarRequest;
 import com.senasa.bpm.ng.model.response.ApiResponse;
+import com.senasa.bpm.ng.model.response.ClienteCubaMedResponse;
 import com.senasa.bpm.ng.service.EnfermedadService;
 import com.senasa.bpm.ng.service.SocialManagerService;
 import com.senasa.bpm.ng.utility.ConstantUtil;
@@ -242,5 +243,28 @@ public class SocialManagerController {
                         .message(ConstantUtil.OK_MESSAGE)
                         .data(enfermedadService.obtenerRespuestaIA(request))
                         .build());
+    }
+
+    @GetMapping("consultaFinanciamiento/{dni}")
+    public ResponseEntity<ApiResponse<String>> consultaFinanciamiento(@PathVariable String dni) {
+        return ResponseEntity.ok(
+                ApiResponse.<String>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(enfermedadService.getApiData(dni))
+                        .build());
+    }
+
+    @PostMapping("/aprobados")
+    public ResponseEntity<ApiResponse<List<ClienteCubaMedResponse>>> obtenerClientesAprobados(@RequestBody List<String> dniList) {
+        List<ClienteCubaMedResponse> clientesAprobados = enfermedadService.obtenerClientesAprobados(dniList);
+
+        ApiResponse<List<ClienteCubaMedResponse>> response = new ApiResponse<>(
+                "0", // Indica que la operación fue exitosa
+                "Clientes aprobados obtenidos con éxito", // Mensaje de éxito
+                clientesAprobados // Los datos de los clientes aprobados
+        );
+
+        return ResponseEntity.ok(response);
     }
 }

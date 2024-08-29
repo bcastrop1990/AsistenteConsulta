@@ -472,7 +472,7 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
         headers.set("Authorization", "Bearer " + this.obtenerValorTokenPorId(1));
 
         String requestBody = String.format("{"
-                + "\"model\": \"gpt-4\","
+                + "\"model\": \"gpt-4o-mini\","
                 + "\"messages\": ["
                 + "  {\"role\": \"system\", \"content\": \"%s\"},"
                 + "  {\"role\": \"user\", \"content\": \"%s\"}"
