@@ -273,28 +273,52 @@ public class DoctorDaoImpl implements DoctorDao {
 
         if (count != null && count > 0) {
             // Si ya existe, actualizamos el registro
-            String updateSql = "UPDATE doctor_disponibilidad SET fecha_inicio = ?, fecha_fin = ?, dias_semana = ?, color = ?, hora_inicio = ?, hora_fin = ? " +
+            String updateSql = "UPDATE doctor_disponibilidad SET fecha_inicio = ?, fecha_fin = ?, dias_semana = ?, color = ?, " +
+                    "hora_inicio_lunes = ?, hora_fin_lunes = ?, " +
+                    "hora_inicio_martes = ?, hora_fin_martes = ?, " +
+                    "hora_inicio_miercoles = ?, hora_fin_miercoles = ?, " +
+                    "hora_inicio_jueves = ?, hora_fin_jueves = ?, " +
+                    "hora_inicio_viernes = ?, hora_fin_viernes = ?, " +
+                    "hora_inicio_sabado = ?, hora_fin_sabado = ?, " +
+                    "hora_inicio_domingo = ?, hora_fin_domingo = ? " +
                     "WHERE idDoctor = ?";
             jdbcTemplate.update(updateSql,
                     request.getFechaInicio(),
                     request.getFechaFin(),
                     String.join(",", request.getDiasSemana()),
                     request.getColor(),
-                    request.getHoraInicio(),
-                    request.getHoraFin(),
+                    request.getHoraInicioLunes(), request.getHoraFinLunes(),
+                    request.getHoraInicioMartes(), request.getHoraFinMartes(),
+                    request.getHoraInicioMiercoles(), request.getHoraFinMiercoles(),
+                    request.getHoraInicioJueves(), request.getHoraFinJueves(),
+                    request.getHoraInicioViernes(), request.getHoraFinViernes(),
+                    request.getHoraInicioSabado(), request.getHoraFinSabado(),
+                    request.getHoraInicioDomingo(), request.getHoraFinDomingo(),
                     idDoctor);
         } else {
             // Si no existe, insertamos un nuevo registro
-            String insertSql = "INSERT INTO doctor_disponibilidad (idDoctor, fecha_inicio, fecha_fin, dias_semana, color, hora_inicio, hora_fin) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String insertSql = "INSERT INTO doctor_disponibilidad (idDoctor, fecha_inicio, fecha_fin, dias_semana, color, " +
+                    "hora_inicio_lunes, hora_fin_lunes, " +
+                    "hora_inicio_martes, hora_fin_martes, " +
+                    "hora_inicio_miercoles, hora_fin_miercoles, " +
+                    "hora_inicio_jueves, hora_fin_jueves, " +
+                    "hora_inicio_viernes, hora_fin_viernes, " +
+                    "hora_inicio_sabado, hora_fin_sabado, " +
+                    "hora_inicio_domingo, hora_fin_domingo) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             jdbcTemplate.update(insertSql,
                     idDoctor,
                     request.getFechaInicio(),
                     request.getFechaFin(),
                     String.join(",", request.getDiasSemana()),
                     request.getColor(),
-                    request.getHoraInicio(),
-                    request.getHoraFin());
+                    request.getHoraInicioLunes(), request.getHoraFinLunes(),
+                    request.getHoraInicioMartes(), request.getHoraFinMartes(),
+                    request.getHoraInicioMiercoles(), request.getHoraFinMiercoles(),
+                    request.getHoraInicioJueves(), request.getHoraFinJueves(),
+                    request.getHoraInicioViernes(), request.getHoraFinViernes(),
+                    request.getHoraInicioSabado(), request.getHoraFinSabado(),
+                    request.getHoraInicioDomingo(), request.getHoraFinDomingo());
         }
     }
 
@@ -321,11 +345,24 @@ public class DoctorDaoImpl implements DoctorDao {
                         .fechaFin(rs.getDate("fecha_fin").toLocalDate())
                         .diasSemana(Arrays.asList(rs.getString("dias_semana").split(",")))
                         .color(rs.getString("color"))
-                        .horaInicio(rs.getTime("hora_inicio").toLocalTime())
-                        .horaFin(rs.getTime("hora_fin").toLocalTime())
+                        .horaInicioLunes(rs.getTime("hora_inicio_lunes") != null ? rs.getTime("hora_inicio_lunes").toLocalTime() : null)
+                        .horaFinLunes(rs.getTime("hora_fin_lunes") != null ? rs.getTime("hora_fin_lunes").toLocalTime() : null)
+                        .horaInicioMartes(rs.getTime("hora_inicio_martes") != null ? rs.getTime("hora_inicio_martes").toLocalTime() : null)
+                        .horaFinMartes(rs.getTime("hora_fin_martes") != null ? rs.getTime("hora_fin_martes").toLocalTime() : null)
+                        .horaInicioMiercoles(rs.getTime("hora_inicio_miercoles") != null ? rs.getTime("hora_inicio_miercoles").toLocalTime() : null)
+                        .horaFinMiercoles(rs.getTime("hora_fin_miercoles") != null ? rs.getTime("hora_fin_miercoles").toLocalTime() : null)
+                        .horaInicioJueves(rs.getTime("hora_inicio_jueves") != null ? rs.getTime("hora_inicio_jueves").toLocalTime() : null)
+                        .horaFinJueves(rs.getTime("hora_fin_jueves") != null ? rs.getTime("hora_fin_jueves").toLocalTime() : null)
+                        .horaInicioViernes(rs.getTime("hora_inicio_viernes") != null ? rs.getTime("hora_inicio_viernes").toLocalTime() : null)
+                        .horaFinViernes(rs.getTime("hora_fin_viernes") != null ? rs.getTime("hora_fin_viernes").toLocalTime() : null)
+                        .horaInicioSabado(rs.getTime("hora_inicio_sabado") != null ? rs.getTime("hora_inicio_sabado").toLocalTime() : null)
+                        .horaFinSabado(rs.getTime("hora_fin_sabado") != null ? rs.getTime("hora_fin_sabado").toLocalTime() : null)
+                        .horaInicioDomingo(rs.getTime("hora_inicio_domingo") != null ? rs.getTime("hora_inicio_domingo").toLocalTime() : null)
+                        .horaFinDomingo(rs.getTime("hora_fin_domingo") != null ? rs.getTime("hora_fin_domingo").toLocalTime() : null)
                         .build()
         );
     }
+
 
 
 

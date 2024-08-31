@@ -16,6 +16,18 @@ public class DoctorCubaMedDisponibilidadResponse {
     private LocalDate fechaFin;
     private List<String> diasSemana;
     private String color;
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
+    private LocalTime horaInicioLunes;
+    private LocalTime horaFinLunes;
+    private LocalTime horaInicioMartes;
+    private LocalTime horaFinMartes;
+    private LocalTime horaInicioMiercoles;
+    private LocalTime horaFinMiercoles;
+    private LocalTime horaInicioJueves;
+    private LocalTime horaFinJueves;
+    private LocalTime horaInicioViernes;
+    private LocalTime horaFinViernes;
+    private LocalTime horaInicioSabado;
+    private LocalTime horaFinSabado;
+    private LocalTime horaInicioDomingo;
+    private LocalTime horaFinDomingo;
 }

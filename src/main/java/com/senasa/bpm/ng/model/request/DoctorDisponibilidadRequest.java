@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -17,7 +18,20 @@ public class DoctorDisponibilidadRequest {
   private String fechaFin;
   private List<String> diasSemana;
   private String color;
-  private String horaInicio;
-  private String horaFin;
   private String email;
+  private LocalTime horaInicioLunes;
+  private LocalTime horaFinLunes;
+  private LocalTime horaInicioMartes;
+  private LocalTime horaFinMartes;
+  private LocalTime horaInicioMiercoles;
+  private LocalTime horaFinMiercoles;
+  private LocalTime horaInicioJueves;
+  private LocalTime horaFinJueves;
+  private LocalTime horaInicioViernes;
+  private LocalTime horaFinViernes;
+  private LocalTime horaInicioSabado;
+  private LocalTime horaFinSabado;
+  private LocalTime horaInicioDomingo;
+  private LocalTime horaFinDomingo;
+
 }
