@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/bd")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class ConsumirAIController {
     @Autowired
     private EnfermedadService enfermedadService;

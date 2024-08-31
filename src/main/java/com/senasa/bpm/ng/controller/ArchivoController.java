@@ -14,6 +14,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/file")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class ArchivoController {
     @Autowired
     private DataService dataService;

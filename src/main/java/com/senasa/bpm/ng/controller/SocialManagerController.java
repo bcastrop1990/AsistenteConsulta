@@ -22,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/social")
 @AllArgsConstructor
+@CrossOrigin(origins = "*") // Permitir todos los orígenes, o puedes especificar un origen específico
 public class SocialManagerController {
     @Autowired
     private EnfermedadService enfermedadService;
@@ -257,14 +258,11 @@ public class SocialManagerController {
 
     @PostMapping("/aprobados")
     public ResponseEntity<ApiResponse<List<ClienteCubaMedResponse>>> obtenerClientesAprobados(@RequestBody List<String> dniList) {
-        List<ClienteCubaMedResponse> clientesAprobados = enfermedadService.obtenerClientesAprobados(dniList);
-
-        ApiResponse<List<ClienteCubaMedResponse>> response = new ApiResponse<>(
-                "0", // Indica que la operación fue exitosa
-                "Clientes aprobados obtenidos con éxito", // Mensaje de éxito
-                clientesAprobados // Los datos de los clientes aprobados
-        );
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+                ApiResponse.<List<ClienteCubaMedResponse>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(enfermedadService.obtenerClientesAprobados(dniList))
+                        .build());
     }
 }

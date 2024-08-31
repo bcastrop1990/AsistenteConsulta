@@ -1,14 +1,12 @@
 package com.senasa.bpm.ng.controller;
 
-import com.senasa.bpm.ng.model.EspecialidadBean;
+
 import com.senasa.bpm.ng.model.request.DoctorCubamedRequest;
 import com.senasa.bpm.ng.model.request.DoctorDisponibilidadRequest;
-import com.senasa.bpm.ng.model.request.DoctorRequest;
 import com.senasa.bpm.ng.model.response.ApiResponse;
 import com.senasa.bpm.ng.model.response.DoctorCubaMedDisponibilidadResponse;
 import com.senasa.bpm.ng.model.response.DoctorCubaMedResponse;
 import com.senasa.bpm.ng.service.DoctorService;
-import com.senasa.bpm.ng.service.EspecialidadService;
 import com.senasa.bpm.ng.utility.ConstantUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/doctor")
 @AllArgsConstructor
+@CrossOrigin(origins = "*") // Permitir todos los orígenes, o puedes especificar un origen específico
 public class DoctorController {
 
     @Autowired
@@ -37,8 +36,6 @@ public class DoctorController {
 
     @PostMapping("/guardar/disponibilidad")
     public ResponseEntity<ApiResponse<Void>> configurarDisponibilidadDoctor(@RequestBody DoctorDisponibilidadRequest request) {
-        // Imprimir los valores recibidos
-        printDoctorDisponibilidadRequest(request);
 
         // Llamar al servicio para procesar la solicitud
         doctorService.configurarDisponibilidadDoctor(request);
@@ -66,15 +63,7 @@ public class DoctorController {
 
 
 
-    private void printDoctorDisponibilidadRequest(DoctorDisponibilidadRequest request) {
-        System.out.println("ID Doctor: " + request.getIdDoctor());
-        System.out.println("Fecha Inicio: " + request.getFechaInicio());
-        System.out.println("Fecha Fin: " + request.getFechaFin());
-        System.out.println("Días de la Semana: " + request.getDiasSemana());
-        System.out.println("Color: " + request.getColor());
-        System.out.println("Hora Inicio: " + request.getHoraInicio());
-        System.out.println("Hora Fin: " + request.getHoraFin());
-    }
+
 
 }
 

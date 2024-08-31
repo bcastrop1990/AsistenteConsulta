@@ -53,7 +53,7 @@ public class EnfermedadServiceImpl implements EnfermedadService {
     private RestTemplate restTemplate;
     @Autowired
     private EnfermedadDao enfermedadDao;
-
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
