@@ -18,13 +18,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/doctor")
 @AllArgsConstructor
-@CrossOrigin(origins = "*") // Permitir todos los orígenes, o puedes especificar un origen específico
 public class DoctorController {
 
     @Autowired
     private DoctorService doctorService;
 
-    @GetMapping("/listarDoctor")
+    @PostMapping("/listarDoctor")
     public ResponseEntity<ApiResponse<List<DoctorCubaMedResponse>>> listarDoctor(@RequestBody DoctorCubamedRequest request) {
         return ResponseEntity.ok(
                 ApiResponse.<List<DoctorCubaMedResponse>>builder()
@@ -53,7 +52,7 @@ public class DoctorController {
         DoctorCubaMedDisponibilidadResponse disponibilidad = doctorService.obtenerDisponibilidadPorCorreo(email);
 
         ApiResponse<DoctorCubaMedDisponibilidadResponse> response = new ApiResponse<>(
-                "0",
+                "000",
                 "Disponibilidad del doctor obtenida con éxito",
                 disponibilidad
         );

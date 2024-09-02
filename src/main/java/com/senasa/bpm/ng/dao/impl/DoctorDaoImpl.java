@@ -238,7 +238,7 @@ public class DoctorDaoImpl implements DoctorDao {
             params.add("%" + nombre + "%");
         }
 
-        if (idEspecialidad != null) {
+        if (idEspecialidad != 0) {
             sql.append(" AND idEspecialidad = ?");
             params.add(idEspecialidad);
         }

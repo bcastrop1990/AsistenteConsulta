@@ -16,7 +16,6 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/disponibilidad")
-@CrossOrigin(origins = "*")
 public class DisponibilidadController {
     @Autowired
     private DisponibilidadService disponibilidadService;

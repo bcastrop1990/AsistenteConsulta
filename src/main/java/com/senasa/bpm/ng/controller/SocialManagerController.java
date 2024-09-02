@@ -22,7 +22,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/social")
 @AllArgsConstructor
-@CrossOrigin(origins = "*") // Permitir todos los orígenes, o puedes especificar un origen específico
 public class SocialManagerController {
     @Autowired
     private EnfermedadService enfermedadService;

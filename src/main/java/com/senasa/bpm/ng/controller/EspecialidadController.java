@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/especialidad")
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
 public class EspecialidadController {
 
     @Autowired

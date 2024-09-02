@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/sesion")
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
 public class SesionController {
     @Autowired
     private SesionService sesionService;
