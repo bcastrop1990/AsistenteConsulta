@@ -15,10 +15,11 @@ public class CitaIa {
   private String emailDoctor;
   private String dni;
   private String nombre_completo;
-  private LocalDateTime fechaHora;
+  private LocalDateTime fechaHoraInicio;
   private int duracion;
   private String descripcion;
   private BigDecimal costo;
   private LocalDateTime fechahoraFinal;
+  private String color;
 }
 

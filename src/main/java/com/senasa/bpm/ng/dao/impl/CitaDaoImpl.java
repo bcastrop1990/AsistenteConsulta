@@ -7,6 +7,7 @@ import com.senasa.bpm.ng.dao.CitaDao;
 import com.senasa.bpm.ng.model.Cita;
 import com.senasa.bpm.ng.model.CitaIa;
 import com.senasa.bpm.ng.model.CitaPaciente;
+import com.senasa.bpm.ng.model.DoctorDisponibilidad;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,16 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @AllArgsConstructor
@@ -37,35 +43,35 @@ public class CitaDaoImpl implements CitaDao {
     public void agendarCita(CitaIa cita) {
 
         // Calcular fecha y hora final de la cita
-        LocalDateTime fechaHoraFinal = cita.getFechaHora().plusMinutes(cita.getDuracion());
+        LocalDateTime fechaHoraFinal = cita.getFechaHoraInicio().plusMinutes(cita.getDuracion());
 
         // Consulta para verificar si ya existe una cita con la misma fecha para el doctor
-        String sqlCheck = "SELECT COUNT(*) FROM citas WHERE dni = ? AND DATE(fecha_hora) = ?";
+        String sqlCheck = "SELECT COUNT(*) FROM citas WHERE dni = ? AND DATE(fechaHoraInicio) = ?";
         int count = jdbcTemplate.queryForObject(sqlCheck, new Object[]{
                 cita.getDni(),
-                cita.getFechaHora().toLocalDate()
+                cita.getFechaHoraInicio().toLocalDate()
         }, Integer.class);
 
         if (count > 0) {
-            String sqlUpdate = "UPDATE citas SET email_doctor = ?, dni = ?, nombre_completo = ?, fecha_hora = ?, fechahoraFinal = ?, descripcion = ?, costo = ? WHERE email_doctor = ? AND DATE(fecha_hora) = ?";
+            String sqlUpdate = "UPDATE citas SET email_doctor = ?, dni = ?, nombre_completo = ?, fechaHoraInicio = ?, fechahoraFinal = ?, descripcion = ?, costo = ? WHERE email_doctor = ? AND DATE(fechaHoraInicio) = ?";
             jdbcTemplate.update(sqlUpdate,
                     cita.getEmailDoctor(),
                     cita.getDni(),
                     cita.getNombre_completo(),
-                    Timestamp.valueOf(cita.getFechaHora()),
+                    Timestamp.valueOf(cita.getFechaHoraInicio()),
                     Timestamp.valueOf(fechaHoraFinal),
                     cita.getDescripcion(),
                     cita.getCosto(),
                     cita.getEmailDoctor(),
-                    cita.getFechaHora().toLocalDate());
+                    cita.getFechaHoraInicio().toLocalDate());
 
         } else {
-            String sqlInsert = "INSERT INTO citas (email_doctor, dni, nombre_completo, fecha_hora, fechahoraFinal, duracion, descripcion, costo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sqlInsert = "INSERT INTO citas (email_doctor, dni, nombre_completo, fechaHoraInicio, fechahoraFinal, duracion, descripcion, costo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             jdbcTemplate.update(sqlInsert,
                     cita.getEmailDoctor(),
                     cita.getDni(),
                     cita.getNombre_completo(),
-                    Timestamp.valueOf(cita.getFechaHora()),
+                    Timestamp.valueOf(cita.getFechaHoraInicio()),
                     Timestamp.valueOf(fechaHoraFinal),
                     cita.getDuracion(),
                     cita.getDescripcion(),
@@ -78,22 +84,32 @@ public class CitaDaoImpl implements CitaDao {
         String sql;
         List<Object> params = new ArrayList<>();
 
-        // Construir la consulta SQL base
-        StringBuilder sqlBuilder = new StringBuilder("SELECT id, email_doctor, dni, nombre_completo, fecha_hora, fechahoraFinal, duracion, descripcion, costo FROM citas WHERE ");
+        // Construir la consulta SQL base con JOINs para incluir el color de doctor_disponibilidad
+        StringBuilder sqlBuilder = new StringBuilder(
+                "SELECT c.id, c.email_doctor, c.dni, c.nombre_completo, c.fechaHoraInicio, c.fechahoraFinal, " +
+                        "c.duracion, c.descripcion, c.costo, dd.color " +
+                        "FROM citas c " +
+                        "JOIN doctores d ON c.email_doctor = d.email " +
+                        "JOIN doctor_disponibilidad dd ON d.id = dd.idDoctor WHERE "
+        );
 
         // Agregar filtro por correo electrónico si se proporciona
         if (emailDoctor != null && !emailDoctor.isEmpty()) {
-            sqlBuilder.append("email_doctor = ? AND ");
+            sqlBuilder.append("c.email_doctor = ? AND ");
             params.add(emailDoctor);
         }
 
         // Agregar filtro por rango de fechas
-        sqlBuilder.append("fecha_hora BETWEEN ? AND ?");
+        sqlBuilder.append("c.fechaHoraInicio BETWEEN ? AND ?");
         params.add(Timestamp.valueOf(fechaInicio));
         params.add(Timestamp.valueOf(fechaFin));
 
         // Convertir StringBuilder a String
         sql = sqlBuilder.toString();
+
+        // Imprimir la consulta SQL final y los parámetros
+        System.out.println("SQL Query: " + sql);
+        System.out.println("Parameters: " + params);
 
         return jdbcTemplate.query(sql, params.toArray(), new RowMapper<CitaIa>() {
             @Override
@@ -103,15 +119,23 @@ public class CitaDaoImpl implements CitaDao {
                 cita.setEmailDoctor(rs.getString("email_doctor"));
                 cita.setDni(rs.getString("dni"));
                 cita.setNombre_completo(rs.getString("nombre_completo"));
-                cita.setFechaHora(rs.getTimestamp("fecha_hora").toLocalDateTime());
+                cita.setFechaHoraInicio(rs.getTimestamp("fechaHoraInicio").toLocalDateTime());
                 cita.setFechahoraFinal(rs.getTimestamp("fechahoraFinal").toLocalDateTime());
                 cita.setDuracion(rs.getInt("duracion"));
                 cita.setDescripcion(rs.getString("descripcion"));
                 cita.setCosto(rs.getBigDecimal("costo"));
+                cita.setColor(rs.getString("color")); // Asignar el color de doctor_disponibilidad
+
+                // Imprimir la cita que se ha mapeado
+                System.out.println("Cita obtenida: " + cita);
+
                 return cita;
             }
         });
     }
+
+
+
 
 
 
@@ -120,10 +144,87 @@ public class CitaDaoImpl implements CitaDao {
         LocalDateTime startOfDay = fecha.atStartOfDay();
         LocalDateTime endOfDay = fecha.plusDays(1).atStartOfDay();
 
-        String sql = "SELECT * FROM citas WHERE email_doctor = ? AND fecha_hora BETWEEN ? AND ?";
+        String sql = "SELECT * FROM citas WHERE email_doctor = ? AND fechaHoraInicio BETWEEN ? AND ?";
         return jdbcTemplate.query(sql, new Object[]{emailDoctor, Timestamp.valueOf(startOfDay), Timestamp.valueOf(endOfDay)},
                 new BeanPropertyRowMapper<>(Cita.class));
     }
+
+
+    public List<CitaIa> obtenerCitasPorFecha(String emailDoctor, LocalDate fecha) {
+        String sql = "SELECT * FROM citas WHERE email_doctor = ? AND DATE(fechaHoraInicio) = ?";
+        return jdbcTemplate.query(sql, new Object[]{emailDoctor, fecha}, (rs, rowNum) -> {
+            return CitaIa.builder()
+                    .id(rs.getInt("id"))
+                    .emailDoctor(rs.getString("email_doctor"))
+                    .dni(rs.getString("dni"))
+                    .nombre_completo(rs.getString("nombre_completo"))
+                    .fechaHoraInicio(rs.getTimestamp("fechaHoraInicio").toLocalDateTime())
+                    .duracion(rs.getInt("duracion"))
+                    .descripcion(rs.getString("descripcion"))
+                    .costo(rs.getBigDecimal("costo"))
+                    .fechahoraFinal(rs.getTimestamp("fechahoraFinal").toLocalDateTime())
+                    .build();
+        });
+    }
+
+
+    @Override
+    public List<LocalDateTime> obtenerHorariosDisponibles(Long doctorId, LocalDate fecha) {
+        // Paso 1: Obtener citas programadas para la fecha específica
+        String sqlCitas = "SELECT fechaHoraInicio, fechahoraFinal FROM citas WHERE email_doctor = ? AND DATE(fechaHoraInicio) = ?";
+        List<LocalDateTime[]> citasProgramadas = jdbcTemplate.query(sqlCitas, new Object[]{doctorId, fecha},
+                (rs, rowNum) -> new LocalDateTime[]{rs.getTimestamp("fechaHoraInicio").toLocalDateTime(), rs.getTimestamp("fechahoraFinal").toLocalDateTime()});
+
+        // Paso 2: Obtener la disponibilidad del doctor para esa fecha
+        String sqlDisponibilidad = "SELECT hora_inicio_lunes, hora_fin_lunes, hora_inicio_martes, hora_fin_martes, " +
+                "hora_inicio_miercoles, hora_fin_miercoles, hora_inicio_jueves, hora_fin_jueves, " +
+                "hora_inicio_viernes, hora_fin_viernes, hora_inicio_sabado, hora_fin_sabado, " +
+                "hora_inicio_domingo, hora_fin_domingo " +
+                "FROM doctor_disponibilidad WHERE idDoctor = ?";
+
+        Map<String, Object> disponibilidad = jdbcTemplate.queryForMap(sqlDisponibilidad, doctorId);
+
+        // Convertir los valores a LocalTime
+        Map<String, LocalTime> disponibilidadHorarios = new HashMap<>();
+        for (Map.Entry<String, Object> entry : disponibilidad.entrySet()) {
+            disponibilidadHorarios.put(entry.getKey(), ((Time) entry.getValue()).toLocalTime());
+        }
+
+        // Determinar los horarios de inicio y fin según el día de la semana
+        DayOfWeek diaSemana = fecha.getDayOfWeek();
+        String horaInicioCol = "hora_inicio_" + diaSemana.toString().toLowerCase();
+        String horaFinCol = "hora_fin_" + diaSemana.toString().toLowerCase();
+
+        LocalTime horaInicio = disponibilidadHorarios.get(horaInicioCol);
+        LocalTime horaFin = disponibilidadHorarios.get(horaFinCol);
+
+        // Paso 3: Generar la lista de horarios disponibles en intervalos de media hora
+        List<LocalDateTime> horariosDisponibles = new ArrayList<>();
+        LocalDateTime horario = fecha.atTime(horaInicio);
+
+        while (horario.isBefore(fecha.atTime(horaFin))) {
+            boolean disponible = true;
+
+            // Verificar si el horario está ocupado por alguna cita
+            for (LocalDateTime[] cita : citasProgramadas) {
+                if (!(horario.plusMinutes(30).isBefore(cita[0]) || horario.isAfter(cita[1]))) {
+                    disponible = false;
+                    break;
+                }
+            }
+
+            if (disponible) {
+                horariosDisponibles.add(horario);
+            }
+
+            horario = horario.plusMinutes(30);
+        }
+
+        return horariosDisponibles;
+    }
+
+
+
 
 }
 

@@ -29,6 +29,19 @@ public class DisponibilidadController {
                         .message(ConstantUtil.OK_MESSAGE)
                         .build());
     }
+
+   /* @GetMapping("/horarios-disponibles/{emailDoctor}/{fecha}")
+    public ResponseEntity<ApiResponse<List<LocalDateTime>>> listarServicioPorEsp(@PathVariable String emailDoctor, @PathVariable String fecha) {
+        LocalDate localDate = LocalDate.parse(fecha);
+        return ResponseEntity.ok(
+                ApiResponse.<List<LocalDateTime>>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(disponibilidadService.obtenerHorariosDisponibles(emailDoctor, localDate))
+                        .build());
+    }*/
+
+
     @GetMapping("/horarios-disponibles/{emailDoctor}/{fecha}")
     public ResponseEntity<ApiResponse<List<LocalDateTime>>> listarServicioPorEsp(@PathVariable String emailDoctor, @PathVariable String fecha) {
         LocalDate localDate = LocalDate.parse(fecha);

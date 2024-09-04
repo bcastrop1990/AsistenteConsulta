@@ -13,10 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/citas")
 @AllArgsConstructor
 public class CitaController {
 
@@ -45,6 +48,29 @@ public class CitaController {
                         .build());
     }
 
+
+    @GetMapping("/disponibles")
+    public ResponseEntity<ApiResponse<List<LocalDateTime>>> obtenerHorariosDisponibles(
+            @RequestParam Long doctorId,
+            @RequestParam String fecha) {
+
+        try {
+            // Convertir la fecha desde el formato String al tipo LocalDate
+            LocalDate fechaLocalDate = LocalDate.parse(fecha, DateTimeFormatter.ISO_DATE);
+
+            // Llamar al servicio para obtener los horarios disponibles
+            List<LocalDateTime> horariosDisponibles = citaService.obtenerHorariosDisponibles(doctorId, fechaLocalDate);
+
+            // Retornar la respuesta en formato ApiResponse
+            ApiResponse<List<LocalDateTime>> response = new ApiResponse<>("000", "Horarios disponibles obtenidos exitosamente", horariosDisponibles);
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            // Manejo de excepciones
+            ApiResponse<List<LocalDateTime>> response = new ApiResponse<>("1", "Error al obtener los horarios disponibles", null);
+            return ResponseEntity.status(500).body(response);
+        }
+    }
 }
 
 

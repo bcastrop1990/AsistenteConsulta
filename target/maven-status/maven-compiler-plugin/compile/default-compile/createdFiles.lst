@@ -2,6 +2,7 @@ com\senasa\bpm\ng\dao\CitaDao.class
 com\senasa\bpm\ng\model\EstadoFinanciamiento.class
 com\senasa\bpm\ng\model\Marca$MarcaBuilder.class
 com\senasa\bpm\ng\utility\ConstantUtil.class
+com\senasa\bpm\ng\service\impl\ConfiguracionServiceImpl.class
 com\senasa\bpm\ng\dao\rowmapper\CitaRowMapper.class
 com\senasa\bpm\ng\model\response\EnfermedadResponse.class
 com\senasa\bpm\ng\dao\impl\SocialManagerDaoImpl$4.class
@@ -44,6 +45,7 @@ com\senasa\bpm\ng\exception\ApiValidateException.class
 com\senasa\bpm\ng\config\WebConfig.class
 com\senasa\bpm\ng\model\response\ServicioResponse$ServicioResponseBuilder.class
 com\senasa\bpm\ng\dao\impl\CitaDaoImpl.class
+com\senasa\bpm\ng\dao\impl\ConfiguracionDaoImpl.class
 com\senasa\bpm\ng\model\request\AppointmentRequest.class
 com\senasa\bpm\ng\dao\rowmapper\EnfermedadesPrimariasRowMapper.class
 com\senasa\bpm\ng\service\CitaService.class
@@ -57,6 +59,7 @@ com\senasa\bpm\ng\model\response\DetalleServicioResponse$DetalleServicioResponse
 com\senasa\bpm\ng\model\bean\SesionBean.class
 com\senasa\bpm\ng\model\MarcaMotoFacil$MarcaMotoFacilBuilder.class
 com\senasa\bpm\ng\dao\rowmapper\MarcaRowMapper.class
+com\senasa\bpm\ng\model\request\ConfiguracionRequest.class
 com\senasa\bpm\ng\model\CitaIa$CitaIaBuilder.class
 com\senasa\bpm\ng\model\request\ClinicaRequest.class
 com\senasa\bpm\ng\model\request\ClienteListarRequest.class
@@ -105,6 +108,7 @@ com\senasa\bpm\ng\model\response\DoctorCubaMedDisponibilidadResponse.class
 com\senasa\bpm\ng\dao\impl\SocialManagerDaoImpl$3.class
 com\senasa\bpm\ng\model\Cita$CitaBuilder.class
 com\senasa\bpm\ng\dao\rowmapper\DoctorServicioRowMapper.class
+com\senasa\bpm\ng\controller\ConfiguracionController.class
 com\senasa\bpm\ng\dao\TokenDao.class
 com\senasa\bpm\ng\dao\CitasDao.class
 com\senasa\bpm\ng\dao\DataDao.class
@@ -138,6 +142,7 @@ com\senasa\bpm\ng\config\AppConfig.class
 com\senasa\bpm\ng\controller\mapper\DatosSolicitanteMapper.class
 com\senasa\bpm\ng\model\Cliente$ClienteBuilder.class
 com\senasa\bpm\ng\model\response\PaymentResponse.class
+com\senasa\bpm\ng\service\ConfiguracionService.class
 com\senasa\bpm\ng\model\response\ClienteCubaMedResponse.class
 com\senasa\bpm\ng\controller\ConsumirAIController.class
 com\senasa\bpm\ng\service\impl\SesionServiceImpl.class
@@ -153,6 +158,7 @@ com\senasa\bpm\ng\controller\SocialManagerController.class
 com\senasa\bpm\ng\model\request\GrabarSolRequest.class
 com\senasa\bpm\ng\model\response\ServicioResponse.class
 com\senasa\bpm\ng\model\CitaIa.class
+com\senasa\bpm\ng\dao\ConfiguracionDao.class
 com\senasa\bpm\ng\dao\impl\CitaDaoImpl$1.class
 com\senasa\bpm\ng\model\request\RequestCitaIa.class
 com\senasa\bpm\ng\model\response\ApiResponse$ApiResponseBuilder.class
@@ -168,6 +174,7 @@ com\senasa\bpm\ng\dao\impl\EspecialidadDaoImpl.class
 com\senasa\bpm\ng\model\Categoria$CategoriaBuilder.class
 com\senasa\bpm\ng\service\impl\DoctorServiceImpl.class
 com\senasa\bpm\ng\model\Activo.class
+com\senasa\bpm\ng\model\DoctorDisponibilidad.class
 com\senasa\bpm\ng\service\DoctorService.class
 com\senasa\bpm\ng\dao\rowmapper\DetalleServicioRowMapper.class
 com\senasa\bpm\ng\dao\impl\CitasDaoImpl.class
