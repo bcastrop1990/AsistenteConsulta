@@ -11,6 +11,8 @@ import com.senasa.bpm.ng.model.DoctorDisponibilidad;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -170,60 +172,120 @@ public class CitaDaoImpl implements CitaDao {
 
     @Override
     public List<LocalDateTime> obtenerHorariosDisponibles(Long doctorId, LocalDate fecha) {
-        // Paso 1: Obtener citas programadas para la fecha específica
-        String sqlCitas = "SELECT fechaHoraInicio, fechahoraFinal FROM citas WHERE email_doctor = ? AND DATE(fechaHoraInicio) = ?";
-        List<LocalDateTime[]> citasProgramadas = jdbcTemplate.query(sqlCitas, new Object[]{doctorId, fecha},
-                (rs, rowNum) -> new LocalDateTime[]{rs.getTimestamp("fechaHoraInicio").toLocalDateTime(), rs.getTimestamp("fechahoraFinal").toLocalDateTime()});
+        try {
+            // Paso 1: Obtener citas programadas para la fecha específica usando doctorId
+            String sqlCitas = "SELECT fechaHoraInicio, fechahoraFinal FROM citas WHERE doctorId = ? AND DATE(fechaHoraInicio) = ?";
+            List<LocalDateTime[]> citasProgramadas = jdbcTemplate.query(sqlCitas, new Object[]{doctorId, fecha},
+                    (rs, rowNum) -> new LocalDateTime[]{rs.getTimestamp("fechaHoraInicio").toLocalDateTime(), rs.getTimestamp("fechahoraFinal").toLocalDateTime()});
 
-        // Paso 2: Obtener la disponibilidad del doctor para esa fecha
-        String sqlDisponibilidad = "SELECT hora_inicio_lunes, hora_fin_lunes, hora_inicio_martes, hora_fin_martes, " +
-                "hora_inicio_miercoles, hora_fin_miercoles, hora_inicio_jueves, hora_fin_jueves, " +
-                "hora_inicio_viernes, hora_fin_viernes, hora_inicio_sabado, hora_fin_sabado, " +
-                "hora_inicio_domingo, hora_fin_domingo " +
-                "FROM doctor_disponibilidad WHERE idDoctor = ?";
+            // Paso 2: Obtener la disponibilidad del doctor para esa fecha (usando doctorId)
+            String sqlDisponibilidad = "SELECT hora_inicio_lunes, hora_fin_lunes, hora_inicio_martes, hora_fin_martes, " +
+                    "hora_inicio_miercoles, hora_fin_miercoles, hora_inicio_jueves, hora_fin_jueves, " +
+                    "hora_inicio_viernes, hora_fin_viernes, hora_inicio_sabado, hora_fin_sabado, " +
+                    "hora_inicio_domingo, hora_fin_domingo " +
+                    "FROM doctor_disponibilidad WHERE idDoctor = ?";
 
-        Map<String, Object> disponibilidad = jdbcTemplate.queryForMap(sqlDisponibilidad, doctorId);
+            Map<String, Object> disponibilidad = jdbcTemplate.queryForMap(sqlDisponibilidad, doctorId);
 
-        // Convertir los valores a LocalTime
-        Map<String, LocalTime> disponibilidadHorarios = new HashMap<>();
-        for (Map.Entry<String, Object> entry : disponibilidad.entrySet()) {
-            disponibilidadHorarios.put(entry.getKey(), ((Time) entry.getValue()).toLocalTime());
-        }
+            // Verificar si la disponibilidad es null o está vacía
+            if (disponibilidad == null || disponibilidad.isEmpty()) {
+                System.out.println("No se encontró disponibilidad para el doctor con id " + doctorId);
+                return new ArrayList<>();
+            }
 
-        // Determinar los horarios de inicio y fin según el día de la semana
-        DayOfWeek diaSemana = fecha.getDayOfWeek();
-        String horaInicioCol = "hora_inicio_" + diaSemana.toString().toLowerCase();
-        String horaFinCol = "hora_fin_" + diaSemana.toString().toLowerCase();
-
-        LocalTime horaInicio = disponibilidadHorarios.get(horaInicioCol);
-        LocalTime horaFin = disponibilidadHorarios.get(horaFinCol);
-
-        // Paso 3: Generar la lista de horarios disponibles en intervalos de media hora
-        List<LocalDateTime> horariosDisponibles = new ArrayList<>();
-        LocalDateTime horario = fecha.atTime(horaInicio);
-
-        while (horario.isBefore(fecha.atTime(horaFin))) {
-            boolean disponible = true;
-
-            // Verificar si el horario está ocupado por alguna cita
-            for (LocalDateTime[] cita : citasProgramadas) {
-                if (!(horario.plusMinutes(30).isBefore(cita[0]) || horario.isAfter(cita[1]))) {
-                    disponible = false;
-                    break;
+            // Convertir los valores a LocalTime, asegurándose de que no sean nulos
+            Map<String, LocalTime> disponibilidadHorarios = new HashMap<>();
+            for (Map.Entry<String, Object> entry : disponibilidad.entrySet()) {
+                if (entry.getValue() != null) {
+                    disponibilidadHorarios.put(entry.getKey(), ((Time) entry.getValue()).toLocalTime());
+                } else {
+                    System.out.println("El valor para " + entry.getKey() + " es null");
                 }
             }
 
-            if (disponible) {
-                horariosDisponibles.add(horario);
+            // Determinar los nombres de las columnas de inicio y fin según el día de la semana
+            DayOfWeek diaSemana = fecha.getDayOfWeek();
+            String horaInicioCol = "";
+            String horaFinCol = "";
+
+            switch (diaSemana) {
+                case MONDAY:
+                    horaInicioCol = "hora_inicio_lunes";
+                    horaFinCol = "hora_fin_lunes";
+                    break;
+                case TUESDAY:
+                    horaInicioCol = "hora_inicio_martes";
+                    horaFinCol = "hora_fin_martes";
+                    break;
+                case WEDNESDAY:
+                    horaInicioCol = "hora_inicio_miercoles";
+                    horaFinCol = "hora_fin_miercoles";
+                    break;
+                case THURSDAY:
+                    horaInicioCol = "hora_inicio_jueves";
+                    horaFinCol = "hora_fin_jueves";
+                    break;
+                case FRIDAY:
+                    horaInicioCol = "hora_inicio_viernes";
+                    horaFinCol = "hora_fin_viernes";
+                    break;
+                case SATURDAY:
+                    horaInicioCol = "hora_inicio_sabado";
+                    horaFinCol = "hora_fin_sabado";
+                    break;
+                case SUNDAY:
+                    horaInicioCol = "hora_inicio_domingo";
+                    horaFinCol = "hora_fin_domingo";
+                    break;
             }
 
-            horario = horario.plusMinutes(30);
+            // Obtener los valores de inicio y fin
+            LocalTime horaInicio = disponibilidadHorarios.get(horaInicioCol);
+            LocalTime horaFin = disponibilidadHorarios.get(horaFinCol);
+
+            // Verificar si los horarios de inicio y fin no son nulos
+            if (horaInicio == null || horaFin == null) {
+                System.out.println("No hay disponibilidad registrada para el doctor con id " + doctorId + " el día " + diaSemana);
+                return new ArrayList<>();
+            }
+
+
+            // Paso 3: Generar la lista de horarios disponibles en intervalos de media hora
+            List<LocalDateTime> horariosDisponibles = new ArrayList<>();
+            LocalDateTime horario = fecha.atTime(horaInicio);
+
+            while (horario.isBefore(fecha.atTime(horaFin))) {
+                boolean disponible = true;
+
+                // Verificar si el horario está ocupado por alguna cita
+                for (LocalDateTime[] cita : citasProgramadas) {
+                    if (!(horario.plusMinutes(30).isBefore(cita[0]) || horario.isAfter(cita[1]))) {
+                        disponible = false;
+                        break;
+                    }
+                }
+
+                if (disponible) {
+                    horariosDisponibles.add(horario);
+                }
+
+                horario = horario.plusMinutes(30);
+            }
+
+            return horariosDisponibles;
+
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("No se encontraron citas o disponibilidad para el doctor con id " + doctorId + " en la fecha " + fecha);
+            return new ArrayList<>();
+        } catch (DataAccessException e) {
+            System.out.println("Error de acceso a la base de datos: " + e.getMessage());
+            throw new RuntimeException("Error de acceso a la base de datos: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al procesar los horarios disponibles: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Error al procesar los horarios disponibles: " + e.getMessage());
         }
-
-        return horariosDisponibles;
     }
-
-
 
 
 }
