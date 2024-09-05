@@ -9,8 +9,14 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class DoctorResponse {
-    private Long id_especialidad;
-    private String nombre_doctor;
-    private String imagen_url;
+    private Long id;
+    private String nombre;
+    private String apellido;
+    private String celular;
     private String email;
+    private String colorIdentificador;
+    private Long idEspecialidad;
+    private String imagen;
+    private int estado;
+
 }

@@ -8,6 +8,7 @@ import com.senasa.bpm.ng.model.Cita;
 import com.senasa.bpm.ng.model.CitaIa;
 import com.senasa.bpm.ng.model.CitaPaciente;
 import com.senasa.bpm.ng.model.DoctorDisponibilidad;
+import com.senasa.bpm.ng.model.request.AgendarCitaRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,20 +43,21 @@ public class CitaDaoImpl implements CitaDao {
 
 
     @Override
-    public void agendarCita(CitaIa cita) {
-
+    public void agendarCita(AgendarCitaRequest cita) {
+        System.out.println("cita.duracion: " + cita.getDuracion());
         // Calcular fecha y hora final de la cita
         LocalDateTime fechaHoraFinal = cita.getFechaHoraInicio().plusMinutes(cita.getDuracion());
 
         // Consulta para verificar si ya existe una cita con la misma fecha para el doctor
-        String sqlCheck = "SELECT COUNT(*) FROM citas WHERE dni = ? AND DATE(fechaHoraInicio) = ?";
+        String sqlCheck = "SELECT COUNT(*) FROM citas WHERE dni = ? AND DATE(fechaHoraInicio) = ? AND doctorId = ?";
         int count = jdbcTemplate.queryForObject(sqlCheck, new Object[]{
                 cita.getDni(),
-                cita.getFechaHoraInicio().toLocalDate()
+                cita.getFechaHoraInicio().toLocalDate(),
+                cita.getDoctorId()
         }, Integer.class);
 
         if (count > 0) {
-            String sqlUpdate = "UPDATE citas SET email_doctor = ?, dni = ?, nombre_completo = ?, fechaHoraInicio = ?, fechahoraFinal = ?, descripcion = ?, costo = ? WHERE email_doctor = ? AND DATE(fechaHoraInicio) = ?";
+            String sqlUpdate = "UPDATE citas SET email_doctor = ?, dni = ?, nombre_completo = ?, fechaHoraInicio = ?, fechahoraFinal = ?, descripcion = ?, costo = ?, doctorId = ? WHERE email_doctor = ? AND DATE(fechaHoraInicio) = ? AND doctorId = ?";
             jdbcTemplate.update(sqlUpdate,
                     cita.getEmailDoctor(),
                     cita.getDni(),
@@ -64,11 +66,12 @@ public class CitaDaoImpl implements CitaDao {
                     Timestamp.valueOf(fechaHoraFinal),
                     cita.getDescripcion(),
                     cita.getCosto(),
+                    cita.getDoctorId(),
                     cita.getEmailDoctor(),
-                    cita.getFechaHoraInicio().toLocalDate());
-
+                    cita.getFechaHoraInicio().toLocalDate(),
+                    cita.getDoctorId());
         } else {
-            String sqlInsert = "INSERT INTO citas (email_doctor, dni, nombre_completo, fechaHoraInicio, fechahoraFinal, duracion, descripcion, costo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sqlInsert = "INSERT INTO citas (email_doctor, dni, nombre_completo, fechaHoraInicio, fechahoraFinal, duracion, descripcion, costo, doctorId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             jdbcTemplate.update(sqlInsert,
                     cita.getEmailDoctor(),
                     cita.getDni(),
@@ -77,7 +80,8 @@ public class CitaDaoImpl implements CitaDao {
                     Timestamp.valueOf(fechaHoraFinal),
                     cita.getDuracion(),
                     cita.getDescripcion(),
-                    cita.getCosto());
+                    cita.getCosto(),
+                    cita.getDoctorId());
         }
     }
 

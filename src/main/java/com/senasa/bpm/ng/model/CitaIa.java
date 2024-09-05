@@ -21,5 +21,6 @@ public class CitaIa {
   private BigDecimal costo;
   private LocalDateTime fechahoraFinal;
   private String color;
+  private Integer doctorId;
 }
 

@@ -86,9 +86,9 @@ public class DataServiceImpl implements DataService {
 
         for (DoctorBean bean : enfermedadesBean) {
             DoctorResponse aaaa = DoctorResponse.builder()
-                    .id_especialidad(bean.getId_especialidad())
-                    .nombre_doctor(bean.getNombre_doctor())
-                    .imagen_url(bean.getImagen_url())
+                    .idEspecialidad(bean.getId_especialidad())
+                    .nombre(bean.getNombre_doctor())
+                    .imagen(bean.getImagen_url())
                     .email(bean.getEmail())
                     .build();
             response.add(aaaa);
@@ -103,9 +103,9 @@ public class DataServiceImpl implements DataService {
 
         for (DoctorBean bean : enfermedadesBean) {
             DoctorResponse aaaa = DoctorResponse.builder()
-                    .id_especialidad(bean.getId_especialidad())
-                    .nombre_doctor(bean.getNombre_doctor())
-                    .imagen_url(bean.getImagen_url())
+                    .idEspecialidad(bean.getId_especialidad())
+                    .nombre(bean.getNombre_doctor())
+                    .imagen(bean.getImagen_url())
                     .email(bean.getEmail())
                     .build();
             response.add(aaaa);
@@ -119,9 +119,9 @@ public class DataServiceImpl implements DataService {
 
         for (DoctorBean bean : enfermedadesBean) {
             DoctorResponse aaaa = DoctorResponse.builder()
-                    .id_especialidad(bean.getId_especialidad())
-                    .nombre_doctor(bean.getNombre_doctor())
-                    .imagen_url(bean.getImagen_url())
+                    .idEspecialidad(bean.getId_especialidad())
+                    .nombre(bean.getNombre_doctor())
+                    .imagen(bean.getImagen_url())
                     .email(bean.getEmail())
                     .build();
             response.add(aaaa);

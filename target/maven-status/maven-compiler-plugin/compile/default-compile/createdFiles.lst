@@ -132,6 +132,7 @@ com\senasa\bpm\ng\model\ModeloMotoFacil.class
 com\senasa\bpm\ng\model\response\DoctorCubaMedResponse.class
 com\senasa\bpm\ng\model\bean\EnfermedadesBean$EnfermedadesBeanBuilder.class
 com\senasa\bpm\ng\config\DataConfig.class
+com\senasa\bpm\ng\dao\impl\CitaDaoImpl$2.class
 com\senasa\bpm\ng\dao\rowmapper\VentaRowMapper.class
 com\senasa\bpm\ng\dao\impl\DisponibilidadDAOImpl.class
 com\senasa\bpm\ng\model\Cita.class
@@ -163,6 +164,7 @@ com\senasa\bpm\ng\dao\impl\CitaDaoImpl$1.class
 com\senasa\bpm\ng\model\request\RequestCitaIa.class
 com\senasa\bpm\ng\model\response\ApiResponse$ApiResponseBuilder.class
 com\senasa\bpm\ng\model\response\EnfermedadesPrimariasResponse$EnfermedadesPrimariasResponseBuilder.class
+com\senasa\bpm\ng\model\request\AgendarCitaRequest$AgendarCitaRequestBuilder.class
 com\senasa\bpm\ng\service\SocialManagerService.class
 com\senasa\bpm\ng\model\Datos.class
 com\senasa\bpm\ng\model\response\UserResponse$UserResponseBuilder.class
@@ -178,4 +180,5 @@ com\senasa\bpm\ng\model\DoctorDisponibilidad.class
 com\senasa\bpm\ng\service\DoctorService.class
 com\senasa\bpm\ng\dao\rowmapper\DetalleServicioRowMapper.class
 com\senasa\bpm\ng\dao\impl\CitasDaoImpl.class
+com\senasa\bpm\ng\model\request\AgendarCitaRequest.class
 com\senasa\bpm\ng\model\response\ApiExceptionResponse.class

@@ -4,6 +4,7 @@ import com.senasa.bpm.ng.model.Medico;
 import com.senasa.bpm.ng.model.request.DoctorDisponibilidadRequest;
 import com.senasa.bpm.ng.model.response.DoctorCubaMedDisponibilidadResponse;
 import com.senasa.bpm.ng.model.response.DoctorCubaMedResponse;
+import com.senasa.bpm.ng.model.response.DoctorResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +53,7 @@ public class DoctorDaoImpl implements DoctorDao {
     private RestTemplate restTemplate;
     private JdbcTemplate jdbcTemplate;
 
-
+/*
     @Override
     public Medico validarDoctor(DoctorRequest doctor) throws IOException {
         String baseUrl = "https://200.48.13.39/conoce_a_tu_medico/datos-colegiado-detallado.php";
@@ -221,7 +222,7 @@ public class DoctorDaoImpl implements DoctorDao {
         return Normalizer.normalize(input, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
-
+*/
 
     public  List<DoctorCubaMedResponse> listarDoctor(Long idEspecialidad, String nombre){
 
@@ -338,33 +339,161 @@ public class DoctorDaoImpl implements DoctorDao {
         // Consulta para obtener la disponibilidad del doctor
         String sql = "SELECT * FROM doctor_disponibilidad WHERE idDoctor = ?";
 
-        return jdbcTemplate.queryForObject(sql, new Object[]{idDoctor}, (rs, rowNum) ->
-                DoctorCubaMedDisponibilidadResponse.builder()
-                        .idDoctor(idDoctor)
-                        .fechaInicio(rs.getDate("fecha_inicio").toLocalDate())
-                        .fechaFin(rs.getDate("fecha_fin").toLocalDate())
-                        .diasSemana(Arrays.asList(rs.getString("dias_semana").split(",")))
-                        .color(rs.getString("color"))
-                        .horaInicioLunes(rs.getTime("hora_inicio_lunes") != null ? rs.getTime("hora_inicio_lunes").toLocalTime() : null)
-                        .horaFinLunes(rs.getTime("hora_fin_lunes") != null ? rs.getTime("hora_fin_lunes").toLocalTime() : null)
-                        .horaInicioMartes(rs.getTime("hora_inicio_martes") != null ? rs.getTime("hora_inicio_martes").toLocalTime() : null)
-                        .horaFinMartes(rs.getTime("hora_fin_martes") != null ? rs.getTime("hora_fin_martes").toLocalTime() : null)
-                        .horaInicioMiercoles(rs.getTime("hora_inicio_miercoles") != null ? rs.getTime("hora_inicio_miercoles").toLocalTime() : null)
-                        .horaFinMiercoles(rs.getTime("hora_fin_miercoles") != null ? rs.getTime("hora_fin_miercoles").toLocalTime() : null)
-                        .horaInicioJueves(rs.getTime("hora_inicio_jueves") != null ? rs.getTime("hora_inicio_jueves").toLocalTime() : null)
-                        .horaFinJueves(rs.getTime("hora_fin_jueves") != null ? rs.getTime("hora_fin_jueves").toLocalTime() : null)
-                        .horaInicioViernes(rs.getTime("hora_inicio_viernes") != null ? rs.getTime("hora_inicio_viernes").toLocalTime() : null)
-                        .horaFinViernes(rs.getTime("hora_fin_viernes") != null ? rs.getTime("hora_fin_viernes").toLocalTime() : null)
-                        .horaInicioSabado(rs.getTime("hora_inicio_sabado") != null ? rs.getTime("hora_inicio_sabado").toLocalTime() : null)
-                        .horaFinSabado(rs.getTime("hora_fin_sabado") != null ? rs.getTime("hora_fin_sabado").toLocalTime() : null)
-                        .horaInicioDomingo(rs.getTime("hora_inicio_domingo") != null ? rs.getTime("hora_inicio_domingo").toLocalTime() : null)
-                        .horaFinDomingo(rs.getTime("hora_fin_domingo") != null ? rs.getTime("hora_fin_domingo").toLocalTime() : null)
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{idDoctor}, (rs, rowNum) ->
+                    DoctorCubaMedDisponibilidadResponse.builder()
+                            .idDoctor(idDoctor)
+                            .fechaInicio(rs.getDate("fecha_inicio") != null ? rs.getDate("fecha_inicio").toLocalDate() : null)
+                            .fechaFin(rs.getDate("fecha_fin") != null ? rs.getDate("fecha_fin").toLocalDate() : null)
+                            .diasSemana(rs.getString("dias_semana") != null ? Arrays.asList(rs.getString("dias_semana").split(",")) : null)
+                            .color(rs.getString("color"))
+                            .horaInicioLunes(rs.getTime("hora_inicio_lunes") != null ? rs.getTime("hora_inicio_lunes").toLocalTime() : null)
+                            .horaFinLunes(rs.getTime("hora_fin_lunes") != null ? rs.getTime("hora_fin_lunes").toLocalTime() : null)
+                            .horaInicioMartes(rs.getTime("hora_inicio_martes") != null ? rs.getTime("hora_inicio_martes").toLocalTime() : null)
+                            .horaFinMartes(rs.getTime("hora_fin_martes") != null ? rs.getTime("hora_fin_martes").toLocalTime() : null)
+                            .horaInicioMiercoles(rs.getTime("hora_inicio_miercoles") != null ? rs.getTime("hora_inicio_miercoles").toLocalTime() : null)
+                            .horaFinMiercoles(rs.getTime("hora_fin_miercoles") != null ? rs.getTime("hora_fin_miercoles").toLocalTime() : null)
+                            .horaInicioJueves(rs.getTime("hora_inicio_jueves") != null ? rs.getTime("hora_inicio_jueves").toLocalTime() : null)
+                            .horaFinJueves(rs.getTime("hora_fin_jueves") != null ? rs.getTime("hora_fin_jueves").toLocalTime() : null)
+                            .horaInicioViernes(rs.getTime("hora_inicio_viernes") != null ? rs.getTime("hora_inicio_viernes").toLocalTime() : null)
+                            .horaFinViernes(rs.getTime("hora_fin_viernes") != null ? rs.getTime("hora_fin_viernes").toLocalTime() : null)
+                            .horaInicioSabado(rs.getTime("hora_inicio_sabado") != null ? rs.getTime("hora_inicio_sabado").toLocalTime() : null)
+                            .horaFinSabado(rs.getTime("hora_fin_sabado") != null ? rs.getTime("hora_fin_sabado").toLocalTime() : null)
+                            .horaInicioDomingo(rs.getTime("hora_inicio_domingo") != null ? rs.getTime("hora_inicio_domingo").toLocalTime() : null)
+                            .horaFinDomingo(rs.getTime("hora_fin_domingo") != null ? rs.getTime("hora_fin_domingo").toLocalTime() : null)
+                            .build()
+            );
+        } catch (EmptyResultDataAccessException e) {
+            // Si no se encuentra un registro, devolver un objeto con todos los valores nulos
+            return DoctorCubaMedDisponibilidadResponse.builder()
+                    .idDoctor(idDoctor)
+                    .fechaInicio(null)
+                    .fechaFin(null)
+                    .diasSemana(null)
+                    .color(null)
+                    .horaInicioLunes(null)
+                    .horaFinLunes(null)
+                    .horaInicioMartes(null)
+                    .horaFinMartes(null)
+                    .horaInicioMiercoles(null)
+                    .horaFinMiercoles(null)
+                    .horaInicioJueves(null)
+                    .horaFinJueves(null)
+                    .horaInicioViernes(null)
+                    .horaFinViernes(null)
+                    .horaInicioSabado(null)
+                    .horaFinSabado(null)
+                    .horaInicioDomingo(null)
+                    .horaFinDomingo(null)
+                    .build();
+        }
+    }
+
+    // Guardar nuevo doctor
+    public DoctorResponse guardarDoctor(DoctorRequest doctorRequest) {
+        String sql = "INSERT INTO doctores (nombre, apellido, celular, email, colorIdentificador, idEspecialidad, imagen, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        jdbcTemplate.update(sql,
+                doctorRequest.getNombre(),
+                doctorRequest.getApellido(),
+                doctorRequest.getCelular(),
+                doctorRequest.getEmail(),
+                doctorRequest.getColorIdentificador(),
+                doctorRequest.getIdEspecialidad(),
+                doctorRequest.getImagen(),
+                doctorRequest.getEstado());
+
+        Long idDoctor = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Long.class);
+
+        return DoctorResponse.builder()
+                .id(idDoctor)
+                .nombre(doctorRequest.getNombre())
+                .apellido(doctorRequest.getApellido())
+                .celular(doctorRequest.getCelular())
+                .email(doctorRequest.getEmail())
+                .colorIdentificador(doctorRequest.getColorIdentificador())
+                .idEspecialidad(doctorRequest.getIdEspecialidad())
+                .imagen(doctorRequest.getImagen())
+                .estado(doctorRequest.getEstado())
+                .build();
+    }
+
+    // Editar un doctor existente
+    public DoctorResponse editarDoctor(Long id, DoctorRequest doctorRequest) {
+        String sql = "UPDATE doctores SET nombre = ?, apellido = ?, celular = ?, email = ?, colorIdentificador = ?, idEspecialidad = ?, imagen = ?, estado = ? WHERE id = ?";
+
+        jdbcTemplate.update(sql,
+                doctorRequest.getNombre(),
+                doctorRequest.getApellido(),
+                doctorRequest.getCelular(),
+                doctorRequest.getEmail(),
+                doctorRequest.getColorIdentificador(),
+                doctorRequest.getIdEspecialidad(),
+                doctorRequest.getImagen(),
+                doctorRequest.getEstado(),
+                id);
+
+        return DoctorResponse.builder()
+                .id(id)
+                .nombre(doctorRequest.getNombre())
+                .apellido(doctorRequest.getApellido())
+                .celular(doctorRequest.getCelular())
+                .email(doctorRequest.getEmail())
+                .colorIdentificador(doctorRequest.getColorIdentificador())
+                .idEspecialidad(doctorRequest.getIdEspecialidad())
+                .imagen(doctorRequest.getImagen())
+                .estado(doctorRequest.getEstado())
+                .build();
+    }
+
+    // Listar todos los doctores
+    public List<DoctorResponse> listarTodosLosDoctores() {
+        String sql = "SELECT id, nombre, apellido, celular, email, colorIdentificador, idEspecialidad, imagen, estado FROM doctores";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                DoctorResponse.builder()
+                        .id(rs.getLong("id"))
+                        .nombre(rs.getString("nombre"))
+                        .apellido(rs.getString("apellido"))
+                        .celular(rs.getString("celular"))
+                        .email(rs.getString("email"))
+                        .colorIdentificador(rs.getString("colorIdentificador"))
+                        .idEspecialidad(rs.getLong("idEspecialidad"))
+                        .imagen(rs.getString("imagen"))
+                        .estado(rs.getInt("estado"))
                         .build()
         );
     }
 
+    // Alternar estado del doctor (en lugar de eliminar)
+    public DoctorResponse alternarEstadoDoctor(Long id) {
+        String sqlSelect = "SELECT estado FROM doctores WHERE id = ?";
+        Integer estadoActual = jdbcTemplate.queryForObject(sqlSelect, new Object[]{id}, Integer.class);
 
+        if (estadoActual == null) {
+            throw new RuntimeException("No se encontró el doctor con ID: " + id);
+        }
 
+        int nuevoEstado = estadoActual == 1 ? 0 : 1;
 
+        String sqlUpdate = "UPDATE doctores SET estado = ? WHERE id = ?";
+        jdbcTemplate.update(sqlUpdate, nuevoEstado, id);
+
+        // Obtener los datos actualizados del doctor
+        String sqlGetDoctor = "SELECT * FROM doctores WHERE id = ?";
+        return jdbcTemplate.queryForObject(sqlGetDoctor, new Object[]{id}, (rs, rowNum) ->
+                DoctorResponse.builder()
+                        .id(rs.getLong("id"))
+                        .nombre(rs.getString("nombre"))
+                        .apellido(rs.getString("apellido"))
+                        .celular(rs.getString("celular"))
+                        .email(rs.getString("email"))
+                        .colorIdentificador(rs.getString("colorIdentificador"))
+                        .idEspecialidad(rs.getLong("idEspecialidad"))
+                        .imagen(rs.getString("imagen"))
+                        .estado(rs.getInt("estado"))
+                        .build()
+        );
+    }
 }
 

@@ -12,7 +12,11 @@ import lombok.ToString;
 public class DoctorRequest {
   private String nombre;
   private String apellido;
-  private String codigo;
-  private String colegio;
+  private String celular;
+  private String email;
+  private String colorIdentificador;
   private Long idEspecialidad;
+  private String imagen;
+  private int estado;
+
 }

@@ -24,7 +24,7 @@ public class S3ServiceImpl implements S3Service {
     @Autowired
     private AmazonS3 s3Client;
 
-    private final String bucketName = "cirugia24horas-bucket-imagenes";
+    private final String bucketName = "neura-bucket-imagenes";
 
     @Override
     public String uploadFile(MultipartFile file) throws IOException {

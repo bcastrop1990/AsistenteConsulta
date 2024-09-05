@@ -8,6 +8,7 @@ import com.senasa.bpm.ng.model.request.DoctorDisponibilidadRequest;
 import com.senasa.bpm.ng.model.request.DoctorRequest;
 import com.senasa.bpm.ng.model.response.DoctorCubaMedDisponibilidadResponse;
 import com.senasa.bpm.ng.model.response.DoctorCubaMedResponse;
+import com.senasa.bpm.ng.model.response.DoctorResponse;
 import com.senasa.bpm.ng.service.DoctorService;
 import com.senasa.bpm.ng.utility.ConstantUtil;
 import lombok.AllArgsConstructor;
@@ -45,17 +46,20 @@ public class DoctorServiceImpl implements DoctorService {
     public Medico validarDoctor(DoctorRequest doctor) throws IOException {
         Medico especialidad;
 
+        /*
         if(doctor.getColegio().equals("0")){
             especialidad = doctorDao.validarDoctor(doctor);
         }else{
             especialidad = doctorDao.validarOdontologo(doctor);
         }
+        */
+
         Medico medico = new Medico();
         medico.setNombres(doctor.getNombre());
         medico.setApellidos(doctor.getApellido());
-        medico.setCodigo(doctor.getCodigo());
-        medico.setImagen(especialidad.getImagen());
-        medico.setEspecialidad(especialidad.getEspecialidad());
+       // medico.setCodigo(doctor.getCodigo());
+        //medico.setImagen(especialidad.getImagen());
+        //medico.setEspecialidad(especialidad.getEspecialidad());
 
         return medico;
 
@@ -75,6 +79,27 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public DoctorCubaMedDisponibilidadResponse obtenerDisponibilidadPorCorreo(String email){
       return doctorDao.obtenerDisponibilidadPorCorreo(email);
+    }
+
+
+    @Override
+    public DoctorResponse guardarDoctor(DoctorRequest doctorRequest) {
+        return doctorDao.guardarDoctor(doctorRequest);
+    }
+
+    @Override
+    public DoctorResponse editarDoctor(Long id, DoctorRequest doctorRequest) {
+        return doctorDao.editarDoctor(id, doctorRequest);
+    }
+
+    @Override
+    public List<DoctorResponse> listarTodosLosDoctores() {
+        return doctorDao.listarTodosLosDoctores();
+    }
+
+    @Override
+    public DoctorResponse alternarEstadoDoctor(Long id) {
+        return doctorDao.alternarEstadoDoctor(id);
     }
 
 }

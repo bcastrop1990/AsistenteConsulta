@@ -2,6 +2,7 @@ package com.senasa.bpm.ng.controller;
 
 import com.senasa.bpm.ng.model.Cita;
 import com.senasa.bpm.ng.model.CitaIa;
+import com.senasa.bpm.ng.model.request.AgendarCitaRequest;
 import com.senasa.bpm.ng.model.request.RequestCitaIa;
 import com.senasa.bpm.ng.model.response.ApiResponse;
 import com.senasa.bpm.ng.service.ApiService;
@@ -27,7 +28,7 @@ public class CitaController {
     private CitaService citaService;
 
     @PostMapping("/agendar")
-    public ResponseEntity<ApiResponse<Void>> agendarCita(@RequestBody CitaIa cita) {
+    public ResponseEntity<ApiResponse<Void>> agendarCita(@RequestBody AgendarCitaRequest cita) {
         citaService.agendarCita(cita);
         return ResponseEntity.ok(
                 ApiResponse.<Void>builder()
@@ -35,9 +36,6 @@ public class CitaController {
                         .message(ConstantUtil.OK_MESSAGE)
                         .build());
     }
-
-
-
     @PostMapping("/listarTodasCitas")
     public ResponseEntity<ApiResponse<List<CitaIa>>> listarTodasCitasRangoFecha(@RequestBody RequestCitaIa request) {
         return ResponseEntity.ok(
@@ -47,8 +45,6 @@ public class CitaController {
                         .data(citaService.listarTodasCitasRangoFecha(request))
                         .build());
     }
-
-
     @GetMapping("/disponibles")
     public ResponseEntity<ApiResponse<List<LocalDateTime>>> obtenerHorariosDisponibles(
             @RequestParam Long doctorId,
