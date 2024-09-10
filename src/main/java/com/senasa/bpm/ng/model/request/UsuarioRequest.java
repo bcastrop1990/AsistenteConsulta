@@ -10,11 +10,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class UsuarioRequest {
+  private Long empresaId;
   private String email;
   private String password;
-  private String nombres;
-  private String ape_Paterno;
-  private String ape_Materno;
-  private String codigo;
-  private int rol;
+  private String nombre;
+  private String apellido;
+  private Long rolId;
 }

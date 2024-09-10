@@ -30,7 +30,7 @@ public interface DoctorDao {
 
     List<DoctorResponse> listarTodosLosDoctores();
 
-    public DoctorResponse alternarEstadoDoctor(Long id);
+    public DoctorResponse alternarEstadoDoctor(int id);
 }
 
 

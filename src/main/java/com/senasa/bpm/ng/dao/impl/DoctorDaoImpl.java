@@ -465,8 +465,7 @@ public class DoctorDaoImpl implements DoctorDao {
         );
     }
 
-    // Alternar estado del doctor (en lugar de eliminar)
-    public DoctorResponse alternarEstadoDoctor(Long id) {
+    public DoctorResponse alternarEstadoDoctor(int id) {
         String sqlSelect = "SELECT estado FROM doctores WHERE id = ?";
         Integer estadoActual = jdbcTemplate.queryForObject(sqlSelect, new Object[]{id}, Integer.class);
 
@@ -474,7 +473,8 @@ public class DoctorDaoImpl implements DoctorDao {
             throw new RuntimeException("No se encontró el doctor con ID: " + id);
         }
 
-        int nuevoEstado = estadoActual == 1 ? 0 : 1;
+        // Cambiar el estado entre 1 y 0
+        int nuevoEstado = (estadoActual == 1) ? 0 : 1;
 
         String sqlUpdate = "UPDATE doctores SET estado = ? WHERE id = ?";
         jdbcTemplate.update(sqlUpdate, nuevoEstado, id);
@@ -491,9 +491,11 @@ public class DoctorDaoImpl implements DoctorDao {
                         .colorIdentificador(rs.getString("colorIdentificador"))
                         .idEspecialidad(rs.getLong("idEspecialidad"))
                         .imagen(rs.getString("imagen"))
-                        .estado(rs.getInt("estado"))
+                        .estado(rs.getInt("estado"))  // Devuelve el nuevo estado (0 o 1)
                         .build()
         );
     }
+
+
 }
 

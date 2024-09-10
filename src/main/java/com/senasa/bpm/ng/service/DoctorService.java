@@ -21,5 +21,5 @@ public interface DoctorService {
     DoctorResponse guardarDoctor(DoctorRequest doctorRequest);
     DoctorResponse editarDoctor(Long id, DoctorRequest doctorRequest);
     List<DoctorResponse> listarTodosLosDoctores();
-    public DoctorResponse alternarEstadoDoctor(Long id);
+    public DoctorResponse alternarEstadoDoctor(int id);
     }

@@ -98,7 +98,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public DoctorResponse alternarEstadoDoctor(Long id) {
+    public DoctorResponse alternarEstadoDoctor(int id) {
         return doctorDao.alternarEstadoDoctor(id);
     }
 

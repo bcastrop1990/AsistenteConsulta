@@ -22,9 +22,6 @@ public class EspecialidadServiceImpl implements EspecialidadService {
     @Autowired
     private EspecialidadDao especialidadDao;
 
-
-
-
     public List<EspecialidadBean> listarEspecialidad(){
 
         return especialidadDao.listarEspecialidad();

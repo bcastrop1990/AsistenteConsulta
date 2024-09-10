@@ -105,7 +105,7 @@ public class DoctorController {
 
 
     @PostMapping("/cambiarEstado/{id}")
-    public ResponseEntity<ApiResponse<DoctorResponse>> alternarEstadoDoctor(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<DoctorResponse>> alternarEstadoDoctor(@PathVariable int id) {
           DoctorResponse doctorResponse = doctorService.alternarEstadoDoctor(id);
 
         ApiResponse<DoctorResponse> response = new ApiResponse<>(
