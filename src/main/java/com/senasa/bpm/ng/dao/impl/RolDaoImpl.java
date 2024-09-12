@@ -42,7 +42,7 @@ public class RolDaoImpl implements RolDao {
         for (Acceso acceso : accesos) {
             jdbcTemplate.update(sql, rol, acceso.getId());
         }
-        return "aaa";
+        return "Rol creado con exito.";
     }
 
     public Long crearRol(Rol request) {
