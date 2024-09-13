@@ -1,5 +1,6 @@
 com\senasa\bpm\ng\model\EstadoFinanciamiento.class
 com\senasa\bpm\ng\utility\ConstantUtil.class
+com\senasa\bpm\ng\dao\rowmapper\User2RowMapper.class
 com\senasa\bpm\ng\service\impl\ConfiguracionServiceImpl.class
 com\senasa\bpm\ng\dao\rowmapper\CitaRowMapper.class
 com\senasa\bpm\ng\model\response\EnfermedadResponse.class
@@ -8,8 +9,11 @@ com\senasa\bpm\ng\service\impl\CitasServiceImpl.class
 com\senasa\bpm\ng\model\request\CitaRequest.class
 com\senasa\bpm\ng\model\TipoDeCompra$TipoDeCompraBuilder.class
 com\senasa\bpm\ng\dao\rowmapper\ClienteRowMapper.class
+com\senasa\bpm\ng\security\JwtUtil.class
 com\senasa\bpm\ng\dao\rowmapper\EspecialidadRowMapper.class
+com\senasa\bpm\ng\model\UsuarioRolAcceso$UsuarioRolAccesoBuilder.class
 com\senasa\bpm\ng\controller\ArchivoController.class
+com\senasa\bpm\ng\service\impl\UsuarioServiceImpl$1.class
 com\senasa\bpm\ng\model\response\DoctorCubaMedDisponibilidadResponse$DoctorCubaMedDisponibilidadResponseBuilder.class
 com\senasa\bpm\ng\model\request\RequestCitaIa$RequestCitaIaBuilder.class
 com\senasa\bpm\ng\service\impl\EspecialidadServiceImpl.class
@@ -21,6 +25,9 @@ com\senasa\bpm\ng\dao\impl\CitaDaoImpl.class
 com\senasa\bpm\ng\dao\impl\ConfiguracionDaoImpl.class
 com\senasa\bpm\ng\dao\rowmapper\EnfermedadesPrimariasRowMapper.class
 com\senasa\bpm\ng\service\CitaService.class
+com\senasa\bpm\ng\controller\AuthController.class
+com\senasa\bpm\ng\service\UserDetailsService.class
+com\senasa\bpm\ng\config\SecurityConfig.class
 com\senasa\bpm\ng\model\Disponibilidad.class
 com\senasa\bpm\ng\model\bean\ServiciosBean.class
 com\senasa\bpm\ng\model\response\DetalleServicioResponse$DetalleServicioResponseBuilder.class
@@ -46,6 +53,7 @@ com\senasa\bpm\ng\controller\EspecialidadController.class
 com\senasa\bpm\ng\model\Card.class
 com\senasa\bpm\ng\service\CitasService.class
 com\senasa\bpm\ng\model\bean\DoctorBean$DoctorBeanBuilder.class
+com\senasa\bpm\ng\security\JwtFilter.class
 com\senasa\bpm\ng\service\DisponibilidadService.class
 com\senasa\bpm\ng\service\RolService.class
 com\senasa\bpm\ng\model\response\DoctorCubaMedDisponibilidadResponse.class
@@ -64,7 +72,6 @@ com\senasa\bpm\ng\model\bean\EnfermedadesBean.class
 com\senasa\bpm\ng\config\DataConfig.class
 com\senasa\bpm\ng\dao\rowmapper\VentaRowMapper.class
 com\senasa\bpm\ng\controller\DoctorController.class
-com\senasa\bpm\ng\controller\mapper\DatosSolicitanteMapper.class
 com\senasa\bpm\ng\model\Cliente$ClienteBuilder.class
 com\senasa\bpm\ng\model\response\PaymentResponse.class
 com\senasa\bpm\ng\service\ConfiguracionService.class
@@ -93,14 +100,17 @@ com\senasa\bpm\ng\service\impl\PaymentServiceImpl.class
 com\senasa\bpm\ng\model\TipoDeCompra.class
 com\senasa\bpm\ng\dao\EspecialidadDao.class
 com\senasa\bpm\ng\dao\UsuarioDao.class
+com\senasa\bpm\ng\model\UsuarioRolAcceso.class
 com\senasa\bpm\ng\model\request\DisponibilidadDoctorRequest.class
 com\senasa\bpm\ng\config\MailConfig.class
 com\senasa\bpm\ng\model\bean\DoctorBean.class
 com\senasa\bpm\ng\model\Venta$VentaBuilder.class
 com\senasa\bpm\ng\model\Venta.class
+com\senasa\bpm\ng\model\request\AuthRequest.class
 com\senasa\bpm\ng\dao\RolDao.class
 com\senasa\bpm\ng\model\response\DoctorCubaMedResponse$DoctorCubaMedResponseBuilder.class
 com\senasa\bpm\ng\model\bean\UserBean$UserBeanBuilder.class
+com\senasa\bpm\ng\model\User.class
 com\senasa\bpm\ng\dao\impl\EnfermedadDaoImpl.class
 com\senasa\bpm\ng\dao\impl\RolDaoImpl$1.class
 com\senasa\bpm\ng\model\Medico.class
@@ -141,9 +151,11 @@ com\senasa\bpm\ng\model\response\EspecialidadResponse.class
 com\senasa\bpm\ng\model\ChatMessage$ChatMessageBuilder.class
 com\senasa\bpm\ng\model\ChatMessage.class
 com\senasa\bpm\ng\model\response\DetalleServicioResponse.class
+com\senasa\bpm\ng\service\UserServiceImpl.class
 com\senasa\bpm\ng\service\EnfermedadService.class
 com\senasa\bpm\ng\model\request\PaymentRequest.class
 com\senasa\bpm\ng\model\PaymentToken.class
+com\senasa\bpm\ng\service\impl\UsuarioServiceImpl$UsuarioRolAccesoRowMapper.class
 com\senasa\bpm\ng\controller\RolController.class
 com\senasa\bpm\ng\model\bean\ServiciosBean$ServiciosBeanBuilder.class
 com\senasa\bpm\ng\model\Rol.class
