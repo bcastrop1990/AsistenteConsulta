@@ -1,9 +1,10 @@
-package com.senasa.bpm.ng.service;
+/*package com.senasa.bpm.ng.service;
 
 import com.senasa.bpm.ng.dao.rowmapper.User2RowMapper;
 import com.senasa.bpm.ng.dao.rowmapper.UserRowMapper;
-import com.senasa.bpm.ng.model.User;
+import com.senasa.bpm.ng.exception.ApiValidateException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,13 +23,13 @@ public class UserServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String query = "SELECT * FROM users WHERE username = ?";
-        User user = jdbcTemplate.queryForObject(query, new Object[]{username}, new User2RowMapper());
+        com.senasa.bpm.ng.model.User user = jdbcTemplate.queryForObject(query, new Object[]{username}, new User2RowMapper());
 
         if (user == null) {
-            throw new UsernameNotFoundException("Usuario no encontrado");
+            throw new ApiValidateException("Usuario no encontrado");
         }
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
 }
-
+*/

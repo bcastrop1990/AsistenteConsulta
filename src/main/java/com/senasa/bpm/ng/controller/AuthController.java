@@ -1,6 +1,6 @@
-package com.senasa.bpm.ng.controller;
+/*package com.senasa.bpm.ng.controller;
 
-import com.senasa.bpm.ng.exception.ApiValidateException;
+import com.senasa.bpm.ng.model.Producto;
 import com.senasa.bpm.ng.model.request.AuthRequest;
 import com.senasa.bpm.ng.model.response.ApiResponse;
 import com.senasa.bpm.ng.security.JwtUtil;
@@ -11,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -27,14 +29,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<String>> login(@RequestBody AuthRequest authRequest) throws Exception {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
-            );
-        } catch (Exception e) {
-            throw new ApiValidateException("Invalid username or password");
-        }
+    public ResponseEntity<ApiResponse<String>> login(@RequestBody AuthRequest authRequest) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+        );
 
         final UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
@@ -46,4 +44,4 @@ public class AuthController {
                         .data(jwt)
                         .build());
     }
-}
+}*/

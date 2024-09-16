@@ -11,10 +11,7 @@ import com.senasa.bpm.ng.utility.ConstantUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,13 +23,8 @@ public class EmpresaController {
     @Autowired
     private UsuarioService usuarioService;
 
-
-    @PostMapping("obtenerInfo")
-    public ResponseEntity<ApiResponse<List<UsuarioRolAcceso>>> obtenerInfo(@RequestBody String requestBody) {
-        String email = extractEmailFromRequest(requestBody);
-
-        System.out.println("Email extraído: " + email);
-
+    @PostMapping("obtenerInfo/{email}")
+    public ResponseEntity<ApiResponse<List<UsuarioRolAcceso>>> obtenerInfo(@PathVariable String email) {
         return ResponseEntity.ok(
                 ApiResponse.<List<UsuarioRolAcceso>>builder()
                         .code(ConstantUtil.OK_CODE)
@@ -41,14 +33,4 @@ public class EmpresaController {
                         .build());
     }
 
-    private String extractEmailFromRequest(String requestBody) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            JsonNode jsonNode = objectMapper.readTree(requestBody);
-            return jsonNode.get("usuario").asText();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
 }
