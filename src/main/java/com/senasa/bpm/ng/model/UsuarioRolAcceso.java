@@ -15,6 +15,9 @@ public class UsuarioRolAcceso {
   private String rolNombre;
   private String accesos;
   private Long numeroUsuarios;
+  private String nombres;
+  private String apellido;
+  private String email;
 
   // Getters y Setters
 }

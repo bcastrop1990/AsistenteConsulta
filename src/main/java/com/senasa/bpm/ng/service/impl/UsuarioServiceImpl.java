@@ -4,6 +4,7 @@ import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.senasa.bpm.ng.dao.EspecialidadDao;
 import com.senasa.bpm.ng.dao.UsuarioDao;
 import com.senasa.bpm.ng.exception.ApiValidateException;
+import com.senasa.bpm.ng.model.User;
 import com.senasa.bpm.ng.model.Usuario;
 import com.senasa.bpm.ng.model.UsuarioRolAcceso;
 import com.senasa.bpm.ng.model.request.UsuarioRequest;
@@ -51,12 +52,24 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    private void validar(String email, String password) {
 
-    public List<UsuarioRolAcceso> listarUsuarioRolAcceso(String email) {
+        String sqlCount1 = "SELECT COUNT(*) FROM usuario WHERE email = ?";
+        if (jdbcTemplate.queryForObject(sqlCount1, Integer.class, email) == 0){
+            throw new ApiValidateException("El correo "+email+" no se encuentra registrado.");
+        }
+        String sqlCount = "SELECT COUNT(*) FROM usuario WHERE email = ? and password = ?";
+        if (jdbcTemplate.queryForObject(sqlCount, Integer.class, email, password) == 0){
+            throw new ApiValidateException("Contraseña incorrecta.");
+        }
+    }
+
+    public List<UsuarioRolAcceso> listarUsuarioRolAcceso(User user) {
+        this.validar(user.getUsername(), user.getPassword());
         String sql = "SELECT " +
                 "u.empresa_id, " +
                 "r.id AS rol_id, " +
-                "r.nombre AS rol_nombre, " +
+                "r.nombre AS rol_nombre, u.nombres, u.apellidos, u.email, " +
                 "GROUP_CONCAT(DISTINCT a.nombre ORDER BY a.nombre ASC SEPARATOR ', ') AS accesos, " +
                 "COUNT(DISTINCT u.id) AS numero_usuarios " +
                 "FROM usuario u " +
@@ -68,10 +81,10 @@ public class UsuarioServiceImpl implements UsuarioService {
                 "ORDER BY u.empresa_id, r.id";
 
         System.out.println("Ejecutando consulta SQL: " + sql);
-        System.out.println("Parámetro de correo electrónico: " + email);
+        System.out.println("Parámetro de correo electrónico: " + user.getUsername());
 
         try {
-            List<UsuarioRolAcceso> resultados = jdbcTemplate.query(sql, new UsuarioRolAccesoRowMapper(), email);
+            List<UsuarioRolAcceso> resultados = jdbcTemplate.query(sql, new UsuarioRolAccesoRowMapper(), user.getUsername());
             System.out.println("Número de resultados obtenidos: " + resultados.size());
             for (UsuarioRolAcceso resultado : resultados) {
                 System.out.println("Resultado: " + resultado.getEmpresaId() + ", " +
@@ -82,7 +95,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             }
             return resultados;
         } catch (EmptyResultDataAccessException e) {
-            System.out.println("No se encontraron resultados para el correo electrónico: " + email);
+            System.out.println("No se encontraron resultados para el correo electrónico: " + user.getUsername());
             return Collections.emptyList();
         }
     }
@@ -97,13 +110,9 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuarioRolAcceso.setRolNombre(rs.getString("rol_nombre"));
             usuarioRolAcceso.setAccesos(rs.getString("accesos"));
             usuarioRolAcceso.setNumeroUsuarios(rs.getLong("numero_usuarios"));
-
-            System.out.println("Mapeado: " +
-                    "empresa_id=" + usuarioRolAcceso.getEmpresaId() + ", " +
-                    "rol_id=" + usuarioRolAcceso.getRolId() + ", " +
-                    "rol_nombre=" + usuarioRolAcceso.getRolNombre() + ", " +
-                    "accesos=" + usuarioRolAcceso.getAccesos() + ", " +
-                    "numero_usuarios=" + usuarioRolAcceso.getNumeroUsuarios());
+            usuarioRolAcceso.setNombres(rs.getString("nombres"));
+            usuarioRolAcceso.setApellido(rs.getString("apellidos"));
+            usuarioRolAcceso.setEmail(rs.getString("email"));
 
             return usuarioRolAcceso;
         }

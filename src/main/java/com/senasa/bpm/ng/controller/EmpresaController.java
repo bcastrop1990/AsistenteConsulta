@@ -2,6 +2,7 @@ package com.senasa.bpm.ng.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.senasa.bpm.ng.model.User;
 import com.senasa.bpm.ng.model.UsuarioRolAcceso;
 import com.senasa.bpm.ng.model.request.UsuarioRequest;
 import com.senasa.bpm.ng.model.response.ApiResponse;
@@ -23,13 +24,13 @@ public class EmpresaController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("obtenerInfo/{email}")
-    public ResponseEntity<ApiResponse<List<UsuarioRolAcceso>>> obtenerInfo(@PathVariable String email) {
+    @PostMapping("obtenerInfo")
+    public ResponseEntity<ApiResponse<List<UsuarioRolAcceso>>> obtenerInfo(@RequestBody User user) {
         return ResponseEntity.ok(
                 ApiResponse.<List<UsuarioRolAcceso>>builder()
                         .code(ConstantUtil.OK_CODE)
                         .message(ConstantUtil.OK_MESSAGE)
-                        .data(usuarioService.listarUsuarioRolAcceso(email))
+                        .data(usuarioService.listarUsuarioRolAcceso(user))
                         .build());
     }
 
