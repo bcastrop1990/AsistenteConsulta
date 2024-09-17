@@ -85,14 +85,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         try {
             List<UsuarioRolAcceso> resultados = jdbcTemplate.query(sql, new UsuarioRolAccesoRowMapper(), user.getUsername());
-            System.out.println("Número de resultados obtenidos: " + resultados.size());
-            for (UsuarioRolAcceso resultado : resultados) {
-                System.out.println("Resultado: " + resultado.getEmpresaId() + ", " +
-                        resultado.getRolId() + ", " +
-                        resultado.getRolNombre() + ", " +
-                        resultado.getAccesos() + ", " +
-                        resultado.getNumeroUsuarios());
-            }
             return resultados;
         } catch (EmptyResultDataAccessException e) {
             System.out.println("No se encontraron resultados para el correo electrónico: " + user.getUsername());

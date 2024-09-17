@@ -1,0 +1,8 @@
+com/senasa/bpm/ng/dao/rowmapper/LoginUserRowMapper.class
+com/senasa/bpm/ng/controller/AuthController.class
+com/senasa/bpm/ng/model/response/LoginReponse$LoginReponseBuilder.class
+com/senasa/bpm/ng/dao/impl/AuthDaoImpl.class
+com/senasa/bpm/ng/dao/AuthDao.class
+com/senasa/bpm/ng/service/impl/AuthServiceImpl.class
+com/senasa/bpm/ng/model/response/LoginReponse.class
+com/senasa/bpm/ng/service/AuthService.class
