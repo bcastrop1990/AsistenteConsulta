@@ -66,6 +66,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     public List<UsuarioRolAcceso> listarUsuarioRolAcceso(User user) {
         this.validar(user.getUsername(), user.getPassword());
+
         String sql = "SELECT " +
                 "u.empresa_id, " +
                 "r.id AS rol_id, " +

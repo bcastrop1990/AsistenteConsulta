@@ -23,7 +23,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @AllArgsConstructor
@@ -61,17 +63,30 @@ public class RolDaoImpl implements RolDao {
 
     @Override
     public List<Rol> listarRoles(Long empresa_id) {
-        String sql = "SELECT id, empresa_id, nombre FROM rol WHERE empresa_id = ?";
+        String sql = "SELECT r.id, r.nombre, r.empresa_id, \n" +
+                "GROUP_CONCAT(a.nombre SEPARATOR ', ') AS accesos\n" +
+                "FROM rol r\n" +
+                "INNER JOIN rol_acceso ra ON r.id = ra.rol\n" +
+                "INNER JOIN acceso a ON a.id = ra.acceso\n" +
+                "WHERE r.empresa_id = ?\n" +
+                "GROUP BY r.id, r.nombre, r.empresa_id;";
         return jdbcTemplate.query(sql, new Object[]{empresa_id}, new RolRowMapper());
     }
 
     private static class RolRowMapper implements RowMapper<Rol> {
         @Override
         public Rol mapRow(ResultSet rs, int rowNum) throws SQLException {
+            String accesosList = rs.getString("accesos");
+            List<Acceso> accesos = Arrays.stream(accesosList.split(","))
+                            .map(String::trim)
+                            .map(Acceso::new)
+                            .collect(Collectors.toList());
+
             return Rol.builder()
                     .id(rs.getLong("id"))
                     .empresa_id(rs.getLong("empresa_id"))
                     .nombre(rs.getString("nombre"))
+                    .acceso(accesos)
                     .build();
         }
     }

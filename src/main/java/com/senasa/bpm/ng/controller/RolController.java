@@ -51,8 +51,4 @@ public class RolController {
                         .data(rolService.listarAccesos())
                         .build());
     }
-
-
-
-
 }

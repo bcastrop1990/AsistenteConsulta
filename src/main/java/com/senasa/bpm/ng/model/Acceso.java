@@ -12,5 +12,9 @@ import java.util.List;
 public class Acceso {
   private Long id;
   private String nombre;
+
+  public Acceso(String nombre) {
+    this.nombre = nombre;
+  }
 }
 
