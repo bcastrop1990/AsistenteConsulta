@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.senasa.bpm.ng.SenasabpmbackApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.318 s - in com.senasa.bpm.ng.SenasabpmbackApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.299 s - in com.senasa.bpm.ng.SenasabpmbackApplicationTests

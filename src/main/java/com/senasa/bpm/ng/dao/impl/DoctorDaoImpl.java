@@ -28,7 +28,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
@@ -38,6 +41,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -389,21 +394,38 @@ public class DoctorDaoImpl implements DoctorDao {
         }
     }
 
-    // Guardar nuevo doctor
+    @Transactional
     public DoctorResponse guardarDoctor(DoctorRequest doctorRequest) {
-        String sql = "INSERT INTO doctores (nombre, apellido, celular, email, colorIdentificador, idEspecialidad, imagen, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        // Insertar en la tabla doctores
+        String sqlDoctor = "INSERT INTO doctores (nombre, apellido, celular, email, colorIdentificador, idEspecialidad, imagen, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sqlDoctor, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, doctorRequest.getNombre());
+            ps.setString(2, doctorRequest.getApellido());
+            ps.setString(3, doctorRequest.getCelular());
+            ps.setString(4, doctorRequest.getEmail());
+            ps.setString(5, doctorRequest.getColorIdentificador());
+            ps.setLong(6, doctorRequest.getIdEspecialidad());
+            ps.setString(7, doctorRequest.getImagen());
+            ps.setInt(8, doctorRequest.getEstado());
+            return ps;
+        }, keyHolder);
 
-        jdbcTemplate.update(sql,
+        Long idDoctor = keyHolder.getKey().longValue();
+
+        // Insertar en la tabla usuario
+        String sqlUsuario = "INSERT INTO usuario (empresa_id, email, password, nombres, apellidos, rol, db, puerto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sqlUsuario,
+                1, // empresa_id siempre es 1
+                doctorRequest.getEmail(),
+                doctorRequest.getPassword(), // Asumiendo que has añadido este campo al DoctorRequest
                 doctorRequest.getNombre(),
                 doctorRequest.getApellido(),
-                doctorRequest.getCelular(),
-                doctorRequest.getEmail(),
-                doctorRequest.getColorIdentificador(),
-                doctorRequest.getIdEspecialidad(),
-                doctorRequest.getImagen(),
-                doctorRequest.getEstado());
-
-        Long idDoctor = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Long.class);
+                3, // rol siempre es 3
+                "ejemplo", // Valor por defecto para db
+                null // Valor por defecto para puerto
+        );
 
         return DoctorResponse.builder()
                 .id(idDoctor)

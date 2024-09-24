@@ -18,5 +18,6 @@ public class DoctorRequest {
   private Long idEspecialidad;
   private String imagen;
   private int estado;
+  private String password;
 
 }
