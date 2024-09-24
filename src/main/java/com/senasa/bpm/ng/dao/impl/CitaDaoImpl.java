@@ -89,7 +89,6 @@ public class CitaDaoImpl implements CitaDao {
         String sql;
         List<Object> params = new ArrayList<>();
 
-        // Construir la consulta SQL base con JOINs para incluir el color de doctor_disponibilidad
         StringBuilder sqlBuilder = new StringBuilder(
                 "SELECT c.id, c.email_doctor, c.dni, c.nombre_completo, c.fechaHoraInicio, c.fechahoraFinal, " +
                         "c.duracion, c.descripcion, c.costo, dd.color " +
@@ -98,21 +97,17 @@ public class CitaDaoImpl implements CitaDao {
                         "JOIN doctor_disponibilidad dd ON d.id = dd.idDoctor WHERE "
         );
 
-        // Agregar filtro por correo electrónico si se proporciona
         if (emailDoctor != null && !emailDoctor.isEmpty()) {
             sqlBuilder.append("c.email_doctor = ? AND ");
             params.add(emailDoctor);
         }
 
-        // Agregar filtro por rango de fechas
         sqlBuilder.append("c.fechaHoraInicio BETWEEN ? AND ?");
         params.add(Timestamp.valueOf(fechaInicio));
         params.add(Timestamp.valueOf(fechaFin));
 
-        // Convertir StringBuilder a String
         sql = sqlBuilder.toString();
-
-        // Imprimir la consulta SQL final y los parámetros
+        System.out.println(sql);
 
         return jdbcTemplate.query(sql, params.toArray(), new RowMapper<CitaIa>() {
             @Override
@@ -127,10 +122,7 @@ public class CitaDaoImpl implements CitaDao {
                 cita.setDuracion(rs.getInt("duracion"));
                 cita.setDescripcion(rs.getString("descripcion"));
                 cita.setCosto(rs.getBigDecimal("costo"));
-                cita.setColor(rs.getString("color")); // Asignar el color de doctor_disponibilidad
-
-                // Imprimir la cita que se ha mapeado
-
+                cita.setColor(rs.getString("color"));
                 return cita;
             }
         });
