@@ -44,7 +44,6 @@ public class CitaDaoImpl implements CitaDao {
 
     @Override
     public void agendarCita(AgendarCitaRequest cita) {
-        System.out.println("cita.duracion: " + cita.getDuracion());
         // Calcular fecha y hora final de la cita
         LocalDateTime fechaHoraFinal = cita.getFechaHoraInicio().plusMinutes(cita.getDuracion());
 
@@ -114,8 +113,6 @@ public class CitaDaoImpl implements CitaDao {
         sql = sqlBuilder.toString();
 
         // Imprimir la consulta SQL final y los parámetros
-        System.out.println("SQL Query: " + sql);
-        System.out.println("Parameters: " + params);
 
         return jdbcTemplate.query(sql, params.toArray(), new RowMapper<CitaIa>() {
             @Override
@@ -133,17 +130,11 @@ public class CitaDaoImpl implements CitaDao {
                 cita.setColor(rs.getString("color")); // Asignar el color de doctor_disponibilidad
 
                 // Imprimir la cita que se ha mapeado
-                System.out.println("Cita obtenida: " + cita);
 
                 return cita;
             }
         });
     }
-
-
-
-
-
 
     @Override
     public List<Cita> obtenerCitasPorEmailDoctorYFecha(String emailDoctor, LocalDate fecha) {
@@ -193,7 +184,6 @@ public class CitaDaoImpl implements CitaDao {
 
             // Verificar si la disponibilidad es null o está vacía
             if (disponibilidad == null || disponibilidad.isEmpty()) {
-                System.out.println("No se encontró disponibilidad para el doctor con id " + doctorId);
                 return new ArrayList<>();
             }
 
@@ -202,8 +192,6 @@ public class CitaDaoImpl implements CitaDao {
             for (Map.Entry<String, Object> entry : disponibilidad.entrySet()) {
                 if (entry.getValue() != null) {
                     disponibilidadHorarios.put(entry.getKey(), ((Time) entry.getValue()).toLocalTime());
-                } else {
-                    System.out.println("El valor para " + entry.getKey() + " es null");
                 }
             }
 
@@ -249,7 +237,6 @@ public class CitaDaoImpl implements CitaDao {
 
             // Verificar si los horarios de inicio y fin no son nulos
             if (horaInicio == null || horaFin == null) {
-                System.out.println("No hay disponibilidad registrada para el doctor con id " + doctorId + " el día " + diaSemana);
                 return new ArrayList<>();
             }
 
@@ -279,13 +266,10 @@ public class CitaDaoImpl implements CitaDao {
             return horariosDisponibles;
 
         } catch (EmptyResultDataAccessException e) {
-            System.out.println("No se encontraron citas o disponibilidad para el doctor con id " + doctorId + " en la fecha " + fecha);
             return new ArrayList<>();
         } catch (DataAccessException e) {
-            System.out.println("Error de acceso a la base de datos: " + e.getMessage());
             throw new RuntimeException("Error de acceso a la base de datos: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error al procesar los horarios disponibles: " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException("Error al procesar los horarios disponibles: " + e.getMessage());
         }

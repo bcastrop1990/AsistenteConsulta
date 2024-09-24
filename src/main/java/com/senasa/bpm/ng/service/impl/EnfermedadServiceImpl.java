@@ -231,12 +231,10 @@ public class EnfermedadServiceImpl implements EnfermedadService {
                         clientesAprobados.add(cliente);
                     } catch (EmptyResultDataAccessException e) {
                         // Manejar el caso donde no se encontró el cliente
-                        System.out.println("Cliente con DNI " + dni + " no encontrado en la base de datos.");
                     }
                 }
             } catch (Exception e) {
                 // Manejar cualquier otro tipo de excepción
-                System.out.println("Error al procesar el DNI " + dni + ": " + e.getMessage());
             }
         }
 

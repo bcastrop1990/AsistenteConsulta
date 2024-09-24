@@ -80,15 +80,10 @@ public class UsuarioServiceImpl implements UsuarioService {
                 "WHERE u.email = ? " +
                 "GROUP BY u.empresa_id, r.id, r.nombre " +
                 "ORDER BY u.empresa_id, r.id";
-
-        System.out.println("Ejecutando consulta SQL: " + sql);
-        System.out.println("Parámetro de correo electrónico: " + user.getUsername());
-
         try {
             List<UsuarioRolAcceso> resultados = jdbcTemplate.query(sql, new UsuarioRolAccesoRowMapper(), user.getUsername());
             return resultados;
         } catch (EmptyResultDataAccessException e) {
-            System.out.println("No se encontraron resultados para el correo electrónico: " + user.getUsername());
             return Collections.emptyList();
         }
     }

@@ -480,7 +480,6 @@ public class EnfermedadDaoImpl implements EnfermedadDao {
                 + "\"temperature\": 0.7"
                 + "}", safeContent, prompt);
 
-        System.out.println("ESTO LE MANDO A LA IA: "+safeContent);
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
 
         ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);

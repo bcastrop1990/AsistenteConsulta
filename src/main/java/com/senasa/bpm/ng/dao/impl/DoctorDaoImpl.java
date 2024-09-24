@@ -146,7 +146,6 @@ public class DoctorDaoImpl implements DoctorDao {
                 throw new ApiValidateException("Los nombres y apellidos deben coincidir con el COP "+codigo);
             }
 
-            System.out.println("ESTE ES EL ESTADO :"+estado);
             // Validar estado
             if ("HABILITADO".equals(estado)) {
                 medico.setEspecialidad("ODONTOLOGIA");
@@ -225,10 +224,6 @@ public class DoctorDaoImpl implements DoctorDao {
 */
 
     public  List<DoctorCubaMedResponse> listarDoctor(Long idEspecialidad, String nombre){
-
-        System.out.println("listarDoctor:");
-        System.out.println("idEspecialidad:"+idEspecialidad);
-        System.out.println("nombre:"+nombre);
 
         StringBuilder sql = new StringBuilder("SELECT * FROM doctores WHERE 1=1");
 

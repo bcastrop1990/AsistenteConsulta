@@ -57,8 +57,6 @@ public class CitaController {
 
         try {
             // Mostrar doctorId y fecha en verde
-            System.out.println(ANSI_GREEN + "DoctorId recibido: " + doctorId + ANSI_RESET);
-            System.out.println(ANSI_GREEN + "Fecha recibida: " + fecha + ANSI_RESET);
 
             // Convertir la fecha desde el formato String al tipo LocalDate
             LocalDate fechaLocalDate = LocalDate.parse(fecha, DateTimeFormatter.ISO_DATE);
@@ -67,7 +65,6 @@ public class CitaController {
             List<LocalDateTime> horariosDisponibles = citaService.obtenerHorariosDisponibles(doctorId, fechaLocalDate);
 
             // Mostrar horarios obtenidos en azul
-            System.out.println(ANSI_BLUE + "Horarios Disponibles: " + horariosDisponibles + ANSI_RESET);
 
             // Retornar la respuesta en formato ApiResponse
             ApiResponse<List<LocalDateTime>> response = new ApiResponse<>("000", "Horarios disponibles obtenidos exitosamente", horariosDisponibles);
@@ -75,7 +72,6 @@ public class CitaController {
 
         } catch (Exception e) {
             // Mostrar el error en rojo
-            System.out.println(ANSI_RED + "Error capturado: " + e.getMessage() + ANSI_RESET);
             e.printStackTrace();  // También imprime el stack trace del error en la terminal
 
             ApiResponse<List<LocalDateTime>> response = new ApiResponse<>("1", "Error al obtener los horarios disponibles", null);
