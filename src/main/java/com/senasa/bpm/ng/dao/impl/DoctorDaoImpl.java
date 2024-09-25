@@ -415,16 +415,14 @@ public class DoctorDaoImpl implements DoctorDao {
         Long idDoctor = keyHolder.getKey().longValue();
 
         // Insertar en la tabla usuario
-        String sqlUsuario = "INSERT INTO usuario (empresa_id, email, password, nombres, apellidos, rol, db, puerto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlUsuario = "INSERT INTO usuario (empresa_id, email, password, nombres, apellidos, rol) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sqlUsuario,
                 1, // empresa_id siempre es 1
                 doctorRequest.getEmail(),
                 doctorRequest.getPassword(), // Asumiendo que has añadido este campo al DoctorRequest
                 doctorRequest.getNombre(),
                 doctorRequest.getApellido(),
-                3, // rol siempre es 3
-                "ejemplo", // Valor por defecto para db
-                null // Valor por defecto para puerto
+                3 // rol siempre es 3
         );
 
         return DoctorResponse.builder()
