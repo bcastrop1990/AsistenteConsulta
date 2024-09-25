@@ -33,9 +33,11 @@ public class AuthDaoImpl implements AuthDao {
         this.validar(user.getUsername(), user.getPassword());
         String sql = "SELECT " +
                 "u.empresa_id, u.email, u.nombres, u.apellidos, u.rol AS rol_id, " +
-                "r.nombre AS rol_nombre " +
+                "r.nombre AS rol_nombre, " +
+                "d.imagen AS doctor_imagen " +
                 "FROM usuario u " +
                 "INNER JOIN rol r ON u.rol = r.id " +
+                "INNER JOIN doctores d ON d.usuario_id = u.id " +
                 "WHERE u.email = ? AND u.password = ?";
         try {
             LoginReponse response = jdbcTemplate.queryForObject(sql, new LoginUserRowMapper(), user.getUsername(), user.getPassword());

@@ -14,4 +14,5 @@ public class LoginReponse {
     private String apellido;
     private String rolId;
     private String rol;
+    private String avatar;
 }

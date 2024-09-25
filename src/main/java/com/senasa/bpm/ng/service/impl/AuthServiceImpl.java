@@ -17,7 +17,6 @@ public class AuthServiceImpl  implements AuthService {
     private AuthDao authDao;
     @Override
     public LoginReponse loginUser(User user) {
-        //todo: validacion user
         return authDao.loginUser(user);
     }
 }

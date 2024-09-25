@@ -13,6 +13,7 @@ public class LoginUserRowMapper implements RowMapper<LoginReponse> {
         loginReponse.setApellido(rs.getString("apellidos"));
         loginReponse.setRolId(rs.getString("rol_id"));
         loginReponse.setRol(rs.getString("rol_nombre"));
+        loginReponse.setAvatar(rs.getString("doctor_imagen"));
         return loginReponse;
     }
 }
