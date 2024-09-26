@@ -396,9 +396,25 @@ public class DoctorDaoImpl implements DoctorDao {
 
     @Transactional
     public DoctorResponse guardarDoctor(DoctorRequest doctorRequest) {
-        // Insertar en la tabla doctores
-        String sqlDoctor = "INSERT INTO doctores (nombre, apellido, celular, email, colorIdentificador, idEspecialidad, imagen, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+        String sqlUsuario = "INSERT INTO usuario (empresa_id, email, password, nombres, apellidos, rol) VALUES (?, ?, ?, ?, ?, ?)";
+        KeyHolder keyHolderUsuario = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sqlUsuario, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, 1); // empresa_id siempre es 1
+            ps.setString(2, doctorRequest.getEmail());
+            ps.setString(3, doctorRequest.getPassword()); // Asumiendo que has añadido este campo al DoctorRequest
+            ps.setString(4, doctorRequest.getNombre());
+            ps.setString(5, doctorRequest.getApellido());
+            ps.setInt(6, 3); // rol siempre es 3
+            return ps;
+        }, keyHolderUsuario);
+
+        Long idUsuario = keyHolderUsuario.getKey().longValue();
+
+        String sqlDoctor = "INSERT INTO doctores (nombre, apellido, celular, email, colorIdentificador, idEspecialidad, imagen, estado, usuario_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        KeyHolder keyHolderDoctor = new GeneratedKeyHolder();
+
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sqlDoctor, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, doctorRequest.getNombre());
@@ -409,21 +425,11 @@ public class DoctorDaoImpl implements DoctorDao {
             ps.setLong(6, doctorRequest.getIdEspecialidad());
             ps.setString(7, doctorRequest.getImagen());
             ps.setInt(8, doctorRequest.getEstado());
+            ps.setLong(9, idUsuario);
             return ps;
-        }, keyHolder);
+        }, keyHolderDoctor);
 
-        Long idDoctor = keyHolder.getKey().longValue();
-
-        // Insertar en la tabla usuario
-        String sqlUsuario = "INSERT INTO usuario (empresa_id, email, password, nombres, apellidos, rol) VALUES (?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sqlUsuario,
-                1, // empresa_id siempre es 1
-                doctorRequest.getEmail(),
-                doctorRequest.getPassword(), // Asumiendo que has añadido este campo al DoctorRequest
-                doctorRequest.getNombre(),
-                doctorRequest.getApellido(),
-                3 // rol siempre es 3
-        );
+        Long idDoctor = keyHolderDoctor.getKey().longValue();
 
         return DoctorResponse.builder()
                 .id(idDoctor)
