@@ -3,6 +3,7 @@ package com.senasa.bpm.ng.dao.impl;
 import com.senasa.bpm.ng.dao.AuthDao;
 import com.senasa.bpm.ng.dao.rowmapper.LoginUserRowMapper;
 import com.senasa.bpm.ng.exception.ApiValidateException;
+import com.senasa.bpm.ng.model.ChangePassword;
 import com.senasa.bpm.ng.model.User;
 import com.senasa.bpm.ng.model.response.LoginReponse;
 import lombok.AllArgsConstructor;
@@ -45,5 +46,16 @@ public class AuthDaoImpl implements AuthDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public Void changePassword(ChangePassword user) {
+        String sqlCount = "SELECT COUNT(*) FROM usuario WHERE email = ? and password = ?";
+        if (jdbcTemplate.queryForObject(sqlCount, Integer.class, user.getUsername(), user.getPassword()) == 0){
+            throw new ApiValidateException("Contraseña incorrecta.");
+        }
+        String sql = "UPDATE usuario SET password = ? WHERE email = ?";
+        jdbcTemplate.update(sql, user.getNewPassword(), user.getUsername());
+        return null;
     }
 }

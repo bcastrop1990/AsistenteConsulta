@@ -1,5 +1,6 @@
 package com.senasa.bpm.ng.service.impl;
 import com.senasa.bpm.ng.dao.AuthDao;
+import com.senasa.bpm.ng.model.ChangePassword;
 import com.senasa.bpm.ng.model.User;
 import com.senasa.bpm.ng.model.UsuarioRolAcceso;
 import com.senasa.bpm.ng.model.response.LoginReponse;
@@ -18,5 +19,10 @@ public class AuthServiceImpl  implements AuthService {
     @Override
     public LoginReponse loginUser(User user) {
         return authDao.loginUser(user);
+    }
+
+    @Override
+    public Void changePassword(ChangePassword user) {
+        return authDao.changePassword(user);
     }
 }

@@ -20,7 +20,7 @@ public class AgendarCitaRequest {
 
   private Integer id;
   private String emailDoctor;
-   private String nombre_completo;
+  private String nombre_completo;
   private LocalDateTime fechaHoraInicio;
   private LocalDateTime fechahoraFinal;
   private String color;

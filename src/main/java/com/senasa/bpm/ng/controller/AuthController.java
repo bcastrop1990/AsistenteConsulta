@@ -1,5 +1,6 @@
 package com.senasa.bpm.ng.controller;
 
+import com.senasa.bpm.ng.model.ChangePassword;
 import com.senasa.bpm.ng.model.User;
 import com.senasa.bpm.ng.model.UsuarioRolAcceso;
 import com.senasa.bpm.ng.model.response.ApiResponse;
@@ -28,6 +29,17 @@ public class AuthController {
                         .code(ConstantUtil.OK_CODE)
                         .message(ConstantUtil.OK_MESSAGE)
                         .data(authService.loginUser(user))
+                        .build()
+        );
+    }
+
+    @PostMapping("change-password")
+    public ResponseEntity<ApiResponse<Void>> changePassword (@RequestBody ChangePassword user) {
+        return  ResponseEntity.ok(
+                ApiResponse.<Void>builder()
+                        .code(ConstantUtil.OK_CODE)
+                        .message(ConstantUtil.OK_MESSAGE)
+                        .data(authService.changePassword(user))
                         .build()
         );
     }
