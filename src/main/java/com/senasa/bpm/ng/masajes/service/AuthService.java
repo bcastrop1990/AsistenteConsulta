@@ -1,0 +1,9 @@
+package com.senasa.bpm.ng.masajes.service;
+import com.senasa.bpm.ng.masajes.model.ChangePassword;
+import com.senasa.bpm.ng.masajes.model.User;
+import com.senasa.bpm.ng.masajes.model.response.LoginReponse;
+
+public interface AuthService {
+    LoginReponse loginUser(User user);
+    Void changePassword(ChangePassword user);
+}

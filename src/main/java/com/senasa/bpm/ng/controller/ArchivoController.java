@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
-@RestController
+@RestController("masajesArchivoController")
 @RequestMapping("/file")
 @AllArgsConstructor
 public class ArchivoController {

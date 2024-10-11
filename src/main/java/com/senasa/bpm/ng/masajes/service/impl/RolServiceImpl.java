@@ -1,0 +1,40 @@
+package com.senasa.bpm.ng.masajes.service.impl;
+
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
+import com.senasa.bpm.ng.masajes.dao.RolDao;
+import com.senasa.bpm.ng.masajes.model.Acceso;
+import com.senasa.bpm.ng.masajes.model.Rol;
+import com.senasa.bpm.ng.masajes.service.RolService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@AllArgsConstructor
+@Slf4j
+public class RolServiceImpl implements RolService {
+
+    @Autowired
+    private JavaMailSender mailSender;
+    @Autowired
+    private final AmazonSimpleEmailService sesClient;
+    @Autowired
+    private RolDao rolDao;
+
+    public String crear(Rol request) {
+
+        return rolDao.crear(request);
+    }
+    @Override
+    public List<Rol> listarRoles(Long empresa_id) {
+        return rolDao.listarRoles(empresa_id);
+    }
+    @Override
+    public List<Acceso> listarAccesos() {
+        return rolDao.listarAccesos();
+    }
+}

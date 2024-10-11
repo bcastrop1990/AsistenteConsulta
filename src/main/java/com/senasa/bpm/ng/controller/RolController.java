@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController("masajesRolController")
 @RequestMapping("/rol")
 @AllArgsConstructor
 public class RolController {

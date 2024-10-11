@@ -1,4 +1,9 @@
 -------------------------------------------------------------------------------
 Test set: com.senasa.bpm.ng.SenasabpmbackApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.299 s - in com.senasa.bpm.ng.SenasabpmbackApplicationTests
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.504 s <<< FAILURE! - in com.senasa.bpm.ng.SenasabpmbackApplicationTests
+contextLoads  Time elapsed: 0.008 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.senasa.bpm.ng.SenasabpmbackApplication]; nested exception is org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'authDaoImpl' for bean class [com.senasa.bpm.ng.masajes.dao.impl.AuthDaoImpl] conflicts with existing, non-compatible bean definition of same name and class [com.senasa.bpm.ng.dao.impl.AuthDaoImpl]
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'authDaoImpl' for bean class [com.senasa.bpm.ng.masajes.dao.impl.AuthDaoImpl] conflicts with existing, non-compatible bean definition of same name and class [com.senasa.bpm.ng.dao.impl.AuthDaoImpl]
+
