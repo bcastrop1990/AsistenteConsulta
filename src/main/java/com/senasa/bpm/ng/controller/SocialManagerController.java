@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-@RestController("masajesSocialManagerController")
+@RestController
 @RequestMapping("/social")
 @AllArgsConstructor
 public class SocialManagerController {

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RestController("masajesDisponibilidadController")
+@RestController
 @AllArgsConstructor
 @RequestMapping("/api/disponibilidad")
 public class DisponibilidadController {
