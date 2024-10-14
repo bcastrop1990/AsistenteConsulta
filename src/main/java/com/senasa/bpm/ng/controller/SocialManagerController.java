@@ -255,13 +255,4 @@ public class SocialManagerController {
                         .build());
     }
 
-    @PostMapping("/aprobados")
-    public ResponseEntity<ApiResponse<List<ClienteCubaMedResponse>>> obtenerClientesAprobados(@RequestBody List<String> dniList) {
-        return ResponseEntity.ok(
-                ApiResponse.<List<ClienteCubaMedResponse>>builder()
-                        .code(ConstantUtil.OK_CODE)
-                        .message(ConstantUtil.OK_MESSAGE)
-                        .data(enfermedadService.obtenerClientesAprobados(dniList))
-                        .build());
-    }
 }

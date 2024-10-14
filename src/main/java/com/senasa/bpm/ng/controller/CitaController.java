@@ -1,17 +1,14 @@
 package com.senasa.bpm.ng.controller;
 
-import com.senasa.bpm.ng.model.Cita;
 import com.senasa.bpm.ng.model.CitaIa;
 import com.senasa.bpm.ng.model.request.AgendarCitaRequest;
 import com.senasa.bpm.ng.model.request.RequestCitaIa;
 import com.senasa.bpm.ng.model.response.ApiResponse;
-import com.senasa.bpm.ng.service.ApiService;
 import com.senasa.bpm.ng.service.CitaService;
 import com.senasa.bpm.ng.utility.ConstantUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;

@@ -14,7 +14,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.senasa.bpm.ng.dao.EnfermedadDao;
 
 import com.senasa.bpm.ng.model.*;
@@ -183,72 +182,6 @@ public class EnfermedadServiceImpl implements EnfermedadService {
             return "Error parsing response";
         }
     }
-
-    @Override
-    public List<ClienteCubaMedResponse> obtenerClientesAprobados(List<String> dniList) {
-        String url = "https://globalgo-api.sis360.com.pe/api/Subscriptions/ins_initial";
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
-
-        List<ClienteCubaMedResponse> clientesAprobados = new ArrayList<>();
-
-        for (String dni : dniList) {
-            String requestJson = String.format("{\"identity_document_type_id\": 1, \"identity_document_number\": \"%s\", \"code\": \"\", \"birthdate\": \"\"}", dni);
-            HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
-
-            try {
-                ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-                String responseBody = response.getBody();
-
-                // Parse the JSON response to extract the value of "nu_tran_stdo"
-                ObjectMapper objectMapper = new ObjectMapper();
-                JsonNode jsonNode = objectMapper.readTree(responseBody);
-                int estado = jsonNode.get("nu_tran_stdo").asInt();
-
-                // Verificar si el estado es 1 (aprobado)
-                if (estado == 1) {
-                    // Si está aprobado, obtener la información del cliente desde la base de datos
-                    String sql = "SELECT * FROM clientes_moto_facil WHERE dni = ?";
-                    try {
-                        ClienteCubaMedResponse cliente = jdbcTemplate.queryForObject(sql, new Object[]{dni}, (rs, rowNum) -> {
-                            ClienteCubaMedResponse responseCliente = new ClienteCubaMedResponse();
-                            responseCliente.setId(rs.getLong("id"));
-                            responseCliente.setNombreCompleto(rs.getString("nombre_completo"));
-                            responseCliente.setEstado(rs.getString("estado"));
-                            responseCliente.setDni(rs.getString("dni"));
-                            responseCliente.setTipoCompra(rs.getString("tipo_compra"));
-                            responseCliente.setCuotaInicial(rs.getString("cuota_inicial"));
-                            responseCliente.setModelo(rs.getString("modelo"));
-                            responseCliente.setMarca(rs.getString("marca"));
-                            responseCliente.setCelular(rs.getString("celular"));
-                            responseCliente.setUbicacion(rs.getString("ubicacion"));
-                            responseCliente.setFecha(rs.getDate("fecha"));
-                            responseCliente.setEmail(rs.getString("email"));
-                            responseCliente.setActivo(rs.getBoolean("activo"));
-                            return responseCliente;
-                        });
-
-                        clientesAprobados.add(cliente);
-                    } catch (EmptyResultDataAccessException e) {
-                        // Manejar el caso donde no se encontró el cliente
-                        System.out.println("Cliente con DNI " + dni + " no encontrado en la base de datos.");
-                    }
-                }
-            } catch (Exception e) {
-                // Manejar cualquier otro tipo de excepción
-                System.out.println("Error al procesar el DNI " + dni + ": " + e.getMessage());
-            }
-        }
-
-        return clientesAprobados;
-    }
-
-
-
-
-
-
-
     @Override
     public void guardar(String celular, String nombres, String apellidos, String estado) {
 

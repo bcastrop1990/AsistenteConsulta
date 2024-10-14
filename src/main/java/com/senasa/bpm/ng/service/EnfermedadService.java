@@ -1,6 +1,5 @@
 package com.senasa.bpm.ng.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.senasa.bpm.ng.model.*;
 import com.senasa.bpm.ng.model.request.*;
 import com.senasa.bpm.ng.model.response.*;
@@ -36,5 +35,4 @@ public interface EnfermedadService {
     void guardarInfoMotoFacil(String celular, String nombre_completo, String ubicacion, String tipo_compra, String cuota_inicial, String modelo, String marca, String email);
     void guardarPrimero(String celular);
     String obtenerRespuestaIA(String request);
-    List<ClienteCubaMedResponse> obtenerClientesAprobados(List<String> dniList);
     }

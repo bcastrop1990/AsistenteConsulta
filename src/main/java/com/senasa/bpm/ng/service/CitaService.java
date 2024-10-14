@@ -13,6 +13,6 @@ import java.util.List;
 public interface CitaService {
       void agendarCita(AgendarCitaRequest cita);
     List<CitaIa> listarTodasCitasRangoFecha(RequestCitaIa request);
-    public List<LocalDateTime> obtenerHorariosDisponibles(Long doctorId, LocalDate fecha);
+    List<LocalDateTime> obtenerHorariosDisponibles(Long doctorId, LocalDate fecha);
     }
 
